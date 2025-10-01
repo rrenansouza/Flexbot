@@ -38,7 +38,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
   return (
     <div className="bg-white w-full min-h-screen [font-family:'Poppins',Helvetica]">
-      <header className="bg-[#f2f2f2] w-full py-6 px-4 md:px-8 lg:px-16">
+      <header className="bg-[#9e090f] w-full py-6 px-4 md:px-8 lg:px-16">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <img
             className="w-[120px] md:w-[150px] lg:w-[180px] h-auto"
@@ -49,10 +49,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
             {navigationItems.map((item, index) => (
               <motion.div
                 key={`nav-${index}`}
-                className="font-semibold text-[#111423] text-base md:text-lg cursor-pointer"
+                className="font-semibold text-white text-base md:text-lg cursor-pointer"
                 whileHover={{ 
-                  color: "#9e090f",
-                  scale: 1.1,
+                  opacity: 0.8,
+                  scale: 1.05,
                 }}
                 transition={{ duration: 0.2 }}
               >
