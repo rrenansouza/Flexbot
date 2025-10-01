@@ -67,10 +67,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-4 text-center lg:text-left">
-              <h1 className="font-semibold text-white text-2xl md:text-4xl lg:text-5xl xl:text-[48px] leading-tight mb-4">
+              <h1 className="font-semibold text-white text-2xl md:text-4xl lg:text-5xl xl:text-[48px] leading-[1.3] mb-4">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </h1>
-              <p className="text-neutral-50 font-light text-base md:text-lg lg:text-xl leading-relaxed mb-6">
+              <p className="text-neutral-50 font-light text-base md:text-lg lg:text-xl leading-[1.8] mb-6">
                 ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
               </p>
               <motion.div 
