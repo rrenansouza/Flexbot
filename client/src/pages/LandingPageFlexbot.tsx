@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
@@ -6,6 +6,8 @@ import { FaChartLine, FaInfoCircle, FaBug, FaCheck } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 
 export const LandingPageFlexbot = (): JSX.Element => {
+  const [activeStep, setActiveStep] = useState(0);
+
   const navigationItems = [
     { label: "Home" },
     { label: "Suporte" },
@@ -25,6 +27,14 @@ export const LandingPageFlexbot = (): JSX.Element => {
     { title: "Bug", icon: <FaBug className="w-[70px] h-[70px] mb-4" /> },
     { title: "Melhoria", icon: <FaArrowTrendUp className="w-[70px] h-[70px] mb-4" /> },
   ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % 5);
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="bg-white w-full min-h-screen [font-family:'Poppins',Helvetica]">
@@ -78,7 +88,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
             <div className="lg:col-span-4 flex justify-center relative">
               <div className="relative flex items-end justify-center">
-                <div className="w-[280px] md:w-[340px] lg:w-[400px] h-[280px] md:h-[340px] lg:h-[400px] rounded-[50px] md:rounded-[70px] lg:rounded-[90px] bg-white flex items-center justify-center" />
+                <div className="w-[280px] md:w-[340px] lg:w-[400px] h-[280px] md:h-[340px] lg:h-[400px] rounded-[50px] md:rounded-[70px] lg:rounded-[90px] bg-gradient-to-b from-white via-white to-transparent flex items-center justify-center" />
                 <motion.img
                   className="absolute bottom-0 w-[300px] md:w-[360px] lg:w-[420px] h-auto object-contain"
                   alt="Hero Bot"
@@ -96,7 +106,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
             </div>
 
             <div className="lg:col-span-4 relative">
-              <div className="absolute left-[19px] top-[24px] bottom-[24px] w-[2px] bg-white hidden lg:block" />
+              <div className="absolute left-[19px] top-[24px] bottom-[24px] w-[2px] bg-white/30 hidden lg:block" />
               
               <div className="flex flex-col gap-6">
                 {processSteps.map((step, index) => (
@@ -104,15 +114,35 @@ export const LandingPageFlexbot = (): JSX.Element => {
                     key={`step-${index}`} 
                     className="flex items-center gap-4 relative z-10"
                     initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    animate={{ 
+                      opacity: 1, 
+                      x: 0,
+                    }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="font-bold text-[#9e090f] text-base">{step.number}</span>
-                    </div>
-                    <span className="font-medium text-white text-sm md:text-base">
+                    <motion.div 
+                      className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
+                      animate={{
+                        backgroundColor: activeStep === index ? "#ffffff" : "rgba(255, 255, 255, 0.3)",
+                        scale: activeStep === index ? 1.1 : 1,
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <span className={`font-bold text-base transition-colors duration-300 ${
+                        activeStep === index ? "text-[#9e090f]" : "text-white"
+                      }`}>
+                        {step.number}
+                      </span>
+                    </motion.div>
+                    <motion.span 
+                      className="font-medium text-sm md:text-base transition-all duration-300"
+                      animate={{
+                        color: activeStep === index ? "#ffffff" : "rgba(255, 255, 255, 0.7)",
+                        scale: activeStep === index ? 1.05 : 1,
+                      }}
+                    >
                       {step.title}
-                    </span>
+                    </motion.span>
                   </motion.div>
                 ))}
                 
@@ -122,12 +152,25 @@ export const LandingPageFlexbot = (): JSX.Element => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  <div className="w-10 h-10 bg-[#4caf50] rounded-full flex items-center justify-center flex-shrink-0">
+                  <motion.div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
+                    animate={{
+                      backgroundColor: activeStep === 4 ? "#4caf50" : "rgba(76, 175, 80, 0.5)",
+                      scale: activeStep === 4 ? 1.1 : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <FaCheck className="text-white text-sm" />
-                  </div>
-                  <span className="font-medium text-white text-sm md:text-base">
+                  </motion.div>
+                  <motion.span 
+                    className="font-medium text-sm md:text-base transition-all duration-300"
+                    animate={{
+                      color: activeStep === 4 ? "#ffffff" : "rgba(255, 255, 255, 0.7)",
+                      scale: activeStep === 4 ? 1.05 : 1,
+                    }}
+                  >
                     Resolução e publicação
-                  </span>
+                  </motion.span>
                 </motion.div>
               </div>
             </div>
