@@ -7,11 +7,30 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 
 export const LandingPageFlexbot = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const navigationItems = [
     { label: "Home" },
     { label: "Suporte" },
     { label: "Chamados" },
+  ];
+
+  const heroSlides = [
+    { 
+      title: "CHAMADOS", 
+      image: "/attached_assets/Img_1_herosection_1759352664225.png",
+      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
+    },
+    { 
+      title: "MELHORIAS", 
+      image: "/attached_assets/Img_2_herosection_1759352664225.png",
+      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
+    },
+    { 
+      title: "BUG", 
+      image: "/attached_assets/Img_3_herosection_1759352664224.png",
+      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
+    },
   ];
 
   const processSteps = [
@@ -32,6 +51,14 @@ export const LandingPageFlexbot = (): JSX.Element => {
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % 5);
     }, 1500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
@@ -63,115 +90,52 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </header>
 
-      <section className="bg-[#9e090f] rounded-bl-[80px] md:rounded-bl-[150px] lg:rounded-bl-[200px] py-12 md:py-16 lg:py-20 px-4 md:px-8 lg:px-16">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-4 text-center lg:text-left">
-              <h1 className="font-semibold text-white text-2xl md:text-4xl lg:text-5xl xl:text-[48px] leading-[1.3] mb-4">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              </h1>
-              <p className="text-neutral-50 font-light text-base md:text-lg lg:text-xl leading-[1.8] mb-6">
-                ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-              </p>
-              <motion.div 
-                whileHover={{ scale: 1.05 }} 
-                whileTap={{ scale: 0.95 }}
-                className="flex justify-center lg:justify-start"
-              >
-                <Button 
-                  className="bg-[#f5ad11] rounded-[10px] px-8 py-3 text-sm font-medium text-neutral-50 border-2 border-transparent hover:border-[#fff] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
-                >
-                  Saber mais
-                </Button>
-              </motion.div>
-            </div>
-
-            <div className="lg:col-span-4 flex justify-center relative">
-              <div className="relative flex items-end justify-center">
-                <div className="w-[280px] md:w-[340px] lg:w-[400px] h-[280px] md:h-[340px] lg:h-[400px] rounded-[50px] md:rounded-[70px] lg:rounded-[90px] bg-gradient-to-b from-white via-white to-transparent flex items-center justify-center" />
+      <section className="bg-[#9e090f] py-20 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 relative overflow-hidden">
+        <div className="max-w-[1400px] mx-auto relative">
+          <div className="relative flex flex-col items-center justify-center min-h-[500px] md:min-h-[600px]">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, x: 300 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -300 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="absolute inset-0 flex flex-col items-center justify-center"
+            >
+              <div className="relative mb-8">
+                <h1 className="text-[80px] md:text-[120px] lg:text-[160px] font-bold text-[#9e090f] opacity-30 text-center leading-none">
+                  {heroSlides[currentSlide].title}
+                </h1>
                 <motion.img
-                  className="absolute bottom-0 w-[300px] md:w-[360px] lg:w-[420px] h-auto object-contain"
-                  alt="Hero Bot"
-                  src="/figmaAssets/image-3.png"
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] md:w-[280px] lg:w-[350px] h-auto"
+                  alt={heroSlides[currentSlide].title}
+                  src={heroSlides[currentSlide].image}
                   animate={{
-                    y: [0, -15, 0],
+                    y: [0, -10, 0],
                   }}
                   transition={{
-                    duration: 3,
+                    duration: 2.5,
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
                 />
               </div>
-            </div>
+              
+              <p className="text-white font-light text-center text-sm md:text-base lg:text-lg max-w-4xl px-4 leading-[1.8] mb-8">
+                {heroSlides[currentSlide].text}
+              </p>
+            </motion.div>
 
-            <div className="lg:col-span-4 relative">
-              <div className="flex flex-col gap-6">
-                {processSteps.map((step, index) => (
-                  <motion.div 
-                    key={`step-${index}`} 
-                    className="flex items-center gap-4 relative z-10"
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ 
-                      opacity: 1, 
-                      x: 0,
-                    }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <motion.div 
-                      className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
-                      animate={{
-                        backgroundColor: activeStep === index ? "#ffffff" : "rgba(255, 255, 255, 0.3)",
-                        scale: activeStep === index ? 1.1 : 1,
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <span className={`font-bold text-base transition-colors duration-300 ${
-                        activeStep === index ? "text-[#9e090f]" : "text-white"
-                      }`}>
-                        {step.number}
-                      </span>
-                    </motion.div>
-                    <motion.span 
-                      className="font-medium text-sm md:text-base transition-all duration-300"
-                      animate={{
-                        color: activeStep === index ? "#ffffff" : "rgba(255, 255, 255, 0.7)",
-                        scale: activeStep === index ? 1.05 : 1,
-                      }}
-                    >
-                      {step.title}
-                    </motion.span>
-                  </motion.div>
-                ))}
-                
-                <motion.div 
-                  className="flex items-center gap-4 relative z-10"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  <motion.div 
-                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
-                    animate={{
-                      backgroundColor: activeStep === 4 ? "#4caf50" : "rgba(76, 175, 80, 0.5)",
-                      scale: activeStep === 4 ? 1.1 : 1,
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <FaCheck className="text-white text-sm" />
-                  </motion.div>
-                  <motion.span 
-                    className="font-medium text-sm md:text-base transition-all duration-300"
-                    animate={{
-                      color: activeStep === 4 ? "#ffffff" : "rgba(255, 255, 255, 0.7)",
-                      scale: activeStep === 4 ? 1.05 : 1,
-                    }}
-                  >
-                    Resolução e publicação
-                  </motion.span>
-                </motion.div>
-              </div>
-            </div>
+            <motion.div 
+              whileHover={{ scale: 1.05 }} 
+              whileTap={{ scale: 0.95 }}
+              className="relative z-20 mt-auto"
+            >
+              <Button 
+                className="bg-[#f5ad11] rounded-[10px] px-8 py-3 text-sm font-medium text-neutral-50 border-2 border-transparent hover:border-[#fff] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
+              >
+                Saiba mais
+              </Button>
+            </motion.div>
           </div>
         </div>
       </section>
