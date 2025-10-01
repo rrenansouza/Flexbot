@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { FaChartLine, FaInfoCircle, FaBug } from "react-icons/fa";
+import { FaChartLine, FaInfoCircle, FaBug, FaCheck } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 
 export const LandingPageFlexbot = (): JSX.Element => {
@@ -17,7 +17,6 @@ export const LandingPageFlexbot = (): JSX.Element => {
     { number: "2", title: "Contextualização" },
     { number: "3", title: "Atendimento direcionado" },
     { number: "4", title: "Acompanhamento e interações" },
-    { number: "5", title: "Resolução e publicação" },
   ];
 
   const serviceCards = [
@@ -58,10 +57,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-4 text-center lg:text-left">
-              <h1 className="font-semibold text-white text-2xl md:text-4xl lg:text-5xl xl:text-[56px] leading-tight mb-4">
+              <h1 className="font-semibold text-white text-2xl md:text-4xl lg:text-5xl xl:text-[48px] leading-tight mb-4">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </h1>
-              <p className="text-neutral-50 font-light text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed mb-6">
+              <p className="text-neutral-50 font-light text-base md:text-lg lg:text-xl leading-relaxed mb-6">
                 ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
               </p>
               <motion.div 
@@ -70,7 +69,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
                 className="inline-block"
               >
                 <Button 
-                  className="bg-[#f5ad11] rounded-[10px] px-6 py-5 text-base md:text-lg font-bold text-neutral-50 border-2 border-transparent hover:border-[#fff] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
+                  className="bg-[#f5ad11] rounded-[10px] px-6 py-4 text-base md:text-lg font-bold text-neutral-50 border-2 border-transparent hover:border-[#fff] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
                 >
                   Saber mais
                 </Button>
@@ -78,14 +77,14 @@ export const LandingPageFlexbot = (): JSX.Element => {
             </div>
 
             <div className="lg:col-span-4 flex justify-center relative">
-              <div className="relative">
-                <div className="w-[250px] md:w-[320px] lg:w-[380px] h-[250px] md:h-[320px] lg:h-[380px] rounded-t-[60px] md:rounded-t-[80px] lg:rounded-t-[100px] bg-[linear-gradient(180deg,rgba(248,253,255,1)_70%,rgba(158,9,15,1)_97%)]" />
+              <div className="relative flex items-end justify-center">
+                <div className="w-[280px] md:w-[340px] lg:w-[400px] h-[280px] md:h-[340px] lg:h-[400px] rounded-[50px] md:rounded-[70px] lg:rounded-[90px] bg-white flex items-center justify-center" />
                 <motion.img
-                  className="absolute -top-8 md:-top-12 left-1/2 transform -translate-x-1/2 w-[280px] md:w-[360px] lg:w-[450px] h-auto object-cover"
+                  className="absolute bottom-0 w-[300px] md:w-[360px] lg:w-[420px] h-auto object-contain"
                   alt="Hero Bot"
                   src="/figmaAssets/image-3.png"
                   animate={{
-                    y: [0, -20, 0],
+                    y: [0, -15, 0],
                   }}
                   transition={{
                     duration: 3,
@@ -96,23 +95,41 @@ export const LandingPageFlexbot = (): JSX.Element => {
               </div>
             </div>
 
-            <div className="lg:col-span-4 flex flex-col gap-3 md:gap-4">
-              {processSteps.map((step, index) => (
+            <div className="lg:col-span-4 relative">
+              <div className="absolute left-[19px] top-[24px] bottom-[24px] w-[2px] bg-white hidden lg:block" />
+              
+              <div className="flex flex-col gap-6">
+                {processSteps.map((step, index) => (
+                  <motion.div 
+                    key={`step-${index}`} 
+                    className="flex items-center gap-4 relative z-10"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="font-bold text-[#9e090f] text-base">{step.number}</span>
+                    </div>
+                    <span className="font-medium text-white text-sm md:text-base">
+                      {step.title}
+                    </span>
+                  </motion.div>
+                ))}
+                
                 <motion.div 
-                  key={`step-${index}`} 
-                  className="flex items-center gap-3 md:gap-4"
+                  className="flex items-center gap-4 relative z-10"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: 0.4 }}
                 >
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-[#d9d9d9] rounded-[8px] flex items-center justify-center flex-shrink-0">
-                    <span className="font-bold text-[#9e090f] text-lg md:text-xl">{step.number}</span>
+                  <div className="w-10 h-10 bg-[#4caf50] rounded-full flex items-center justify-center flex-shrink-0">
+                    <FaCheck className="text-white text-sm" />
                   </div>
                   <span className="font-medium text-white text-sm md:text-base">
-                    {step.title}
+                    Resolução e publicação
                   </span>
                 </motion.div>
-              ))}
+              </div>
             </div>
           </div>
         </div>
