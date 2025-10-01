@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { FaChartLine, FaInfoCircle, FaBug, FaCheck } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 
@@ -17,18 +17,18 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
   const heroSlides = [
     { 
-      title: "CHAMADOS", 
-      image: "/attached_assets/Img_1_herosection_1759352664225.png",
+      title: "PROJETOS", 
+      image: "/figmaAssets/hero-1.png",
       text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
     },
     { 
       title: "MELHORIAS", 
-      image: "/attached_assets/Img_2_herosection_1759352664225.png",
+      image: "/figmaAssets/hero-2.png",
       text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
     },
     { 
       title: "BUG", 
-      image: "/attached_assets/Img_3_herosection_1759352664224.png",
+      image: "/figmaAssets/hero-3.png",
       text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
     },
   ];
@@ -93,37 +93,42 @@ export const LandingPageFlexbot = (): JSX.Element => {
       <section className="bg-[#9e090f] py-20 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto relative">
           <div className="relative flex flex-col items-center justify-center min-h-[500px] md:min-h-[600px]">
-            <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0, x: 300 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -300 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="absolute inset-0 flex flex-col items-center justify-center"
-            >
-              <div className="relative mb-8">
-                <h1 className="text-[80px] md:text-[120px] lg:text-[160px] font-bold text-[#9e090f] opacity-30 text-center leading-none">
-                  {heroSlides[currentSlide].title}
-                </h1>
-                <motion.img
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] md:w-[280px] lg:w-[350px] h-auto"
-                  alt={heroSlides[currentSlide].title}
-                  src={heroSlides[currentSlide].image}
-                  animate={{
-                    y: [0, -10, 0],
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              </div>
-              
-              <p className="text-white font-light text-center text-sm md:text-base lg:text-lg max-w-4xl px-4 leading-[1.8] mb-8">
-                {heroSlides[currentSlide].text}
-              </p>
-            </motion.div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, x: 400 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -400 }}
+                transition={{ 
+                  duration: 1.2,
+                  ease: [0.43, 0.13, 0.23, 0.96]
+                }}
+                className="absolute inset-0 flex flex-col items-center justify-center"
+              >
+                <div className="relative mb-8">
+                  <h1 className="text-[80px] md:text-[120px] lg:text-[160px] font-bold text-[#b91c1c] opacity-40 text-center leading-none">
+                    {heroSlides[currentSlide].title}
+                  </h1>
+                  <motion.img
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] md:w-[280px] lg:w-[350px] h-auto"
+                    alt={heroSlides[currentSlide].title}
+                    src={heroSlides[currentSlide].image}
+                    animate={{
+                      y: [0, -10, 0],
+                    }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                </div>
+                
+                <p className="text-white font-light text-center text-sm md:text-base lg:text-lg max-w-4xl px-4 leading-[1.8] mb-8">
+                  {heroSlides[currentSlide].text}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
             <motion.div 
               whileHover={{ scale: 1.05 }} 
