@@ -76,10 +76,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
               <motion.div 
                 whileHover={{ scale: 1.05 }} 
                 whileTap={{ scale: 0.95 }}
-                className="inline-block"
+                className="flex justify-center lg:justify-start"
               >
                 <Button 
-                  className="bg-[#f5ad11] rounded-[10px] px-6 py-4 text-base md:text-lg font-bold text-neutral-50 border-2 border-transparent hover:border-[#fff] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
+                  className="bg-[#f5ad11] rounded-[10px] px-8 py-3 text-sm font-medium text-neutral-50 border-2 border-transparent hover:border-[#fff] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
                 >
                   Saber mais
                 </Button>
@@ -106,8 +106,6 @@ export const LandingPageFlexbot = (): JSX.Element => {
             </div>
 
             <div className="lg:col-span-4 relative">
-              <div className="absolute left-[19px] top-[24px] bottom-[24px] w-[2px] bg-white/30 hidden lg:block" />
-              
               <div className="flex flex-col gap-6">
                 {processSteps.map((step, index) => (
                   <motion.div 
@@ -178,18 +176,18 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </section>
 
-      <section className="bg-[#f2f2f2] py-12 md:py-16 lg:py-20 px-4 md:px-8 lg:px-16 mt-12 md:mt-16">
+      <section className="bg-[#f2f2f2] py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 mt-16 md:mt-20">
         <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="font-semibold text-[#141b3a] text-2xl md:text-4xl lg:text-5xl leading-tight mb-4 md:mb-6">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="font-semibold text-[#141b3a] text-2xl md:text-4xl lg:text-5xl leading-[1.3] mb-6">
               Lorem Ipsum is simply dummy text of the printing and typeset
             </h2>
-            <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed max-w-4xl mx-auto">
+            <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.8] max-w-4xl mx-auto">
               ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-16">
             {serviceCards.map((card, index) => (
               <motion.div
                 key={`card-${index}`}
@@ -221,7 +219,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
               className="inline-block"
             >
               <Button 
-                className="bg-[#af0000] rounded-[10px] px-8 md:px-10 py-5 md:py-6 text-base md:text-lg font-bold text-neutral-50 border-2 border-transparent hover:border-[#f5ad11] hover:bg-[#8a0000] hover:shadow-lg transition-all duration-300"
+                className="bg-[#af0000] rounded-[10px] px-8 py-3 text-sm font-medium text-neutral-50 border-2 border-transparent hover:border-[#f5ad11] hover:bg-[#8a0000] hover:shadow-lg transition-all duration-300"
               >
                 Saber mais
               </Button>
@@ -230,14 +228,14 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </section>
 
-      <section className="py-12 md:py-16 lg:py-20 px-4 md:px-8 lg:px-16 mt-12 md:mt-16">
+      <section className="py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 mt-16 md:mt-20">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="order-2 lg:order-1">
-              <h2 className="font-semibold text-[#141b3a] text-2xl md:text-4xl lg:text-5xl leading-tight mb-4 md:mb-6">
+              <h2 className="font-semibold text-[#141b3a] text-2xl md:text-4xl lg:text-5xl leading-[1.3] mb-6">
                 Lorem Ipsum is simply dummy text of the printing and typeset
               </h2>
-              <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-relaxed mb-6 md:mb-8">
+              <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.8] mb-8">
                 ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
               </p>
               <motion.div 
@@ -246,7 +244,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
                 className="inline-block"
               >
                 <Button 
-                  className="bg-[#f5ad11] rounded-[10px] px-8 md:px-10 py-5 md:py-6 text-base md:text-lg font-bold text-neutral-50 border-2 border-transparent hover:border-[#9e090f] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
+                  className="bg-[#f5ad11] rounded-[10px] px-8 py-3 text-sm font-medium text-neutral-50 border-2 border-transparent hover:border-[#9e090f] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
                 >
                   Acessar portfolio
                 </Button>
@@ -254,7 +252,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
             </div>
             <div className="order-1 lg:order-2 flex justify-center">
               <img
-                className="w-full max-w-[450px] h-auto object-cover"
+                className="w-full max-w-[550px] h-auto object-cover"
                 alt="Image"
                 src="/figmaAssets/image-4.png"
               />
@@ -263,11 +261,11 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </section>
 
-      <section className="py-12 md:py-16 lg:py-20 px-4 md:px-8 lg:px-16 mt-12 md:mt-16 relative overflow-hidden">
+      <section className="py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 mt-16 md:mt-20 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[250px] md:w-[400px] lg:w-[550px] h-[350px] md:h-[500px] lg:h-[600px] rounded-tr-[120px] md:rounded-tr-[200px] lg:rounded-tr-[300px] bg-[linear-gradient(270deg,rgba(255,255,255,1)_18%,rgba(158,9,15,1)_52%)]" />
         
         <div className="max-w-[1400px] mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="flex justify-center">
               <img
                 className="w-full max-w-[450px] h-auto"
@@ -276,10 +274,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
               />
             </div>
             <div>
-              <h2 className="font-semibold text-[#141b3a] text-2xl md:text-4xl lg:text-5xl leading-tight mb-4 md:mb-6">
+              <h2 className="font-semibold text-[#141b3a] text-2xl md:text-4xl lg:text-5xl leading-[1.3] mb-6">
                 Lorem Ipsum is simply dummy
               </h2>
-              <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-relaxed mb-6 md:mb-8">
+              <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.8] mb-8">
                 ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
               </p>
               <motion.div 
@@ -288,7 +286,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
                 className="inline-block"
               >
                 <Button 
-                  className="bg-[#f5ad11] rounded-[10px] px-8 md:px-10 py-5 md:py-6 text-base md:text-lg font-bold text-neutral-50 border-2 border-transparent hover:border-[#9e090f] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
+                  className="bg-[#f5ad11] rounded-[10px] px-8 py-3 text-sm font-medium text-neutral-50 border-2 border-transparent hover:border-[#9e090f] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
                 >
                   Contribuir agora
                 </Button>
