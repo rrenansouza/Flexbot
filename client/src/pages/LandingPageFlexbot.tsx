@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
 
 export const LandingPageFlexbot = (): JSX.Element => {
   const navigationItems = [
@@ -24,7 +25,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
   ];
 
   return (
-    <div className="bg-white w-full min-w-[1440px] min-h-[3683px] relative">
+    <div className="bg-white w-full min-w-[1440px] min-h-[3683px] relative overflow-x-hidden">
       <div className="absolute top-[3064px] left-0 w-[598px] h-[619px] rounded-[0px_363px_0px_0px] bg-[linear-gradient(270deg,rgba(255,255,255,1)_18%,rgba(158,9,15,1)_52%)]" />
 
       <div className="absolute top-[759px] left-0 w-[1440px] h-[531px] bg-[#f2f2f2]" />
@@ -42,29 +43,37 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
       <div className="absolute top-0 left-0 w-[1440px] h-[131px] bg-[#f2f2f2]" />
 
-      <Button className="absolute top-[541px] left-[148px] w-[195px] h-[55px] bg-[#f5ad11] rounded-[10px] h-auto hover:bg-[#f5ad11]/90">
-        <span className="[font-family:'Poppins',Helvetica] font-bold text-neutral-50 text-lg tracking-[0] leading-10">
-          Saber mais
-        </span>
-      </Button>
+      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <Button className="absolute top-[541px] left-[148px] w-[195px] h-[55px] bg-[#f5ad11] rounded-[10px] h-auto hover:bg-[#d69810] hover:shadow-lg transition-all duration-300">
+          <span className="[font-family:'Poppins',Helvetica] font-bold text-neutral-50 text-lg tracking-[0] leading-10">
+            Saber mais
+          </span>
+        </Button>
+      </motion.div>
 
-      <Button className="absolute top-[1723px] left-[558px] w-[323px] h-[70px] bg-[#af0000] rounded-[10px] h-auto hover:bg-[#af0000]/90">
-        <span className="[font-family:'Poppins',Helvetica] font-bold text-neutral-50 text-xl tracking-[0] leading-10">
-          Saber mais
-        </span>
-      </Button>
+      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <Button className="absolute top-[1723px] left-[558px] w-[323px] h-[70px] bg-[#af0000] rounded-[10px] h-auto hover:bg-[#8a0000] hover:shadow-lg transition-all duration-300">
+          <span className="[font-family:'Poppins',Helvetica] font-bold text-neutral-50 text-xl tracking-[0] leading-10">
+            Saber mais
+          </span>
+        </Button>
+      </motion.div>
 
-      <Button className="absolute top-[2728px] left-[558px] w-[323px] h-[70px] bg-[#f5ad11] rounded-[10px] h-auto hover:bg-[#f5ad11]/90">
-        <span className="[font-family:'Poppins',Helvetica] font-bold text-neutral-50 text-xl tracking-[0] leading-10">
-          Acessar portfolio
-        </span>
-      </Button>
+      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <Button className="absolute top-[2728px] left-[558px] w-[323px] h-[70px] bg-[#f5ad11] rounded-[10px] h-auto hover:bg-[#d69810] hover:shadow-lg transition-all duration-300">
+          <span className="[font-family:'Poppins',Helvetica] font-bold text-neutral-50 text-xl tracking-[0] leading-10">
+            Acessar portfolio
+          </span>
+        </Button>
+      </motion.div>
 
-      <Button className="absolute top-[3506px] left-[872px] w-[323px] h-[70px] bg-[#f5ad11] rounded-[10px] h-auto hover:bg-[#f5ad11]/90">
-        <span className="[font-family:'Poppins',Helvetica] font-bold text-neutral-50 text-xl tracking-[0] leading-10">
-          Contribuir agora
-        </span>
-      </Button>
+      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <Button className="absolute top-[3506px] left-[872px] w-[323px] h-[70px] bg-[#f5ad11] rounded-[10px] h-auto hover:bg-[#d69810] hover:shadow-lg transition-all duration-300">
+          <span className="[font-family:'Poppins',Helvetica] font-bold text-neutral-50 text-xl tracking-[0] leading-10">
+            Contribuir agora
+          </span>
+        </Button>
+      </motion.div>
 
       <h1 className="absolute top-[167px] left-[84px] w-[1161px] [font-family:'Poppins',Helvetica] font-semibold text-white text-[64px] tracking-[0] leading-[62px]">
         Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -106,32 +115,51 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
       <div className="absolute top-[611px] left-[517px] w-[452px] h-[450px] rounded-[100px_100px_0px_0px] bg-[linear-gradient(180deg,rgba(248,253,255,1)_70%,rgba(158,9,15,1)_97%)]" />
 
-      <img
+      <motion.img
         className="absolute top-[389px] left-[451px] w-[538px] h-[629px] object-cover"
         alt="Image"
         src="/figmaAssets/image-3.png"
+        animate={{
+          y: [0, -20, 0],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
       />
 
       <div className="absolute top-[424px] left-[1043px] w-[52px] h-[54px] bg-[#d9d9d9] rounded-[10px]" />
 
       {serviceCards.map((card, index) => (
-        <Card
+        <motion.div
           key={`card-${index}`}
-          className={`absolute top-[1447px] ${card.left} w-[293px] h-[207px] bg-[#f5ad11] rounded-[10px] shadow-[0px_4px_4px_#00000040] border-0`}
+          whileHover={{ 
+            scale: 1.05,
+            boxShadow: "0px 10px 20px rgba(0,0,0,0.3)",
+          }}
+          whileTap={{ scale: 0.95 }}
+          className={`absolute top-[1447px] ${card.left} cursor-pointer`}
         >
-          <CardContent className="flex flex-col items-center justify-center h-full p-0">
-            {card.icon && (
-              <img
-                className="w-[90px] h-[90px] mb-4"
-                alt={card.title}
-                src={card.icon}
-              />
-            )}
-            <h3 className="[font-family:'Poppins',Helvetica] font-semibold text-black text-2xl text-center tracking-[0] leading-[62px]">
-              {card.title}
-            </h3>
-          </CardContent>
-        </Card>
+          <Card
+            className="w-[293px] h-[207px] bg-[#f5ad11] rounded-[10px] shadow-[0px_4px_4px_#00000040] border-0 hover:bg-[#d69810] transition-all duration-300"
+          >
+            <CardContent className="flex flex-col items-center justify-center h-full p-0">
+              {card.icon && (
+                <motion.img
+                  className="w-[90px] h-[90px] mb-4"
+                  alt={card.title}
+                  src={card.icon}
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                />
+              )}
+              <h3 className="[font-family:'Poppins',Helvetica] font-semibold text-black text-2xl text-center tracking-[0] leading-[62px]">
+                {card.title}
+              </h3>
+            </CardContent>
+          </Card>
+        </motion.div>
       ))}
 
       <img
@@ -154,12 +182,17 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
       <nav className="absolute top-[45px]">
         {navigationItems.map((item, index) => (
-          <div
+          <motion.div
             key={`nav-${index}`}
-            className={`absolute ${item.position} [font-family:'Poppins',Helvetica] font-semibold text-[#111423] text-xl tracking-[0] leading-10 whitespace-nowrap cursor-pointer hover:text-[#9e090f] transition-colors`}
+            className={`absolute ${item.position} [font-family:'Poppins',Helvetica] font-semibold text-[#111423] text-xl tracking-[0] leading-10 whitespace-nowrap cursor-pointer`}
+            whileHover={{ 
+              color: "#9e090f",
+              scale: 1.1,
+            }}
+            transition={{ duration: 0.2 }}
           >
             {item.label}
-          </div>
+          </motion.div>
         ))}
       </nav>
 
