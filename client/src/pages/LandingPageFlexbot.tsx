@@ -17,18 +17,19 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
   const heroSlides = [
     { 
-      title: "PROJETOS", 
-      image: "/figmaAssets/hero-1.png",
+      image: "/figmaAssets/hero-projetos.png",
       text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
     },
     { 
-      title: "MELHORIAS", 
-      image: "/figmaAssets/hero-2.png",
+      image: "/figmaAssets/hero-melhorias.png",
       text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
     },
     { 
-      title: "BUG", 
-      image: "/figmaAssets/hero-3.png",
+      image: "/figmaAssets/hero-bug.png",
+      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
+    },
+    { 
+      image: "/figmaAssets/hero-chamados.png",
       text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
     },
   ];
@@ -105,24 +106,11 @@ export const LandingPageFlexbot = (): JSX.Element => {
                 }}
                 className="absolute inset-0 flex flex-col items-center justify-center"
               >
-                <div className="relative mb-8">
-                  <h1 className="text-[80px] md:text-[120px] lg:text-[160px] font-bold text-[#b91c1c] opacity-40 text-center leading-none">
-                    {heroSlides[currentSlide].title}
-                  </h1>
-                  <motion.img
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] md:w-[280px] lg:w-[350px] h-auto"
-                    alt={heroSlides[currentSlide].title}
-                    src={heroSlides[currentSlide].image}
-                    animate={{
-                      y: [0, -10, 0],
-                    }}
-                    transition={{
-                      duration: 2.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                </div>
+                <img
+                  className="w-full max-w-[600px] md:max-w-[700px] lg:max-w-[800px] h-auto mb-8"
+                  alt="Hero"
+                  src={heroSlides[currentSlide].image}
+                />
                 
                 <p className="text-white font-light text-center text-sm md:text-base lg:text-lg max-w-4xl px-4 leading-[1.8] mb-8">
                   {heroSlides[currentSlide].text}
