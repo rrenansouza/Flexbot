@@ -6,7 +6,18 @@ The application follows a monorepo structure with separate client and server dir
 
 # User Preferences
 
-Preferred communication style: Simple, everyday language.
+- Preferred communication style: Simple, everyday language in Portuguese (Brazilian Portuguese)
+- Design preference: Minimalist aesthetics with clean layouts and ample spacing
+
+# Recent Changes
+
+## October 2, 2025 - Hero Carousel Redesign
+- Restructured hero carousel from vertical layout to horizontal layout (image left, content right)
+- Added large background titles (PROJETOS, MELHORIAS, BUG, CHAMADOS) with semi-transparent overlay behind hero images
+- Repositioned CTA button to appear below descriptive text for better visual hierarchy
+- Updated header logo from image to text-based "redeFlex" for cleaner appearance
+- Replaced hero carousel images with 4 new category-specific images
+- Maintained smooth slide transitions (4-second intervals) and responsive design across all breakpoints
 
 # System Architecture
 
