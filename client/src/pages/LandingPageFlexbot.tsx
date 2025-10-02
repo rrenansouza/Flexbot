@@ -70,7 +70,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
   return (
     <div className="bg-white w-full min-h-screen [font-family:'Poppins',Helvetica]">
-      <header className="bg-[#9e090f] w-full py-6 px-4 md:px-8 lg:px-16">
+      <header className="bg-[#9e090f] w-full py-6 px-4 md:px-8 lg:px-16 pt-[10px] pb-[10px]">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <h1 className="text-white text-2xl md:text-3xl font-light tracking-tight" data-testid="logo-redeflex">
             redeFlex
@@ -102,7 +102,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </section>
 
-      <section className="bg-[#666666] py-12 md:py-16 px-4 md:px-8 lg:px-16 pt-[1px] pb-[1px] pl-[0px] pr-[0px] mt-[0px] mb-[0px] ml-[0px] mr-[0px]">
+      <section className="bg-[#666666] py-12 md:py-16 px-4 md:px-8 lg:px-16 pl-[0px] pr-[0px] mt-[0px] mb-[0px] ml-[0px] mr-[0px] pt-[0px] pb-[0px]">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center justify-center h-[120px]" data-testid="div-3">
             <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black">DIV 3</h3>
