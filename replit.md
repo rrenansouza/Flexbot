@@ -21,13 +21,16 @@ The application follows a monorepo structure with separate client and server dir
 - Application tested and running successfully with all features working
 - Uses in-memory storage (MemStorage) for data persistence
 
-## October 2, 2025 - Hero Carousel Redesign
-- Restructured hero carousel from vertical layout to horizontal layout (image left, content right)
-- Added large background titles (PROJETOS, MELHORIAS, BUG, CHAMADOS) with semi-transparent overlay behind hero images
-- Repositioned CTA button to appear below descriptive text for better visual hierarchy
-- Updated header logo from image to text-based "redeFlex" for cleaner appearance
-- Replaced hero carousel images with 4 new category-specific images
-- Maintained smooth slide transitions (4-second intervals) and responsive design across all breakpoints
+## October 2, 2025 - Hero Carousel and 3D Buttons Update
+- Implemented infinite loop carousel with horizontal scroll where images are seamlessly connected without gaps
+- Carousel uses duplicated slide set with intelligent reset mechanism after transition completes (800ms)
+- Reset happens instantly without visible animation using requestAnimationFrame for smooth loop
+- Redesigned all buttons with 3D minimalist style using shadow depth effect
+- Button shadows create physical depth: primary shadow for 3D effect, secondary shadow for ambient lighting
+- Interactive button animations: lift on hover (y: -2), press down on tap (y: 2)
+- Maintained original color palette: #9e090f (red), #f5ad11 (yellow), #d69810 (dark yellow), #7a0000 (dark red)
+- Removed unused imports (Button component, buttonImage asset, AnimatePresence, useRef)
+- All buttons now have consistent 3D styling across the entire landing page
 
 # System Architecture
 
