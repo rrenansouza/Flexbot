@@ -110,7 +110,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </section>
 
-      <section className="bg-[#666666] py-12 md:py-16 px-4 md:px-8 lg:px-16">
+      <section className="bg-[#666666] py-12 md:py-16 px-4 md:px-8 lg:px-16 pt-[1px] pb-[1px] pl-[0px] pr-[0px] mt-[0px] mb-[0px] ml-[0px] mr-[0px]">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center justify-center h-[120px]" data-testid="div-3">
             <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black">DIV 3</h3>
