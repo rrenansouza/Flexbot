@@ -32,6 +32,16 @@ The application follows a monorepo structure with separate client and server dir
 - Removed unused imports (Button component, buttonImage asset, AnimatePresence, useRef)
 - All buttons now have consistent 3D styling across the entire landing page
 
+## October 2, 2025 - Bug Category Page Implementation
+- Created new BugPage.tsx with three main sections following the design specification
+- Hero section: red background with "O QUE É UM BUG?" title and bug illustration in yellow rounded card
+- Instructions section: white background with purple icon, "COMO INSTRUIR A ABERTURA DO CHAMADO" title, and yellow 3D CTA button
+- Footer section: red background with "VEJA OUTRAS CATEGORIAS" title and three placeholder cards
+- Added /bug route to application router in App.tsx
+- Implemented navigation from landing page service cards using wouter's useLocation hook
+- Bug card on landing page now redirects to /bug when clicked
+- Maintained design consistency with same color palette and 3D button styling throughout
+
 # System Architecture
 
 ## Frontend Architecture
