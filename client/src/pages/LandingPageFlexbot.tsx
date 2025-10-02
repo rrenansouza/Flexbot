@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChartLine, FaInfoCircle, FaBug, FaCheck } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
-import heroImage from "@assets/Hero Section (4)_1759431508279.png";
+import heroImage from "@assets/Hero Section (5)_1759431698720.png";
 
 export const LandingPageFlexbot = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
