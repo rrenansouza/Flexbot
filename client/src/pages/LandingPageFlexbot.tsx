@@ -94,9 +94,9 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </header>
 
-      <section className="bg-[#999999] py-12 md:py-16 px-4 md:px-8 lg:px-16">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex items-center justify-center h-[150px] pt-[100px] pb-[100px]" data-testid="div-2">
+      <section className="bg-[#999999] h-screen">
+        <div className="h-full">
+          <div className="flex items-center justify-center h-full" data-testid="div-2">
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-black">DIV 2</h2>
           </div>
         </div>
