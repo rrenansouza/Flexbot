@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaChartLine, FaInfoCircle, FaBug, FaCheck } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import heroImage from "@assets/Hero Section (4)_1759431508279.png";
-import divImage from "@assets/Hero Section (5)_1759431698720.png";
 
 export const LandingPageFlexbot = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
@@ -119,12 +118,6 @@ export const LandingPageFlexbot = (): JSX.Element => {
       <section className="bg-[#f2f2f2] py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 mt-16 md:mt-20">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-12 md:mb-16">
-            <img
-              className="w-full max-w-[600px] h-auto mx-auto mb-8"
-              alt="Hero Section - Chamados"
-              src={divImage}
-              data-testid="div-hero-image"
-            />
             <h2 className="font-semibold text-[#141b3a] text-2xl md:text-4xl lg:text-5xl leading-[1.3] mb-6">
               Lorem Ipsum is simply dummy text of the printing and typeset
             </h2>
