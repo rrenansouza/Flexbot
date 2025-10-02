@@ -17,20 +17,24 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
   const heroSlides = [
     { 
+      title: "PROJETOS",
       image: "/figmaAssets/hero-projetos.png",
-      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
+      text: "containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem. containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem."
     },
     { 
+      title: "MELHORIAS",
       image: "/figmaAssets/hero-melhorias.png",
-      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
+      text: "containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem. containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem."
     },
     { 
+      title: "BUG",
       image: "/figmaAssets/hero-bug.png",
-      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
+      text: "containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem. containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem."
     },
     { 
+      title: "CHAMADOS",
       image: "/figmaAssets/hero-chamados.png",
-      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not"
+      text: "containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem. containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem."
     },
   ];
 
@@ -91,45 +95,53 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </header>
 
-      <section className="bg-[#9e090f] py-20 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 relative overflow-hidden">
+      <section className="bg-[#9e090f] py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto relative">
-          <div className="relative flex flex-col items-center justify-center min-h-[500px] md:min-h-[600px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentSlide}
-                initial={{ opacity: 0, x: 400 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -400 }}
-                transition={{ 
-                  duration: 1.2,
-                  ease: [0.43, 0.13, 0.23, 0.96]
-                }}
-                className="absolute inset-0 flex flex-col items-center justify-center"
-              >
-                <img
-                  className="w-full max-w-[600px] md:max-w-[700px] lg:max-w-[800px] h-auto mb-8"
-                  alt="Hero"
-                  src={heroSlides[currentSlide].image}
-                />
-                
-                <p className="text-white font-light text-center text-sm md:text-base lg:text-lg max-w-4xl px-4 leading-[1.8] mb-8">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, x: 400 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -400 }}
+              transition={{ 
+                duration: 1.2,
+                ease: [0.43, 0.13, 0.23, 0.96]
+              }}
+              className="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-12"
+            >
+              <div className="relative w-full lg:w-1/2 flex justify-center lg:justify-start">
+                <div className="relative">
+                  <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[80px] md:text-[100px] lg:text-[120px] xl:text-[140px] font-bold text-[#7a0609] opacity-60 whitespace-nowrap leading-none pointer-events-none z-0">
+                    {heroSlides[currentSlide].title}
+                  </h1>
+                  <img
+                    className="relative z-10 w-[280px] md:w-[350px] lg:w-[400px] xl:w-[450px] h-auto"
+                    alt={heroSlides[currentSlide].title}
+                    src={heroSlides[currentSlide].image}
+                    data-testid={`img-hero-${currentSlide}`}
+                  />
+                </div>
+              </div>
+
+              <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
+                <p className="text-white font-light text-sm md:text-base lg:text-lg leading-[1.8] mb-8 max-w-xl" data-testid="text-hero-description">
                   {heroSlides[currentSlide].text}
                 </p>
-              </motion.div>
-            </AnimatePresence>
-
-            <motion.div 
-              whileHover={{ scale: 1.05 }} 
-              whileTap={{ scale: 0.95 }}
-              className="relative z-20 mt-auto"
-            >
-              <Button 
-                className="bg-[#f5ad11] rounded-[10px] px-8 py-3 text-sm font-medium text-neutral-50 border-2 border-transparent hover:border-[#fff] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
-              >
-                Saiba mais
-              </Button>
+                
+                <motion.div 
+                  whileHover={{ scale: 1.05 }} 
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button 
+                    className="bg-[#f5ad11] rounded-[10px] px-8 py-3 text-sm font-medium text-neutral-50 border-2 border-transparent hover:border-[#fff] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
+                    data-testid="button-saiba-mais"
+                  >
+                    Saber mais
+                  </Button>
+                </motion.div>
+              </div>
             </motion.div>
-          </div>
+          </AnimatePresence>
         </div>
       </section>
 
