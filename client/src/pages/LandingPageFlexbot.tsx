@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { FaChartLine, FaInfoCircle, FaBug, FaCheck } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
+import { useLocation } from "wouter";
 import heroImage1 from "@assets/Img_1_herosection (3)_1759432774623.png";
 import heroImage2 from "@assets/Img_2_herosection (3)_1759432774622.png";
 import heroImage3 from "@assets/Img_3_herosection (3)_1759432774622.png";
@@ -13,6 +14,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
+  const [, setLocation] = useLocation();
 
   const navigationItems = [
     { label: "Home" },
@@ -37,10 +39,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
   ];
 
   const serviceCards = [
-    { title: "Projeto", icon: <FaChartLine className="w-[70px] h-[70px] mb-4" /> },
-    { title: "Chamado", icon: <FaInfoCircle className="w-[70px] h-[70px] mb-4" /> },
-    { title: "Bug", icon: <FaBug className="w-[70px] h-[70px] mb-4" /> },
-    { title: "Melhoria", icon: <FaArrowTrendUp className="w-[70px] h-[70px] mb-4" /> },
+    { title: "Projeto", icon: <FaChartLine className="w-[70px] h-[70px] mb-4" />, path: "/" },
+    { title: "Chamado", icon: <FaInfoCircle className="w-[70px] h-[70px] mb-4" />, path: "/" },
+    { title: "Bug", icon: <FaBug className="w-[70px] h-[70px] mb-4" />, path: "/bug" },
+    { title: "Melhoria", icon: <FaArrowTrendUp className="w-[70px] h-[70px] mb-4" />, path: "/" },
   ];
 
   useEffect(() => {
@@ -157,6 +159,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 className="cursor-pointer"
+                onClick={() => setLocation(card.path)}
               >
                 <Card
                   className="h-[180px] md:h-[200px] bg-[#f5ad11] rounded-[10px] shadow-[0px_4px_4px_#00000040] border-2 border-transparent hover:border-[#9e090f] hover:bg-[#d69810] transition-all duration-300"
