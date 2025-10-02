@@ -72,11 +72,9 @@ export const LandingPageFlexbot = (): JSX.Element => {
     <div className="bg-white w-full min-h-screen [font-family:'Poppins',Helvetica]">
       <header className="bg-[#9e090f] w-full py-6 px-4 md:px-8 lg:px-16">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <img
-            className="w-[120px] md:w-[150px] lg:w-[180px] h-auto"
-            alt="Logo"
-            src="/figmaAssets/image-7.png"
-          />
+          <h1 className="text-white text-2xl md:text-3xl font-light tracking-tight" data-testid="logo-redeflex">
+            redeFlex
+          </h1>
           <nav className="flex flex-wrap gap-6 md:gap-8 lg:gap-12 justify-center">
             {navigationItems.map((item, index) => (
               <motion.div
@@ -87,6 +85,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
                   scale: 1.05,
                 }}
                 transition={{ duration: 0.2 }}
+                data-testid={`nav-${item.label.toLowerCase()}`}
               >
                 {item.label}
               </motion.div>
