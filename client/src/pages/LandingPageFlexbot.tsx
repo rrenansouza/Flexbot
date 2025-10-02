@@ -95,7 +95,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </header>
 
-      <section className="bg-[#999999] h-screen">
+      <section className="bg-[#999999] h-[450px] overflow-hidden">
         <div className="h-full">
           <div className="flex items-center justify-center h-full" data-testid="div-2">
             <img
