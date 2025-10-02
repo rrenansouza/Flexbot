@@ -4,8 +4,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChartLine, FaInfoCircle, FaBug, FaCheck } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
-import heroImage from "@assets/Hero Section (5)_1759431698720.png";
+import heroImage1 from "@assets/Img_1_herosection (3)_1759432774623.png";
+import heroImage2 from "@assets/Img_2_herosection (3)_1759432774622.png";
+import heroImage3 from "@assets/Img_3_herosection (3)_1759432774622.png";
+import heroImage4 from "@assets/Hero Section (5)_1759431698720.png";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
+import buttonImage from "@assets/image_1759432956219.png";
 
 export const LandingPageFlexbot = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
@@ -17,27 +21,11 @@ export const LandingPageFlexbot = (): JSX.Element => {
     { label: "Chamados" },
   ];
 
-  const heroSlides = [
-    { 
-      title: "PROJETOS",
-      image: "/figmaAssets/hero-projetos.png",
-      text: "containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem. containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem."
-    },
-    { 
-      title: "MELHORIAS",
-      image: "/figmaAssets/hero-melhorias.png",
-      text: "containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem. containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem."
-    },
-    { 
-      title: "BUG",
-      image: "/figmaAssets/hero-bug.png",
-      text: "containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem. containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem."
-    },
-    { 
-      title: "CHAMADOS",
-      image: "/figmaAssets/hero-chamados.png",
-      text: "containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem. containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem."
-    },
+  const heroImages = [
+    heroImage1,
+    heroImage2,
+    heroImage3,
+    heroImage4,
   ];
 
   const processSteps = [
@@ -64,11 +52,11 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 4000);
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [heroImages.length]);
 
   return (
     <div className="bg-white w-full min-h-screen [font-family:'Poppins',Helvetica]">
@@ -99,22 +87,41 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </header>
 
-      <section className="bg-[#999999] h-[450px] overflow-hidden">
-        <div className="h-full">
-          <div className="flex items-center justify-center h-full" data-testid="div-2">
+      <section className="bg-[#999999] h-[450px] overflow-hidden relative">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ duration: 1, ease: "easeInOut" }}
+            className="absolute inset-0 flex items-center justify-center"
+          >
             <img
               className="w-full h-full object-cover"
-              alt="Hero Section - Chamados"
-              src={heroImage}
+              alt={`Hero Section - Slide ${currentSlide + 1}`}
+              src={heroImages[currentSlide]}
+              data-testid="hero-carousel-image"
             />
-          </div>
-        </div>
+          </motion.div>
+        </AnimatePresence>
       </section>
 
-      <section className="bg-[#666666] py-12 md:py-16 px-4 md:px-8 lg:px-16 mt-[0px] mb-[0px] ml-[0px] mr-[0px] pl-[64px] pr-[64px] pt-[30px] pb-[30px]">
+      <section className="bg-[#9e090f] py-12 md:py-16 px-4 md:px-8 lg:px-16 mt-[0px] mb-[0px] ml-[0px] mr-[0px] pl-[64px] pr-[64px] pt-[30px] pb-[30px]">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center justify-center h-[120px]" data-testid="div-3">
-            <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black">DIV 3</h3>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="cursor-pointer"
+              data-testid="button-saber-mais"
+            >
+              <img
+                src={buttonImage}
+                alt="Saber mais"
+                className="h-auto w-auto"
+              />
+            </motion.button>
           </div>
         </div>
       </section>
