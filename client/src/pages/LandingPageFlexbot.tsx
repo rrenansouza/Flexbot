@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaChartLine, FaInfoCircle, FaBug, FaCheck } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import heroImage from "@assets/Hero Section (5)_1759431698720.png";
+import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
 
 export const LandingPageFlexbot = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
@@ -73,9 +74,12 @@ export const LandingPageFlexbot = (): JSX.Element => {
     <div className="bg-white w-full min-h-screen [font-family:'Poppins',Helvetica]">
       <header className="bg-[#9e090f] w-full py-6 px-4 md:px-8 lg:px-16 pt-[10px] pb-[10px]">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <h1 className="text-white text-2xl md:text-3xl font-light tracking-tight" data-testid="logo-redeflex">
-            redeFlex
-          </h1>
+          <img
+            src={logoImage}
+            alt="redeFlex"
+            className="h-8 md:h-10 w-auto"
+            data-testid="logo-redeflex"
+          />
           <nav className="flex flex-wrap gap-6 md:gap-8 lg:gap-12 justify-center">
             {navigationItems.map((item, index) => (
               <motion.div
