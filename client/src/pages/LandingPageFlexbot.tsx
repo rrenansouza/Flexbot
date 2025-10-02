@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChartLine, FaInfoCircle, FaBug, FaCheck } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
+import heroImage from "@assets/Hero Section (3)_1759430343953.png";
 
 export const LandingPageFlexbot = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
@@ -97,12 +98,16 @@ export const LandingPageFlexbot = (): JSX.Element => {
       <section className="bg-[#999999] h-screen">
         <div className="h-full">
           <div className="flex items-center justify-center h-full" data-testid="div-2">
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-black">DIV 2</h2>
+            <img
+              className="w-full h-full object-cover"
+              alt="Hero Section - Chamados"
+              src={heroImage}
+            />
           </div>
         </div>
       </section>
 
-      <section className="bg-[#666666] py-12 md:py-16 px-4 md:px-8 lg:px-16 pl-[0px] pr-[0px] mt-[0px] mb-[0px] ml-[0px] mr-[0px] pt-[0px] pb-[0px]">
+      <section className="bg-[#666666] py-12 md:py-16 px-4 md:px-8 lg:px-16 mt-[0px] mb-[0px] ml-[0px] mr-[0px] pt-[0px] pb-[0px] pl-[64px] pr-[64px]">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center justify-center h-[120px]" data-testid="div-3">
             <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black">DIV 3</h3>
