@@ -94,53 +94,27 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </header>
 
-      <section className="bg-[#9e090f] py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 relative overflow-hidden">
-        <div className="max-w-[1400px] mx-auto relative">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0, x: 400 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -400 }}
-              transition={{ 
-                duration: 1.2,
-                ease: [0.43, 0.13, 0.23, 0.96]
-              }}
-              className="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-12"
-            >
-              <div className="relative w-full lg:w-1/2 flex justify-center lg:justify-start">
-                <div className="relative">
-                  <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[80px] md:text-[100px] lg:text-[120px] xl:text-[140px] font-bold text-[#7a0609] opacity-60 whitespace-nowrap leading-none pointer-events-none z-0">
-                    {heroSlides[currentSlide].title}
-                  </h1>
-                  <img
-                    className="relative z-10 w-[280px] md:w-[350px] lg:w-[400px] xl:w-[450px] h-auto"
-                    alt={heroSlides[currentSlide].title}
-                    src={heroSlides[currentSlide].image}
-                    data-testid={`img-hero-${currentSlide}`}
-                  />
-                </div>
-              </div>
+      <section className="bg-[#d9d9d9] py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex items-center justify-center h-[200px]" data-testid="div-1">
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-black">DIV 1</h1>
+          </div>
+        </div>
+      </section>
 
-              <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
-                <p className="text-white font-light text-sm md:text-base lg:text-lg leading-[1.8] mb-8 max-w-xl" data-testid="text-hero-description">
-                  {heroSlides[currentSlide].text}
-                </p>
-                
-                <motion.div 
-                  whileHover={{ scale: 1.05 }} 
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button 
-                    className="bg-[#f5ad11] rounded-[10px] px-8 py-3 text-sm font-medium text-neutral-50 border-2 border-transparent hover:border-[#fff] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
-                    data-testid="button-saiba-mais"
-                  >
-                    Saber mais
-                  </Button>
-                </motion.div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+      <section className="bg-[#999999] py-12 md:py-16 px-4 md:px-8 lg:px-16">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex items-center justify-center h-[150px]" data-testid="div-2">
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-black">DIV 2</h2>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#666666] py-12 md:py-16 px-4 md:px-8 lg:px-16">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex items-center justify-center h-[120px]" data-testid="div-3">
+            <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black">DIV 3</h3>
+          </div>
         </div>
       </section>
 
