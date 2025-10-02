@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { FaChartLine, FaInfoCircle, FaBug, FaCheck } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import heroImage1 from "@assets/Img_1_herosection (3)_1759432774623.png";
@@ -9,11 +8,11 @@ import heroImage2 from "@assets/Img_2_herosection (3)_1759432774622.png";
 import heroImage3 from "@assets/Img_3_herosection (3)_1759432774622.png";
 import heroImage4 from "@assets/Hero Section (5)_1759431698720.png";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
-import buttonImage from "@assets/image_1759432956219.png";
 
 export const LandingPageFlexbot = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
 
   const navigationItems = [
     { label: "Home" },
@@ -27,6 +26,8 @@ export const LandingPageFlexbot = (): JSX.Element => {
     heroImage3,
     heroImage4,
   ];
+
+  const allSlides = [...heroImages, ...heroImages];
 
   const processSteps = [
     { number: "1", title: "Abertura de ocorrência" },
@@ -52,11 +53,25 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+      setCurrentSlide((prev) => prev + 1);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [heroImages.length]);
+  }, []);
+
+  useEffect(() => {
+    if (currentSlide === heroImages.length) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+        requestAnimationFrame(() => {
+          setCurrentSlide(0);
+          requestAnimationFrame(() => {
+            setIsTransitioning(true);
+          });
+        });
+      }, 800);
+    }
+  }, [currentSlide, heroImages.length]);
 
   return (
     <div className="bg-white w-full min-h-screen [font-family:'Poppins',Helvetica]">
@@ -88,39 +103,34 @@ export const LandingPageFlexbot = (): JSX.Element => {
       </header>
 
       <section className="bg-[#999999] h-[450px] overflow-hidden relative">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "-100%" }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            className="absolute inset-0 flex items-center justify-center"
-          >
-            <img
-              className="w-full h-full object-cover"
-              alt={`Hero Section - Slide ${currentSlide + 1}`}
-              src={heroImages[currentSlide]}
-              data-testid="hero-carousel-image"
-            />
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          className="flex h-full"
+          animate={{ x: `-${currentSlide * 100}%` }}
+          transition={isTransitioning ? { duration: 0.8, ease: "easeInOut" } : { duration: 0 }}
+        >
+          {allSlides.map((image, index) => (
+            <div key={index} className="w-full h-full flex-shrink-0">
+              <img
+                className="w-full h-full object-cover"
+                alt={`Hero Section - Slide ${(index % heroImages.length) + 1}`}
+                src={image}
+                data-testid={`hero-carousel-image-${index % heroImages.length}`}
+              />
+            </div>
+          ))}
+        </motion.div>
       </section>
 
       <section className="bg-[#9e090f] py-12 md:py-16 px-4 md:px-8 lg:px-16 mt-[0px] mb-[0px] ml-[0px] mr-[0px] pl-[64px] pr-[64px] pt-[30px] pb-[30px]">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center justify-center h-[120px]" data-testid="div-3">
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="cursor-pointer"
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 2, boxShadow: "0px 2px 8px rgba(0,0,0,0.3)" }}
+              className="cursor-pointer px-12 py-4 bg-[#f5ad11] text-white font-semibold text-lg rounded-lg shadow-[0px_6px_0px_0px_#d69810,0px_8px_15px_rgba(0,0,0,0.3)] hover:shadow-[0px_4px_0px_0px_#d69810,0px_6px_12px_rgba(0,0,0,0.3)] transition-all duration-200"
               data-testid="button-saber-mais"
             >
-              <img
-                src={buttonImage}
-                alt="Saber mais"
-                className="h-auto w-auto"
-              />
+              Saber mais
             </motion.button>
           </div>
         </div>
@@ -163,17 +173,14 @@ export const LandingPageFlexbot = (): JSX.Element => {
           </div>
 
           <div className="text-center">
-            <motion.div 
-              whileHover={{ scale: 1.05 }} 
-              whileTap={{ scale: 0.95 }}
-              className="inline-block"
+            <motion.button
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 2, boxShadow: "0px 2px 8px rgba(0,0,0,0.3)" }}
+              className="cursor-pointer px-10 py-4 bg-[#9e090f] text-white font-semibold text-base rounded-lg shadow-[0px_6px_0px_0px_#7a0000,0px_8px_15px_rgba(0,0,0,0.3)] hover:shadow-[0px_4px_0px_0px_#7a0000,0px_6px_12px_rgba(0,0,0,0.3)] transition-all duration-200"
+              data-testid="button-saber-mais-servicos"
             >
-              <Button 
-                className="bg-[#af0000] rounded-[10px] px-8 py-3 text-sm font-medium text-neutral-50 border-2 border-transparent hover:border-[#f5ad11] hover:bg-[#8a0000] hover:shadow-lg transition-all duration-300"
-              >
-                Saber mais
-              </Button>
-            </motion.div>
+              Saber mais
+            </motion.button>
           </div>
         </div>
       </section>
@@ -188,17 +195,14 @@ export const LandingPageFlexbot = (): JSX.Element => {
               <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.8] mb-8">
                 ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
               </p>
-              <motion.div 
-                whileHover={{ scale: 1.05 }} 
-                whileTap={{ scale: 0.95 }}
-                className="inline-block"
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ y: 2, boxShadow: "0px 2px 8px rgba(0,0,0,0.3)" }}
+                className="cursor-pointer px-10 py-4 bg-[#f5ad11] text-white font-semibold text-base rounded-lg shadow-[0px_6px_0px_0px_#d69810,0px_8px_15px_rgba(0,0,0,0.3)] hover:shadow-[0px_4px_0px_0px_#d69810,0px_6px_12px_rgba(0,0,0,0.3)] transition-all duration-200"
+                data-testid="button-acessar-portfolio"
               >
-                <Button 
-                  className="bg-[#f5ad11] rounded-[10px] px-8 py-3 text-sm font-medium text-neutral-50 border-2 border-transparent hover:border-[#9e090f] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
-                >
-                  Acessar portfolio
-                </Button>
-              </motion.div>
+                Acessar portfolio
+              </motion.button>
             </div>
             <div className="order-1 lg:order-2 flex justify-center">
               <img
@@ -230,17 +234,14 @@ export const LandingPageFlexbot = (): JSX.Element => {
               <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.8] mb-8">
                 ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
               </p>
-              <motion.div 
-                whileHover={{ scale: 1.05 }} 
-                whileTap={{ scale: 0.95 }}
-                className="inline-block"
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ y: 2, boxShadow: "0px 2px 8px rgba(0,0,0,0.3)" }}
+                className="cursor-pointer px-10 py-4 bg-[#f5ad11] text-white font-semibold text-base rounded-lg shadow-[0px_6px_0px_0px_#d69810,0px_8px_15px_rgba(0,0,0,0.3)] hover:shadow-[0px_4px_0px_0px_#d69810,0px_6px_12px_rgba(0,0,0,0.3)] transition-all duration-200"
+                data-testid="button-contribuir-agora"
               >
-                <Button 
-                  className="bg-[#f5ad11] rounded-[10px] px-8 py-3 text-sm font-medium text-neutral-50 border-2 border-transparent hover:border-[#9e090f] hover:bg-[#d69810] hover:shadow-lg transition-all duration-300"
-                >
-                  Contribuir agora
-                </Button>
-              </motion.div>
+                Contribuir agora
+              </motion.button>
             </div>
           </div>
         </div>
