@@ -139,10 +139,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
       <section className="bg-[#f2f2f2] py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 mt-16 md:mt-20">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="font-semibold text-[#141b3a] text-2xl md:text-4xl lg:text-5xl leading-[1.3] mb-6">
+            <h2 className="font-semibold text-[#141b3a] text-3xl md:text-5xl lg:text-6xl leading-[1.2] mb-8">
               Lorem Ipsum is simply dummy text of the printing and typeset
             </h2>
-            <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.8] max-w-4xl mx-auto">
+            <p className="text-[#141b3a] font-light text-lg md:text-xl lg:text-2xl leading-[1.7] max-w-4xl mx-auto mb-8">
               ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
             </p>
           </div>
@@ -206,13 +206,13 @@ export const LandingPageFlexbot = (): JSX.Element => {
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="flex justify-center">
-              <div className="w-full max-w-[400px] h-[350px] bg-[#ee2f22] rounded-lg"></div>
+              <div className="w-full max-w-[700px] h-[450px] bg-[#ee2f22] rounded-lg"></div>
             </div>
             <div>
-              <h2 className="font-semibold text-[#141b3a] text-3xl md:text-5xl lg:text-6xl leading-[1.2] mb-6">
+              <h2 className="font-semibold text-[#141b3a] text-3xl md:text-5xl lg:text-6xl leading-[1.2] mb-8">
                 Lorem Ipsum is simply dummy
               </h2>
-              <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.7] mb-8">
+              <p className="text-[#141b3a] font-light text-lg md:text-xl lg:text-2xl leading-[1.7] mb-8">
                 ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
               </p>
               <button
