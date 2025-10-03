@@ -8,6 +8,7 @@ import heroImage2 from "@assets/Img_2_herosection (4)_1759496280811.png";
 import heroImage3 from "@assets/Img_3_herosection (3)_1759432774622.png";
 import heroImage4 from "@assets/Hero Section (5)_1759431698720.png";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
+import image18 from "@assets/image 18.png";
 
 export const LandingPageFlexbot = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
@@ -194,7 +195,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
               <img
                 className="w-full max-w-[700px] h-auto object-cover"
                 alt="Image"
-                src="/figmaAssets/image-4.png"
+                src={image18}
               />
             </div>
           </div>
