@@ -4,7 +4,7 @@ import { FaChartLine, FaInfoCircle } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
 import footerLogo from "@assets/Gemini_Generated_Image_zi2slpzi2slpzi2s 1 1.png";
-import bugImage from "@assets/Gemini_Generated_Image_s0o4o4s0o4o4s0o4 1_1759513541287.png";
+import bugImage from "@assets/Gemini_Generated_Image_s0o4o4s0o4o4s0o4 1_1759514036038.png";
 
 export const BugPage = (): JSX.Element => {
   const [, setLocation] = useLocation();
@@ -60,9 +60,17 @@ export const BugPage = (): JSX.Element => {
               <h1 className="font-bold text-white text-4xl md:text-5xl lg:text-6xl leading-[1.2] mb-6" data-testid="text-title">
                 O QUE É UM BUG?
               </h1>
-              <p className="text-white font-light text-base md:text-lg leading-[1.7] mb-8" data-testid="text-description">
-                Bug é uma falha ou erro em um sistema, aplicação ou processo que impede o funcionamento esperado. Pode afetar desde a usabilidade até a integridade dos dados.
+              <p className="text-white font-light text-base md:text-lg leading-[1.7] mb-6" data-testid="text-description">
+                Bug é uma falha técnica em um sistema, software ou aplicação. Ele pode ser visível (como uma tela que não carrega) ou invisível (um cálculo errado em segundo plano).
               </p>
+              <p className="text-white font-light text-base md:text-lg leading-[1.7] mb-2" data-testid="text-exemplos-title">
+                Exemplos de bugs:
+              </p>
+              <ul className="text-white font-light text-base md:text-lg leading-[1.7] mb-8 space-y-2" data-testid="text-exemplos-list">
+                <li>Erros de interface: botão que não funciona.</li>
+                <li>Erros de processamento: sistema grava dados incorretos.</li>
+                <li>Erros críticos: sistema trava ou derruba todos os usuários.</li>
+              </ul>
               <button
                 className="glow-btn"
                 data-testid="button-abrir-ticket"
@@ -71,7 +79,9 @@ export const BugPage = (): JSX.Element => {
               </button>
             </div>
             <div className="flex justify-center lg:justify-end">
-              <div className="w-full max-w-[400px] h-[300px] bg-[#c41e3a] rounded-[12px]" data-testid="div-box-vermelho"></div>
+              <div className="w-full max-w-[500px] h-[400px] bg-[#c41e3a] rounded-[12px] flex items-center justify-center" data-testid="div-box-vermelho">
+                <img src={bugImage} alt="Bug illustration" className="w-[350px] h-[350px] object-contain" data-testid="img-bug-hero" />
+              </div>
             </div>
           </div>
         </div>
