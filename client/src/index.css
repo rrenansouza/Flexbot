@@ -192,6 +192,7 @@
     --ink: #0B1533;
     position: relative;
     isolation: isolate;
+    overflow: hidden;
     background:
       radial-gradient(1200px 600px at 15% 20%, color-mix(in oklab, var(--gold), white 8%) 0%, transparent 60%),
       radial-gradient(900px 500px at 80% 30%, color-mix(in oklab, var(--amber), white 12%) 0%, transparent 65%),
@@ -209,6 +210,61 @@
     animation: drift 4s ease-in-out infinite alternate;
   }
 
+  .hero-animated .orb {
+    position: absolute;
+    width: 42vmin;
+    height: 42vmin;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-animated .orb--amber {
+    background: #EDAE29;
+    left: 12%;
+    top: 22%;
+    animation: orbA 6s ease-in-out infinite;
+  }
+
+  .hero-animated .orb--gold {
+    background: #F6C24A;
+    left: 35%;
+    top: 78%;
+    animation: orbB 7s ease-in-out infinite;
+  }
+
+  .hero-animated .orb--navy {
+    background: #0E1B3D;
+    left: 88%;
+    top: 18%;
+    animation: orbC 8s ease-in-out infinite;
+    opacity: 0.18;
+  }
+
+  @keyframes orbA {
+    50% {
+      left: 18%;
+      top: 28%;
+    }
+  }
+
+  @keyframes orbB {
+    50% {
+      left: 28%;
+      top: 70%;
+    }
+  }
+
+  @keyframes orbC {
+    50% {
+      left: 82%;
+      top: 22%;
+    }
+  }
+
   @keyframes drift {
     0% {
       transform: translate3d(0, 0, 0) scale(1);
@@ -222,6 +278,9 @@
 
   @media (prefers-reduced-motion: reduce) {
     .hero-animated::before {
+      animation: none;
+    }
+    .hero-animated .orb {
       animation: none;
     }
   }
