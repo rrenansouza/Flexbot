@@ -52,8 +52,8 @@ export const ChamadoPage = (): JSX.Element => {
         </div>
       </header>
 
-      <section className="bg-[#9e090f] py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16">
-        <div className="max-w-[1400px] mx-auto">
+      <section className="bg-[#9e090f] min-h-screen flex items-center px-4 md:px-8 lg:px-16">
+        <div className="max-w-[1400px] mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
               <h1 className="font-bold text-white text-4xl md:text-5xl lg:text-6xl leading-[1.2] mb-6" data-testid="text-title">
@@ -76,9 +76,9 @@ export const ChamadoPage = (): JSX.Element => {
         </div>
       </section>
 
-      <section className="bg-white py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
+      <section className="bg-white min-h-screen flex items-center px-4 md:px-8 lg:px-16">
+        <div className="max-w-[1400px] mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="flex justify-center lg:justify-start">
               <div className="w-full max-w-[400px] h-[350px] bg-[#d9d9d9] rounded-[12px]" data-testid="div-box-cinza-1"></div>
             </div>
@@ -102,9 +102,9 @@ export const ChamadoPage = (): JSX.Element => {
         </div>
       </section>
 
-      <section className="bg-white py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
+      <section className="bg-white min-h-screen flex items-center px-4 md:px-8 lg:px-16">
+        <div className="max-w-[1400px] mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
               <p className="text-[#141b3a] font-normal text-base md:text-lg leading-[1.7] mb-6" data-testid="text-detalhes">
                 Seja objetivo e forneça informações completas desde o início. Evite descrições genéricas como:
@@ -120,8 +120,8 @@ export const ChamadoPage = (): JSX.Element => {
         </div>
       </section>
 
-      <section className="bg-[#9e090f] py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16">
-        <div className="max-w-[1400px] mx-auto">
+      <section className="bg-[#9e090f] min-h-screen flex items-center px-4 md:px-8 lg:px-16">
+        <div className="max-w-[1400px] mx-auto w-full">
           <h2 className="font-bold text-white text-3xl md:text-4xl lg:text-5xl text-center mb-12" data-testid="text-outras-categorias">
             VEJA AS OUTRAS CATEGORIAS
           </h2>
