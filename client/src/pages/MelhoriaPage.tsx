@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
 import { Link, useLocation } from "wouter";
-import { FaChartLine, FaInfoCircle } from "react-icons/fa";
-import { FaArrowTrendUp } from "react-icons/fa6";
+import { FaBug, FaChartLine, FaInfoCircle } from "react-icons/fa";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
 import footerLogo from "@assets/Gemini_Generated_Image_zi2slpzi2slpzi2s 1 1.png";
 
-export const BugPage = (): JSX.Element => {
+export const MelhoriaPage = (): JSX.Element => {
   const [, setLocation] = useLocation();
   
   const navigationItems = [
@@ -17,7 +16,7 @@ export const BugPage = (): JSX.Element => {
   const otherCategories = [
     { title: "Projeto", icon: <FaChartLine className="w-[60px] h-[60px]" />, path: "/projeto" },
     { title: "Chamado", icon: <FaInfoCircle className="w-[60px] h-[60px]" />, path: "/chamado" },
-    { title: "Melhoria", icon: <FaArrowTrendUp className="w-[60px] h-[60px]" />, path: "/melhoria" },
+    { title: "Bug", icon: <FaBug className="w-[60px] h-[60px]" />, path: "/bug" },
   ];
 
   return (
@@ -57,10 +56,10 @@ export const BugPage = (): JSX.Element => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
               <h1 className="font-bold text-white text-4xl md:text-5xl lg:text-6xl leading-[1.2] mb-6" data-testid="text-title">
-                O QUE É UM BUG?
+                O QUE É UMA MELHORIA?
               </h1>
               <p className="text-white font-light text-base md:text-lg leading-[1.7] mb-8" data-testid="text-description">
-                Bug é uma falha ou erro em um sistema, aplicação ou processo que impede o funcionamento esperado. Pode afetar desde a usabilidade até a integridade dos dados.
+                Melhoria é uma sugestão ou proposta para otimizar processos, funcionalidades ou experiência do usuário, visando aumentar eficiência e qualidade.
               </p>
               <button
                 className="glow-btn"
@@ -86,15 +85,15 @@ export const BugPage = (): JSX.Element => {
               <ul className="space-y-4 text-[#141b3a] font-normal text-base md:text-lg leading-[1.7]">
                 <li className="flex items-start gap-3" data-testid="list-item-1">
                   <span className="mt-1">•</span>
-                  <span>Informe em qual sistema, tela ou funcionalidade ocorreu o problema.</span>
+                  <span>Descreva claramente qual funcionalidade ou processo você deseja melhorar.</span>
                 </li>
                 <li className="flex items-start gap-3" data-testid="list-item-2">
                   <span className="mt-1">•</span>
-                  <span>Explique o passo a passo que levou ao erro (isso ajuda na reprodução do bug).</span>
+                  <span>Explique os benefícios esperados e como a melhoria impactará positivamente os usuários.</span>
                 </li>
                 <li className="flex items-start gap-3" data-testid="list-item-3">
                   <span className="mt-1">•</span>
-                  <span>Especifique o impacto: impede totalmente o uso? É intermitente? Afeta mais de um usuário?</span>
+                  <span>Forneça exemplos ou referências que ilustrem sua sugestão de forma prática.</span>
                 </li>
               </ul>
             </div>
@@ -107,10 +106,10 @@ export const BugPage = (): JSX.Element => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
             <div>
               <p className="text-[#141b3a] font-normal text-base md:text-lg leading-[1.7] mb-6" data-testid="text-detalhes">
-                Relate com detalhes a sequência de ações que provocou o erro. Evite termos vagos como:
+                Seja específico sobre o problema atual e como a melhoria proposta resolve ou otimiza. Por exemplo:
               </p>
               <p className="text-[#141b3a] font-bold text-base md:text-lg leading-[1.7]" data-testid="text-exemplo">
-                "não abre" e descreva o contexto exato (ex.: "Ao clicar em Salvar, a tela fecha sem gravar os dados").
+                "Adicionar um filtro de data no relatório reduziria o tempo de busca em 50% e melhoraria a experiência".
               </p>
             </div>
             <div className="flex justify-center lg:justify-end">

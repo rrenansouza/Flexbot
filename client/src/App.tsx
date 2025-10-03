@@ -7,6 +7,9 @@ import NotFound from "@/pages/not-found";
 
 import { LandingPageFlexbot } from "@/pages/LandingPageFlexbot";
 import { BugPage } from "@/pages/BugPage";
+import { ProjetoPage } from "@/pages/ProjetoPage";
+import { ChamadoPage } from "@/pages/ChamadoPage";
+import { MelhoriaPage } from "@/pages/MelhoriaPage";
 
 function Router() {
   return (
@@ -14,6 +17,9 @@ function Router() {
       {/* Add pages below */}
       <Route path="/" component={LandingPageFlexbot} />
       <Route path="/bug" component={BugPage} />
+      <Route path="/projeto" component={ProjetoPage} />
+      <Route path="/chamado" component={ChamadoPage} />
+      <Route path="/melhoria" component={MelhoriaPage} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>

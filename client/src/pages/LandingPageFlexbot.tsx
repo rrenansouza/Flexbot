@@ -41,10 +41,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
   ];
 
   const serviceCards = [
-    { title: "Projeto", icon: <FaChartLine className="w-[70px] h-[70px] mb-4" />, path: "/" },
-    { title: "Chamado", icon: <FaInfoCircle className="w-[70px] h-[70px] mb-4" />, path: "/" },
+    { title: "Projeto", icon: <FaChartLine className="w-[70px] h-[70px] mb-4" />, path: "/projeto" },
+    { title: "Chamado", icon: <FaInfoCircle className="w-[70px] h-[70px] mb-4" />, path: "/chamado" },
     { title: "Bug", icon: <FaBug className="w-[70px] h-[70px] mb-4" />, path: "/bug" },
-    { title: "Melhoria", icon: <FaArrowTrendUp className="w-[70px] h-[70px] mb-4" />, path: "/" },
+    { title: "Melhoria", icon: <FaArrowTrendUp className="w-[70px] h-[70px] mb-4" />, path: "/melhoria" },
   ];
 
   useEffect(() => {
