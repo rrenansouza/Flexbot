@@ -212,11 +212,11 @@
 
   .hero-animated .orb {
     position: absolute;
-    width: 42vmin;
-    height: 42vmin;
+    width: 50vmin;
+    height: 50vmin;
     border-radius: 50%;
-    filter: blur(40px);
-    opacity: 0.35;
+    filter: blur(45px);
+    opacity: 0.5;
     mix-blend-mode: multiply;
     transform: translate(-50%, -50%);
     pointer-events: none;
@@ -241,27 +241,27 @@
     left: 88%;
     top: 18%;
     animation: orbC 8s ease-in-out infinite;
-    opacity: 0.18;
+    opacity: 0.28;
   }
 
   @keyframes orbA {
     50% {
-      left: 18%;
-      top: 28%;
+      left: 28%;
+      top: 45%;
     }
   }
 
   @keyframes orbB {
     50% {
-      left: 28%;
-      top: 70%;
+      left: 18%;
+      top: 55%;
     }
   }
 
   @keyframes orbC {
     50% {
-      left: 82%;
-      top: 22%;
+      left: 70%;
+      top: 35%;
     }
   }
 
