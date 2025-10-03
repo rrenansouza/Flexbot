@@ -9,6 +9,7 @@ import heroImage3 from "@assets/Img_3_herosection (3)_1759432774622.png";
 import heroImage4 from "@assets/Hero Section (5)_1759431698720.png";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
 import image18 from "@assets/image 18.png";
+import image17 from "@assets/image 17_1759502936347.png";
 
 export const LandingPageFlexbot = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
@@ -206,7 +207,11 @@ export const LandingPageFlexbot = (): JSX.Element => {
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="flex justify-center">
-              <div className="w-full max-w-[700px] h-[450px] bg-[#ee2f22] rounded-lg"></div>
+              <img
+                className="w-full max-w-[700px] h-auto object-contain"
+                alt="Image"
+                src={image17}
+              />
             </div>
             <div>
               <h2 className="font-semibold text-[#141b3a] text-3xl md:text-5xl lg:text-6xl leading-[1.2] mb-8">
