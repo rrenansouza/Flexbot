@@ -145,10 +145,10 @@ export const BugPage = (): JSX.Element => {
         <div className="max-w-[1400px] mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
-              <h3 className="font-bold text-[#141b3a] text-xs sm:text-sm md:text-base lg:text-lg leading-[1.2] mb-1" data-testid="text-detalhamento">
+              <h3 className="font-bold text-[#141b3a] text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-[1.2] mb-3 sm:mb-4 md:mb-6" data-testid="text-detalhamento">
                 Detalhamento do problema
               </h3>
-              <p className="text-[#141b3a] font-normal text-[9px] sm:text-[10px] md:text-xs lg:text-sm leading-[1.4]" data-testid="text-detalhamento-desc">
+              <p className="text-[#141b3a] font-normal text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-[1.5]" data-testid="text-detalhamento-desc">
                 Descreva muito bem o problema com o máximo de detalhes possíveis. Sempre tenha em mente que, na abertura de um ticket, é como se estivesse explicando para um funcionário no primeiro dia de trabalho. Quanto mais didático for o relato, mais assertiva será a atuação no chamado.
               </p>
             </div>
