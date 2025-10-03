@@ -97,7 +97,17 @@ export const BugPage = (): JSX.Element => {
               </div>
             </div>
             <div>
-              <ul className="space-y-2 sm:space-y-3 text-[#141b3a] font-normal text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-[1.6]">
+              <h2 className="font-bold text-[#141b3a] text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-[1.2] mb-3 sm:mb-4 md:mb-6" data-testid="text-registro-bug">
+                Registro de Bug
+              </h2>
+              <p className="text-[#141b3a] font-normal text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-[1.6] mb-4 sm:mb-5 md:mb-6" data-testid="text-intro">
+                Ao abrir um ticket de Bug, é essencial fornecer informações completas e detalhadas. Quanto mais clara for a descrição, mais rápida e assertiva será a solução aplicada.
+              </p>
+              
+              <h3 className="font-bold text-[#141b3a] text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-[1.2] mb-2 sm:mb-3" data-testid="text-passos">
+                Passos para registro
+              </h3>
+              <ul className="space-y-2 sm:space-y-3 text-[#141b3a] font-normal text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-[1.6] mb-4 sm:mb-5 md:mb-6">
                 <li className="flex items-start gap-3" data-testid="list-item-1">
                   <span className="mt-1">•</span>
                   <span>Informe em qual sistema, tela ou funcionalidade ocorreu o problema.</span>
@@ -111,6 +121,27 @@ export const BugPage = (): JSX.Element => {
                   <span>Especifique o impacto: impede totalmente o uso? É intermitente? Afeta mais de um usuário?</span>
                 </li>
               </ul>
+
+              <h3 className="font-bold text-[#141b3a] text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-[1.2] mb-2 sm:mb-3" data-testid="text-detalhamento">
+                Detalhamento do problema
+              </h3>
+              <p className="text-[#141b3a] font-normal text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-[1.6] mb-4 sm:mb-5 md:mb-6" data-testid="text-detalhamento-desc">
+                Descreva muito bem o problema com o máximo de detalhes possíveis. Sempre tenha em mente que, na abertura de um ticket, é como se estivesse explicando para um funcionário no primeiro dia de trabalho. Quanto mais didático for o relato, mais assertiva será a atuação no chamado.
+              </p>
+
+              <h3 className="font-bold text-[#141b3a] text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-[1.2] mb-2 sm:mb-3" data-testid="text-criticidade">
+                Criticidade do ticket
+              </h3>
+              <p className="text-[#141b3a] font-normal text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-[1.6] mb-4 sm:mb-5 md:mb-6" data-testid="text-criticidade-desc">
+                Disserte sobre a criticidade do problema. Evite utilizar apenas o termo "Urgente". Explique o que realmente afeta na rotina e quais usuários estão sendo impactados.
+              </p>
+
+              <h3 className="font-bold text-[#141b3a] text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-[1.2] mb-2 sm:mb-3" data-testid="text-evidencias">
+                Evidências
+              </h3>
+              <p className="text-[#141b3a] font-normal text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-[1.6]" data-testid="text-evidencias-desc">
+                Sempre que possível, traga prints de tela, mensagens de erro ou outras evidências que ajudem a enriquecer as informações fornecidas. Isso agiliza a análise e a resolução.
+              </p>
             </div>
           </div>
         </div>
