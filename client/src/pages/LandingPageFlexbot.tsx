@@ -202,35 +202,6 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 mt-16 md:mt-20 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-[250px] md:w-[400px] lg:w-[550px] h-[350px] md:h-[500px] lg:h-[600px] rounded-tr-[120px] md:rounded-tr-[200px] lg:rounded-tr-[300px] bg-[linear-gradient(270deg,rgba(255,255,255,1)_18%,rgba(158,9,15,1)_52%)]" />
-        
-        <div className="max-w-[1400px] mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
-            <div className="flex justify-center">
-              <img
-                className="w-full max-w-[600px] h-auto"
-                alt="Image"
-                src="/figmaAssets/image-6.png"
-              />
-            </div>
-            <div>
-              <h2 className="font-semibold text-[#141b3a] text-2xl md:text-4xl lg:text-5xl leading-[1.3] mb-6">
-                Lorem Ipsum is simply dummy
-              </h2>
-              <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.8] mb-8">
-                ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
-              </p>
-              <button
-                className="glow-btn"
-                data-testid="button-contribuir-agora"
-              >
-                Contribuir agora
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
   );
 };
