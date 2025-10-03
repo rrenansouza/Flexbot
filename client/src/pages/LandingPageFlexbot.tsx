@@ -208,7 +208,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="flex justify-center">
               <img
-                className="w-full max-w-[450px] h-auto"
+                className="w-full max-w-[600px] h-auto"
                 alt="Image"
                 src="/figmaAssets/image-6.png"
               />
