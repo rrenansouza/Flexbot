@@ -4,6 +4,7 @@ import { FaChartLine, FaInfoCircle } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
 import footerLogo from "@assets/Gemini_Generated_Image_zi2slpzi2slpzi2s 1 1.png";
+import bugImage from "@assets/Gemini_Generated_Image_s0o4o4s0o4o4s0o4 1_1759513541287.png";
 
 export const BugPage = (): JSX.Element => {
   const [, setLocation] = useLocation();
@@ -80,7 +81,9 @@ export const BugPage = (): JSX.Element => {
         <div className="max-w-[1400px] mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="flex justify-center lg:justify-start">
-              <div className="w-full max-w-[400px] h-[350px] bg-[#d9d9d9] rounded-[12px]" data-testid="div-box-cinza-1"></div>
+              <div className="w-full max-w-[400px] h-[350px] bg-[#d9d9d9] rounded-[12px] flex items-center justify-center" data-testid="div-box-cinza-1">
+                <img src={bugImage} alt="Bug illustration" className="w-[250px] h-[250px] object-contain" />
+              </div>
             </div>
             <div>
               <ul className="space-y-4 text-[#141b3a] font-normal text-base md:text-lg leading-[1.7]">
