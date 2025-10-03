@@ -93,7 +93,7 @@ export const BugPage = (): JSX.Element => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="flex justify-center lg:justify-start mt-6 lg:mt-0">
               <div className="w-full flex items-center justify-center" data-testid="div-box-cinza-1">
-                <img src={instructionsImage} alt="Instruções para abertura do ticket" className="w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px] lg:w-[380px] lg:h-[380px] xl:w-[450px] xl:h-[450px] object-contain" />
+                <img src={instructionsImage} alt="Instruções para abertura do ticket" className="w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] md:w-[440px] md:h-[440px] lg:w-[520px] lg:h-[520px] xl:w-[600px] xl:h-[600px] object-contain" />
               </div>
             </div>
             <div>
