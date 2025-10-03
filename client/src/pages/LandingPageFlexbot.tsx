@@ -233,7 +233,11 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
       <footer className="bg-[#7a0000] py-4 px-4 md:px-8 lg:px-16">
         <div className="max-w-[1400px] mx-auto flex items-center gap-4">
-          <div className="w-[80px] h-[40px] bg-[#ee2f22] rounded"></div>
+          <img
+            src={image17}
+            alt="Logo"
+            className="w-[80px] h-[40px] object-contain"
+          />
           <p className="text-white text-xs md:text-sm font-light">
             © 2025 Redeflex Comércio e Serviço de Telefonia - CNPJ nº 06.267.421/0001-74 / Av. Miguel Sutil, N° 8600, Sala 314 - Duque de Caxias, Cuiabá – MT, 78048-365
           </p>
