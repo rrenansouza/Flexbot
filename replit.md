@@ -11,6 +11,16 @@ The application follows a monorepo structure with separate client and server dir
 
 # Recent Changes
 
+## October 3, 2025 - Amber Glow Buttons Update (Latest)
+- Updated glow button style to use amber/golden color palette (#EDAE29 base color)
+- Implemented advanced glow effects with conic-gradient halo animation rotating in 7s
+- Button features: pill-shaped (border-radius: 999px), dark text (#0e0e0e), height 54px
+- Hover effects: linear gradient background, increased shadow, translateY(-2px), internal glow
+- Active state: darker amber (#D87C0A), scale(0.97), reduced shadow
+- Triple pseudo-element styling: ::before (animated halo), ::after (internal shine)
+- Color palette: --amber (#EDAE29), --amber-400 (#F6C24A), --amber-600 (#E89617), --amber-700 (#D87C0A)
+- Applied across all buttons site-wide with consistent styling
+
 ## October 3, 2025 - Glow Buttons and Hero Images Update
 - Updated hero carousel images: replaced img1 and img2 with new versions (PROJETOS and MELHORIAS)
 - Implemented glow button effect across all pages following provided HTML/CSS example
