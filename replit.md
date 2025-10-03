@@ -11,6 +11,16 @@ The application follows a monorepo structure with separate client and server dir
 
 # Recent Changes
 
+## October 3, 2025 - Glow Buttons and Hero Images Update
+- Updated hero carousel images: replaced img1 and img2 with new versions (PROJETOS and MELHORIAS)
+- Implemented glow button effect across all pages following provided HTML/CSS example
+- All buttons now feature animated gradient glow with cyan border and hover effects
+- Glow buttons include smooth transitions, hover opacity animation, and active state scaling
+- Added @keyframes glowRotate animation for continuous 6s rotating gradient effect
+- Updated buttons in LandingPageFlexbot.tsx: "Saber mais" (3x), "Acessar portfolio", "Contribuir agora"
+- Updated button in BugPage.tsx: "Abrir chamado"
+- Removed motion.button components in favor of pure CSS glow effect with .glow-btn class
+
 ## October 3, 2025 - GitHub Import to Replit (Fresh Clone)
 - Successfully cloned and configured GitHub project for Replit environment
 - All dependencies already installed and working correctly (479 packages)

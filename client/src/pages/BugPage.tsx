@@ -76,14 +76,12 @@ export const BugPage = (): JSX.Element => {
               <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.8] mb-8" data-testid="text-instructions">
                 ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. it has survived not only five centuries. ever since the 1500s
               </p>
-              <motion.button
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 2, boxShadow: "0px 2px 8px rgba(0,0,0,0.3)" }}
-                className="cursor-pointer px-10 py-4 bg-[#f5ad11] text-white font-semibold text-base rounded-lg shadow-[0px_6px_0px_0px_#d69810,0px_8px_15px_rgba(0,0,0,0.3)] hover:shadow-[0px_4px_0px_0px_#d69810,0px_6px_12px_rgba(0,0,0,0.3)] transition-all duration-200"
+              <button
+                className="glow-btn"
                 data-testid="button-abrir-chamado"
               >
                 Abrir chamado
-              </motion.button>
+              </button>
             </div>
           </div>
         </div>

@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { FaChartLine, FaInfoCircle, FaBug, FaCheck } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { useLocation } from "wouter";
-import heroImage1 from "@assets/Img_1_herosection (3)_1759432774623.png";
-import heroImage2 from "@assets/Img_2_herosection (3)_1759432774622.png";
+import heroImage1 from "@assets/Img_1_herosection (4)_1759496280812.png";
+import heroImage2 from "@assets/Img_2_herosection (4)_1759496280811.png";
 import heroImage3 from "@assets/Img_3_herosection (3)_1759432774622.png";
 import heroImage4 from "@assets/Hero Section (5)_1759431698720.png";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
@@ -126,14 +126,12 @@ export const LandingPageFlexbot = (): JSX.Element => {
       <section className="bg-[#9e090f] py-12 md:py-16 px-4 md:px-8 lg:px-16 mt-[0px] mb-[0px] ml-[0px] mr-[0px] pl-[64px] pr-[64px] pt-[30px] pb-[30px]">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex items-center justify-center h-[120px]" data-testid="div-3">
-            <motion.button
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 2, boxShadow: "0px 2px 8px rgba(0,0,0,0.3)" }}
-              className="cursor-pointer px-12 py-4 bg-[#f5ad11] text-white font-semibold text-lg rounded-lg shadow-[0px_6px_0px_0px_#d69810,0px_8px_15px_rgba(0,0,0,0.3)] hover:shadow-[0px_4px_0px_0px_#d69810,0px_6px_12px_rgba(0,0,0,0.3)] transition-all duration-200"
+            <button
+              className="glow-btn"
               data-testid="button-saber-mais"
             >
               Saber mais
-            </motion.button>
+            </button>
           </div>
         </div>
       </section>
@@ -176,14 +174,12 @@ export const LandingPageFlexbot = (): JSX.Element => {
           </div>
 
           <div className="text-center">
-            <motion.button
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 2, boxShadow: "0px 2px 8px rgba(0,0,0,0.3)" }}
-              className="cursor-pointer px-10 py-4 bg-[#9e090f] text-white font-semibold text-base rounded-lg shadow-[0px_6px_0px_0px_#7a0000,0px_8px_15px_rgba(0,0,0,0.3)] hover:shadow-[0px_4px_0px_0px_#7a0000,0px_6px_12px_rgba(0,0,0,0.3)] transition-all duration-200"
+            <button
+              className="glow-btn"
               data-testid="button-saber-mais-servicos"
             >
               Saber mais
-            </motion.button>
+            </button>
           </div>
         </div>
       </section>
@@ -198,14 +194,12 @@ export const LandingPageFlexbot = (): JSX.Element => {
               <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.8] mb-8">
                 ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
               </p>
-              <motion.button
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 2, boxShadow: "0px 2px 8px rgba(0,0,0,0.3)" }}
-                className="cursor-pointer px-10 py-4 bg-[#f5ad11] text-white font-semibold text-base rounded-lg shadow-[0px_6px_0px_0px_#d69810,0px_8px_15px_rgba(0,0,0,0.3)] hover:shadow-[0px_4px_0px_0px_#d69810,0px_6px_12px_rgba(0,0,0,0.3)] transition-all duration-200"
+              <button
+                className="glow-btn"
                 data-testid="button-acessar-portfolio"
               >
                 Acessar portfolio
-              </motion.button>
+              </button>
             </div>
             <div className="order-1 lg:order-2 flex justify-center">
               <img
@@ -237,14 +231,12 @@ export const LandingPageFlexbot = (): JSX.Element => {
               <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.8] mb-8">
                 ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
               </p>
-              <motion.button
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 2, boxShadow: "0px 2px 8px rgba(0,0,0,0.3)" }}
-                className="cursor-pointer px-10 py-4 bg-[#f5ad11] text-white font-semibold text-base rounded-lg shadow-[0px_6px_0px_0px_#d69810,0px_8px_15px_rgba(0,0,0,0.3)] hover:shadow-[0px_4px_0px_0px_#d69810,0px_6px_12px_rgba(0,0,0,0.3)] transition-all duration-200"
+              <button
+                className="glow-btn"
                 data-testid="button-contribuir-agora"
               >
                 Contribuir agora
-              </motion.button>
+              </button>
             </div>
           </div>
         </div>

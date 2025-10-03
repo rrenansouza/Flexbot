@@ -5,6 +5,45 @@
   .all-\[unset\] {
     all: unset;
   }
+
+  .glow-btn {
+    position: relative;
+    padding: 15px 40px;
+    font-size: 18px;
+    color: #fff;
+    background: transparent;
+    border: 2px solid #0ff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    overflow: hidden;
+  }
+
+  .glow-btn::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, #0ff, #09f, #f0f, #0ff);
+    background-size: 400%;
+    animation: glowRotate 6s linear infinite;
+    filter: blur(20px);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
+  }
+
+  .glow-btn:hover::before {
+    opacity: 1;
+  }
+
+  .glow-btn:active {
+    transform: scale(0.95);
+    border-color: #f0f;
+    color: #f0f;
+  }
 }
 
 :root {
@@ -111,6 +150,15 @@
 
   to {
     transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes glowRotate {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 400% 0;
   }
 }
 
