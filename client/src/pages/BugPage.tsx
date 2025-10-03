@@ -6,6 +6,7 @@ import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_175
 import footerLogo from "@assets/Gemini_Generated_Image_zi2slpzi2slpzi2s 1 1.png";
 import bugImage from "@assets/Gemini_Generated_Image_s0o4o4s0o4o4s0o4 1_1759514036038.png";
 import instructionsImage from "@assets/image_1759516963667.png";
+import targetImage from "@assets/image_1759518445661.png";
 
 export const BugPage = (): JSX.Element => {
   const [, setLocation] = useLocation();
@@ -122,13 +123,6 @@ export const BugPage = (): JSX.Element => {
                 </li>
               </ul>
 
-              <h3 className="font-bold text-[#141b3a] text-xs sm:text-sm md:text-base lg:text-lg leading-[1.2] mb-1" data-testid="text-detalhamento">
-                Detalhamento do problema
-              </h3>
-              <p className="text-[#141b3a] font-normal text-[9px] sm:text-[10px] md:text-xs lg:text-sm leading-[1.4] mb-1.5 sm:mb-2 md:mb-2.5" data-testid="text-detalhamento-desc">
-                Descreva muito bem o problema com o máximo de detalhes possíveis. Sempre tenha em mente que, na abertura de um ticket, é como se estivesse explicando para um funcionário no primeiro dia de trabalho. Quanto mais didático for o relato, mais assertiva será a atuação no chamado.
-              </p>
-
               <h3 className="font-bold text-[#141b3a] text-xs sm:text-sm md:text-base lg:text-lg leading-[1.2] mb-1" data-testid="text-criticidade">
                 Criticidade do ticket
               </h3>
@@ -151,16 +145,16 @@ export const BugPage = (): JSX.Element => {
         <div className="max-w-[1400px] mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
-              <p className="text-[#141b3a] font-normal text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-[1.6] mb-3 sm:mb-4 md:mb-6" data-testid="text-detalhes">
-                Relate com detalhes a sequência de ações que provocou o erro. Evite termos vagos como:
-              </p>
-              <p className="text-[#141b3a] font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-[1.6]" data-testid="text-exemplo">
-                "não abre" e descreva o contexto exato (ex.: "Ao clicar em Salvar, a tela fecha sem gravar os dados").
+              <h3 className="font-bold text-[#141b3a] text-xs sm:text-sm md:text-base lg:text-lg leading-[1.2] mb-1" data-testid="text-detalhamento">
+                Detalhamento do problema
+              </h3>
+              <p className="text-[#141b3a] font-normal text-[9px] sm:text-[10px] md:text-xs lg:text-sm leading-[1.4]" data-testid="text-detalhamento-desc">
+                Descreva muito bem o problema com o máximo de detalhes possíveis. Sempre tenha em mente que, na abertura de um ticket, é como se estivesse explicando para um funcionário no primeiro dia de trabalho. Quanto mais didático for o relato, mais assertiva será a atuação no chamado.
               </p>
             </div>
             <div className="flex justify-center lg:justify-end mt-6 lg:mt-0">
               <div className="w-full flex items-center justify-center" data-testid="div-box-cinza-2">
-                <img src={bugImage} alt="Bug illustration" className="w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px] lg:w-[380px] lg:h-[380px] xl:w-[450px] xl:h-[450px] object-contain" />
+                <img src={targetImage} alt="Como deixar as informações claras" className="w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] md:w-[440px] md:h-[440px] lg:w-[520px] lg:h-[520px] xl:w-[600px] xl:h-[600px] object-contain" />
               </div>
             </div>
           </div>
