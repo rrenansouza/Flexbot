@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaChartLine, FaInfoCircle, FaBug, FaCheck } from "react-icons/fa";
+import { FaChartLine, FaInfoCircle, FaBug } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { useLocation } from "wouter";
 import heroImage1 from "@assets/Img_1_herosection (4)_1759496280812.png";
@@ -149,27 +148,17 @@ export const LandingPageFlexbot = (): JSX.Element => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-12 md:mb-16">
             {serviceCards.map((card, index) => (
-              <motion.div
+              <div
                 key={`card-${index}`}
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0px 10px 20px rgba(0,0,0,0.3)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="cursor-pointer"
+                className="glow-card"
                 onClick={() => setLocation(card.path)}
+                data-testid={`card-servico-${card.title.toLowerCase()}`}
               >
-                <Card
-                  className="h-[180px] md:h-[200px] bg-[#f5ad11] rounded-[10px] shadow-[0px_4px_4px_#00000040] border-2 border-transparent hover:border-[#9e090f] hover:bg-[#d69810] transition-all duration-300"
-                >
-                  <CardContent className="flex flex-col items-center justify-center h-full p-4">
-                    {card.icon}
-                    <h3 className="font-semibold text-black text-lg md:text-xl text-center">
-                      {card.title}
-                    </h3>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                {card.icon}
+                <h3 className="font-bold text-lg md:text-xl text-center mt-4">
+                  {card.title}
+                </h3>
+              </div>
             ))}
           </div>
 
