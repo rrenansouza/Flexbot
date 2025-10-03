@@ -5,6 +5,7 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
 import footerLogo from "@assets/Gemini_Generated_Image_zi2slpzi2slpzi2s 1 1.png";
 import bugImage from "@assets/Gemini_Generated_Image_s0o4o4s0o4o4s0o4 1_1759514036038.png";
+import instructionsImage from "@assets/image_1759516963667.png";
 
 export const BugPage = (): JSX.Element => {
   const [, setLocation] = useLocation();
@@ -90,13 +91,13 @@ export const BugPage = (): JSX.Element => {
       <section className="bg-white min-h-screen flex items-center px-4 md:px-8 lg:px-16">
         <div className="max-w-[1400px] mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
-            <div className="flex justify-center lg:justify-start">
-              <div className="w-full max-w-[400px] h-[350px] bg-[#d9d9d9] rounded-[12px] flex items-center justify-center" data-testid="div-box-cinza-1">
-                <img src={bugImage} alt="Bug illustration" className="w-[250px] h-[250px] object-contain" />
+            <div className="flex justify-center lg:justify-start mt-6 lg:mt-0">
+              <div className="w-full flex items-center justify-center" data-testid="div-box-cinza-1">
+                <img src={instructionsImage} alt="Instruções para abertura do ticket" className="w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px] lg:w-[380px] lg:h-[380px] xl:w-[450px] xl:h-[450px] object-contain" />
               </div>
             </div>
             <div>
-              <ul className="space-y-4 text-[#141b3a] font-normal text-base md:text-lg leading-[1.7]">
+              <ul className="space-y-2 sm:space-y-3 text-[#141b3a] font-normal text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-[1.6]">
                 <li className="flex items-start gap-3" data-testid="list-item-1">
                   <span className="mt-1">•</span>
                   <span>Informe em qual sistema, tela ou funcionalidade ocorreu o problema.</span>
@@ -119,15 +120,17 @@ export const BugPage = (): JSX.Element => {
         <div className="max-w-[1400px] mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
-              <p className="text-[#141b3a] font-normal text-base md:text-lg leading-[1.7] mb-6" data-testid="text-detalhes">
+              <p className="text-[#141b3a] font-normal text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-[1.6] mb-3 sm:mb-4 md:mb-6" data-testid="text-detalhes">
                 Relate com detalhes a sequência de ações que provocou o erro. Evite termos vagos como:
               </p>
-              <p className="text-[#141b3a] font-bold text-base md:text-lg leading-[1.7]" data-testid="text-exemplo">
+              <p className="text-[#141b3a] font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-[1.6]" data-testid="text-exemplo">
                 "não abre" e descreva o contexto exato (ex.: "Ao clicar em Salvar, a tela fecha sem gravar os dados").
               </p>
             </div>
-            <div className="flex justify-center lg:justify-end">
-              <div className="w-full max-w-[400px] h-[250px] bg-[#d9d9d9] rounded-[12px]" data-testid="div-box-cinza-2"></div>
+            <div className="flex justify-center lg:justify-end mt-6 lg:mt-0">
+              <div className="w-full flex items-center justify-center" data-testid="div-box-cinza-2">
+                <img src={bugImage} alt="Bug illustration" className="w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px] lg:w-[380px] lg:h-[380px] xl:w-[450px] xl:h-[450px] object-contain" />
+              </div>
             </div>
           </div>
         </div>
