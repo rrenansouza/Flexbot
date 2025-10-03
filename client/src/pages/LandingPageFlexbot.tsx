@@ -10,6 +10,7 @@ import heroImage4 from "@assets/Hero Section (5)_1759431698720.png";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
 import image18 from "@assets/image 18.png";
 import image17 from "@assets/image 17_1759502936347.png";
+import footerLogo from "@assets/Gemini_Generated_Image_zi2slpzi2slpzi2s 1 1.png";
 
 export const LandingPageFlexbot = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
@@ -234,7 +235,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
       <footer className="bg-[#7a0000] py-4 px-4 md:px-8 lg:px-16">
         <div className="max-w-[1400px] mx-auto flex items-center gap-4">
           <img
-            src={image17}
+            src={footerLogo}
             alt="Logo"
             className="w-[80px] h-[40px] object-contain"
           />
