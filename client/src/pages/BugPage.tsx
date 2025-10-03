@@ -57,16 +57,16 @@ export const BugPage = (): JSX.Element => {
         <div className="max-w-[1400px] mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
-              <h1 className="font-bold text-white text-4xl md:text-5xl lg:text-6xl leading-[1.2] mb-6" data-testid="text-title">
+              <h1 className="font-bold text-white text-5xl md:text-6xl lg:text-7xl leading-[1.2] mb-8" data-testid="text-title">
                 O QUE É UM BUG?
               </h1>
-              <p className="text-white font-light text-base md:text-lg leading-[1.7] mb-6" data-testid="text-description">
+              <p className="text-white font-light text-lg md:text-xl lg:text-2xl leading-[1.7] mb-8" data-testid="text-description">
                 Bug é uma falha técnica em um sistema, software ou aplicação. Ele pode ser visível (como uma tela que não carrega) ou invisível (um cálculo errado em segundo plano).
               </p>
-              <p className="text-white font-light text-base md:text-lg leading-[1.7] mb-2" data-testid="text-exemplos-title">
+              <p className="text-white font-light text-lg md:text-xl lg:text-2xl leading-[1.7] mb-3" data-testid="text-exemplos-title">
                 Exemplos de bugs:
               </p>
-              <ul className="text-white font-light text-base md:text-lg leading-[1.7] mb-8 space-y-2" data-testid="text-exemplos-list">
+              <ul className="text-white font-light text-lg md:text-xl lg:text-2xl leading-[1.7] mb-10 space-y-3" data-testid="text-exemplos-list">
                 <li>Erros de interface: botão que não funciona.</li>
                 <li>Erros de processamento: sistema grava dados incorretos.</li>
                 <li>Erros críticos: sistema trava ou derruba todos os usuários.</li>
@@ -79,8 +79,8 @@ export const BugPage = (): JSX.Element => {
               </button>
             </div>
             <div className="flex justify-center lg:justify-end">
-              <div className="w-full max-w-[500px] h-[400px] bg-[#c41e3a] rounded-[12px] flex items-center justify-center" data-testid="div-box-vermelho">
-                <img src={bugImage} alt="Bug illustration" className="w-[350px] h-[350px] object-contain" data-testid="img-bug-hero" />
+              <div className="w-full flex items-center justify-center" data-testid="div-box-vermelho">
+                <img src={bugImage} alt="Bug illustration" className="w-[450px] h-[450px] md:w-[500px] md:h-[500px] lg:w-[550px] lg:h-[550px] object-contain" data-testid="img-bug-hero" />
               </div>
             </div>
           </div>
