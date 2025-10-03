@@ -224,44 +224,44 @@
 
   .hero-animated .orb--amber {
     background: #EDAE29;
-    left: 12%;
-    top: 22%;
+    left: 55%;
+    top: 25%;
     animation: orbA 6s ease-in-out infinite;
   }
 
   .hero-animated .orb--gold {
     background: #F6C24A;
-    left: 35%;
-    top: 78%;
+    left: 65%;
+    top: 70%;
     animation: orbB 7s ease-in-out infinite;
   }
 
   .hero-animated .orb--navy {
     background: #0E1B3D;
-    left: 88%;
-    top: 18%;
+    left: 15%;
+    top: 30%;
     animation: orbC 8s ease-in-out infinite;
-    opacity: 0.28;
+    opacity: 0.15;
   }
 
   @keyframes orbA {
     50% {
-      left: 28%;
-      top: 45%;
+      left: 70%;
+      top: 40%;
     }
   }
 
   @keyframes orbB {
     50% {
-      left: 18%;
+      left: 75%;
       top: 55%;
     }
   }
 
   @keyframes orbC {
     50% {
-      left: 70%;
-      top: 35%;
+      left: 25%;
+      top: 45%;
     }
   }
 
