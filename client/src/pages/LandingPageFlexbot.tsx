@@ -202,6 +202,39 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </section>
 
+      <section className="py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 mt-16 md:mt-20">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+            <div className="flex justify-center">
+              <div className="w-full max-w-[400px] h-[350px] bg-[#ee2f22] rounded-lg"></div>
+            </div>
+            <div>
+              <h2 className="font-semibold text-[#141b3a] text-3xl md:text-5xl lg:text-6xl leading-[1.2] mb-6">
+                Lorem Ipsum is simply dummy
+              </h2>
+              <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.7] mb-8">
+                ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
+              </p>
+              <button
+                className="glow-btn"
+                data-testid="button-contribuir-agora"
+              >
+                Contribuir agora
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-[#7a0000] py-4 px-4 md:px-8 lg:px-16">
+        <div className="max-w-[1400px] mx-auto flex items-center gap-4">
+          <div className="w-[80px] h-[40px] bg-[#ee2f22] rounded"></div>
+          <p className="text-white text-xs md:text-sm font-light">
+            © 2025 Redeflex Comércio e Serviço de Telefonia - CNPJ nº 06.267.421/0001-74 / Av. Miguel Sutil, N° 8600, Sala 314 - Duque de Caxias, Cuiabá – MT, 78048-365
+          </p>
+        </div>
+      </footer>
+
       </div>
   );
 };
