@@ -204,7 +204,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </section>
 
-      <section className="parallax-dust py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 mt-16 md:mt-20">
+      <section className="hero-animated py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 mt-16 md:mt-20">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="flex justify-center">
