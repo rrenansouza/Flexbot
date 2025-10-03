@@ -177,10 +177,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="order-2 lg:order-1">
-              <h2 className="font-semibold text-[#141b3a] text-2xl md:text-4xl lg:text-5xl leading-[1.3] mb-6">
+              <h2 className="font-semibold text-[#141b3a] text-3xl md:text-5xl lg:text-6xl leading-[1.2] mb-8">
                 Lorem Ipsum is simply dummy text of the printing and typeset
               </h2>
-              <p className="text-[#141b3a] font-light text-base md:text-lg lg:text-xl leading-[1.8] mb-8">
+              <p className="text-[#141b3a] font-light text-lg md:text-xl lg:text-2xl leading-[1.7] mb-8">
                 ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
               </p>
               <button
@@ -192,7 +192,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
             </div>
             <div className="order-1 lg:order-2 flex justify-center">
               <img
-                className="w-full max-w-[550px] h-auto object-cover"
+                className="w-full max-w-[700px] h-auto object-cover"
                 alt="Image"
                 src="/figmaAssets/image-4.png"
               />
