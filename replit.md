@@ -11,7 +11,41 @@ The application follows a monorepo structure with separate client and server dir
 
 # Recent Changes
 
-## October 3, 2025 - Fresh GitHub Import - Replit Environment Setup Complete (Latest)
+## October 7, 2025 - Sistema de Abertura de Tickets Multi-Etapas (Latest)
+- Implementado sistema completo de criação de tickets com 12 etapas em português
+- **Backend:**
+  - Adicionado schema de tickets em `shared/schema.ts` com todos os campos necessários (problema, título, sistema, frequência, criticidade, etc.)
+  - Criadas rotas de API em `server/routes.ts`: POST /api/tickets, GET /api/tickets/:id, GET /api/tickets
+  - Atualizado `server/storage.ts` com operações CRUD para tickets usando MemStorage
+- **Frontend:**
+  - Criado `TicketWizard.tsx` com fluxo completo de 12 etapas:
+    1. Abertura - Descrição detalhada do problema
+    2. Aguardando IA - Tela de espera de 7 segundos (futura integração com IA)
+    3. Título - Definição do título do ticket
+    4. Sistema - Dropdown com 30+ sistemas disponíveis
+    5. Não Consegue - Descrição do que o usuário não consegue fazer
+    6. Replicar - Como replicar o problema
+    7. Frequência - Dropdown com opções (Pontualmente, Às vezes, Quase sempre, Frequentemente)
+    8. Impedimento - Descrição de impedimentos ou soluções alternativas
+    9. Criticidade - Descrição da criticidade do caso
+    10. Evidências - Upload de arquivos (nomes armazenados, preparado para implementação futura)
+    11. Solicitante - Nome e sobrenome do solicitante
+    12. Resumo - Revisão completa com opção de editar qualquer campo antes do envio
+  - Navegação com botão "VOLTAR" que preserva dados inseridos
+  - Animações suaves entre etapas usando Framer Motion
+  - Design consistente: fundo vermelho (#9e090f), caixas decorativas azuis, botões amarelos
+  - Rota `/melhoria/ticket` adicionada em `App.tsx`
+  - Botão "Abrir ticket" em `MelhoriaPage.tsx` configurado para navegar ao wizard
+- **Validação e Integração:**
+  - Uso de Zod schemas para validação de dados
+  - Integração com TanStack Query para submissão de formulário
+  - Toast notifications para feedback ao usuário
+  - Todos os campos obrigatórios implementados conforme especificação
+- **Limitações Conhecidas:**
+  - Upload de evidências armazena apenas nomes de arquivos (implementação de storage de arquivos pendente para versão futura)
+  - Sistema usa armazenamento em memória (dados perdidos ao reiniciar - adequado para desenvolvimento/MVP)
+
+## October 3, 2025 - Fresh GitHub Import - Replit Environment Setup Complete
 - Successfully imported fresh GitHub clone into Replit environment
 - Node.js 20.19.3 and npm 10.8.2 confirmed installed and working
 - All dependencies already present and verified (479 packages)
