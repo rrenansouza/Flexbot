@@ -75,6 +75,7 @@ export const BugPage = (): JSX.Element => {
               </ul>
               <button
                 className="glow-btn"
+                onClick={() => setLocation("/melhoria/ticket")}
                 data-testid="button-abrir-ticket"
               >
                 Abrir ticket

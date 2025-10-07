@@ -64,6 +64,7 @@ export const ProjetoPage = (): JSX.Element => {
               </p>
               <button
                 className="glow-btn"
+                onClick={() => setLocation("/melhoria/ticket")}
                 data-testid="button-abrir-ticket"
               >
                 Abrir ticket

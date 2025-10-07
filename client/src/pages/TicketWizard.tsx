@@ -10,6 +10,8 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
+import image21 from "@assets/image 21_1759863524331.png";
+import image22 from "@assets/image 22_1759863524331.png";
 import type { InsertTicket } from "@shared/schema";
 
 const sistemas = [
@@ -68,6 +70,11 @@ type Step =
   | "solicitante"
   | "resumo";
 
+interface FilePreview {
+  name: string;
+  preview: string;
+}
+
 interface TicketFormData {
   problemaDescricao: string;
   titulo: string;
@@ -86,6 +93,7 @@ export const TicketWizard = (): JSX.Element => {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState<Step>("abertura");
+  const [filePreviews, setFilePreviews] = useState<FilePreview[]>([]);
   const [formData, setFormData] = useState<TicketFormData>({
     problemaDescricao: "",
     titulo: "",
@@ -172,7 +180,14 @@ export const TicketWizard = (): JSX.Element => {
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
-      const fileNames = Array.from(files).map((file) => file.name);
+      const fileArray = Array.from(files);
+      const fileNames = fileArray.map((file) => file.name);
+      const newPreviews = fileArray.map((file) => ({
+        name: file.name,
+        preview: URL.createObjectURL(file),
+      }));
+      
+      setFilePreviews((prev) => [...prev, ...newPreviews]);
       updateField("evidencias", [...formData.evidencias, ...fileNames]);
     }
   };
@@ -497,8 +512,17 @@ export const TicketWizard = (): JSX.Element => {
                 <h1 className="text-white text-3xl font-bold" data-testid="text-evidencias">
                   Deixe algumas evidências ou prints para nos ajudar
                 </h1>
-                <div className="flex gap-4 items-center justify-center">
-                  <div className="w-[120px] h-[120px] bg-white rounded-lg" data-testid="div-upload-preview"></div>
+                <div className="flex flex-wrap gap-4 items-center justify-center">
+                  {filePreviews.map((file, index) => (
+                    <div key={index} className="relative w-[120px] h-[120px]">
+                      <img 
+                        src={file.preview} 
+                        alt={file.name}
+                        className="w-full h-full object-cover rounded-lg"
+                        data-testid={`img-preview-${index}`}
+                      />
+                    </div>
+                  ))}
                   <label
                     htmlFor="file-upload"
                     className="w-[120px] h-[120px] border-2 border-dashed border-white rounded-lg flex items-center justify-center cursor-pointer hover:bg-white/10 transition-colors"
