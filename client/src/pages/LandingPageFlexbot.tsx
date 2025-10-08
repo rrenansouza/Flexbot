@@ -97,6 +97,11 @@ export const LandingPageFlexbot = (): JSX.Element => {
                   scale: 1.05,
                 }}
                 transition={{ duration: 0.2 }}
+                onClick={() => {
+                  if (item.label === "Chamados") {
+                    setLocation("/kanban");
+                  }
+                }}
                 data-testid={`nav-${item.label.toLowerCase()}`}
               >
                 {item.label}

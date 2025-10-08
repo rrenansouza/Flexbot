@@ -617,6 +617,11 @@ export function KanbanPage() {
                 Gráficos
               </Button>
             </Link>
+            <Link href="/cemiterio">
+              <Button variant="outline" data-testid="button-cemiterio">
+                Cemitério
+              </Button>
+            </Link>
             <Button variant="outline" data-testid="button-exportar">
               <Download className="h-4 w-4 mr-2" />
               Exportar CSV
