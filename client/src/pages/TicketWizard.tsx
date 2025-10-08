@@ -10,8 +10,8 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
-import image21 from "@assets/image 21_1759863524331.png";
-import image22 from "@assets/image 22_1759863524331.png";
+import image21 from "@assets/image 21_1759937648920.png";
+import image22 from "@assets/image 22_1759937648919.png";
 import type { InsertTicket } from "@shared/schema";
 
 const sistemas = [
@@ -118,7 +118,7 @@ export const TicketWizard = (): JSX.Element => {
         title: "Ticket criado com sucesso!",
         description: "Seu ticket foi registrado e será analisado em breve.",
       });
-      setLocation("/melhoria");
+      setLocation("/kanban");
     },
     onError: (error) => {
       toast({
@@ -283,7 +283,9 @@ export const TicketWizard = (): JSX.Element => {
                   </button>
                 )}
                 <div className="flex justify-center mb-8">
-                  <div className="w-[150px] h-[150px] bg-[#4a9eff] rounded-lg" data-testid="div-blue-box"></div>
+                  <div className="w-[150px] h-[150px] bg-[#4a9eff] rounded-lg flex items-center justify-center overflow-hidden" data-testid="div-blue-box">
+                    <img src={image21} alt="Vamos entender o seu problema" className="w-full h-full object-contain" />
+                  </div>
                 </div>
                 <h1 className="text-white text-3xl font-bold text-center mb-4" data-testid="text-titulo-abertura">
                   Vamos entender inicialmente o seu problema 🔍
@@ -314,7 +316,9 @@ export const TicketWizard = (): JSX.Element => {
             {currentStep === "aguardando" && (
               <div className="w-full max-w-[900px] space-y-6 text-center">
                 <div className="flex justify-center mb-8">
-                  <div className="w-[150px] h-[150px] bg-[#4a9eff] rounded-lg" data-testid="div-blue-box-aguardando"></div>
+                  <div className="w-[150px] h-[150px] bg-[#4a9eff] rounded-lg flex items-center justify-center overflow-hidden" data-testid="div-blue-box-aguardando">
+                    <img src={image22} alt="FlexIA analisando" className="w-full h-full object-contain animate-hourglass" />
+                  </div>
                 </div>
                 <h1 className="text-white text-3xl font-bold" data-testid="text-aguardando">
                   O FlexIA está analisando e categorizando seu ticket
@@ -564,17 +568,16 @@ export const TicketWizard = (): JSX.Element => {
                 </h1>
                 <Input
                   placeholder="Escreva seu nome e sobrenome"
-                  value={`${formData.solicitanteNome} ${formData.solicitanteSobrenome}`.trim()}
+                  value={formData.solicitanteNome && formData.solicitanteSobrenome 
+                    ? `${formData.solicitanteNome} ${formData.solicitanteSobrenome}` 
+                    : formData.solicitanteNome || ""}
                   onChange={(e) => {
                     const fullName = e.target.value;
-                    const parts = fullName.split(" ");
+                    const parts = fullName.trim().split(/\s+/);
                     const nome = parts[0] || "";
-                    const sobrenome = parts.slice(1).join(" ") || "";
-                    setFormData((prev) => ({
-                      ...prev,
-                      solicitanteNome: nome,
-                      solicitanteSobrenome: sobrenome,
-                    }));
+                    const sobrenome = parts.length > 1 ? parts.slice(1).join(" ") : "";
+                    updateField("solicitanteNome", nome);
+                    updateField("solicitanteSobrenome", sobrenome);
                   }}
                   className="w-full bg-white text-black rounded-full px-6 py-6"
                   data-testid="input-solicitante"

@@ -142,10 +142,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="font-semibold text-[#141b3a] text-3xl md:text-5xl lg:text-6xl leading-[1.2] mb-8">
-              Lorem Ipsum is simply dummy text of the printing and typeset
+              Gerencie seus tickets com agilidade e eficiência junto ao FlexIA
             </h2>
             <p className="text-[#141b3a] font-light text-lg md:text-xl lg:text-2xl leading-[1.7] max-w-4xl mx-auto mb-8">
-              ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
+              Com a inteligência artificial do FlexIA, a compreensão e o direcionamento dos seus chamados, projetos, bugs e melhorias tornam-se muito mais assertivos. Explore nossas categorias de abertura de tickets e descubra como facilitar suas solicitações de forma simples e eficaz.
             </p>
           </div>
 
@@ -181,10 +181,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="order-2 lg:order-1">
               <h2 className="font-semibold text-[#141b3a] text-3xl md:text-5xl lg:text-6xl leading-[1.2] mb-8">
-                Lorem Ipsum is simply dummy text of the printing and typeset
+                Aprenda com cenários reais e soluções eficazes
               </h2>
               <p className="text-[#141b3a] font-light text-lg md:text-xl lg:text-2xl leading-[1.7] mb-8">
-                ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                O portfólio do FlexIA reúne uma coleção completa de resoluções reais aplicadas em diferentes sistemas e categorias. Aqui, você encontra documentações detalhadas com prints, evidências e orientações passo a passo que mostram como cada desafio foi solucionado. Mais do que um repositório, este espaço é uma base de conhecimento dinâmica, criada para aprimorar o entendimento e a autonomia dos usuários. Explore os casos, entenda as estratégias adotadas e descubra como a inteligência do FlexIA pode transformar a forma como você soluciona problemas.
               </p>
               <button
                 className="glow-btn"
@@ -219,10 +219,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
             </div>
             <div>
               <h2 className="font-semibold text-[#141b3a] text-3xl md:text-5xl lg:text-6xl leading-[1.2] mb-8">
-                Lorem Ipsum is simply dummy
+                Inove com a gente: sua ideia pode ser a próxima melhoria do FlexIA
               </h2>
               <p className="text-[#141b3a] font-light text-lg md:text-xl lg:text-2xl leading-[1.7] mb-8">
-                ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
+                Queremos ouvir você! Envie sugestões de funcionalidades, ajustes ou melhorias que possam tornar nossos processos de tickets ainda mais ágeis e intuitivos. No FlexIA, cada insight conta para impulsionar a inovação e aprimorar continuamente a ferramenta.
               </p>
               <button
                 className="glow-btn"

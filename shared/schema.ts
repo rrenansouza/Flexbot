@@ -31,14 +31,58 @@ export const tickets = pgTable("tickets", {
   evidencias: text("evidencias").array(),
   solicitanteNome: text("solicitante_nome").notNull(),
   solicitanteSobrenome: text("solicitante_sobrenome").notNull(),
+  status: text("status").notNull().default("Chamados abertos"),
+  prioridade: text("prioridade").notNull().default("Média"),
+  responsavel: text("responsavel"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 export const insertTicketSchema = createInsertSchema(tickets).omit({
   id: true,
   categoria: true,
+  status: true,
+  prioridade: true,
+  responsavel: true,
   createdAt: true,
+  updatedAt: true,
 });
 
 export type InsertTicket = z.infer<typeof insertTicketSchema>;
 export type Ticket = typeof tickets.$inferSelect;
+
+export const ticketComments = pgTable("ticket_comments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  ticketId: varchar("ticket_id").notNull().references(() => tickets.id, { onDelete: 'cascade' }),
+  author: text("author").notNull(),
+  content: text("content").notNull(),
+  mentions: text("mentions").array(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertCommentSchema = createInsertSchema(ticketComments).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertComment = z.infer<typeof insertCommentSchema>;
+export type TicketComment = typeof ticketComments.$inferSelect;
+
+export const ticketHistory = pgTable("ticket_history", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  ticketId: varchar("ticket_id").notNull().references(() => tickets.id, { onDelete: 'cascade' }),
+  action: text("action").notNull(),
+  field: text("field"),
+  oldValue: text("old_value"),
+  newValue: text("new_value"),
+  author: text("author").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertHistorySchema = createInsertSchema(ticketHistory).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertHistory = z.infer<typeof insertHistorySchema>;
+export type TicketHistory = typeof ticketHistory.$inferSelect;
