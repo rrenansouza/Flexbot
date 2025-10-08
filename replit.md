@@ -1,6 +1,6 @@
 # Overview
 
-This is a full-stack web application, "Flexbot," designed as a support/ticketing system with features for projects, tickets, bugs, and improvements. It leverages React, Express, and TypeScript within a monorepo structure, using Vite for building, shadcn/ui for UI, and Drizzle ORM for database management. The project aims to provide a comprehensive, multi-stage ticket creation system and a complete Kanban board for ticket management, inspired by Trello.
+This is a full-stack web application, "Flexbot," designed as a comprehensive support/ticketing system with features for projects, tickets, bugs, and improvements. It leverages React, Express, and TypeScript within a monorepo structure, using Vite for building, shadcn/ui for UI, and Drizzle ORM for database management. The project provides a multi-stage ticket creation system, a complete Kanban board for ticket management, and an archive system ("Cemitério") for finalized tickets with automatic archiving after 15 days.
 
 # User Preferences
 
@@ -29,6 +29,11 @@ This is a full-stack web application, "Flexbot," designed as a support/ticketing
 - Multi-stage ticket creation wizard with 12 steps, animated transitions, and persistent data on navigation.
 - Complete Kanban system with drag-and-drop, filtering, and detailed ticket modals.
 - Consistent design language with specific color palettes, glow effects for buttons and cards, and 3D minimalist button styles.
+- Attachment management with edit and delete functionality directly in ticket details.
+- Category badges displayed on ticket cards for quick identification.
+- Unique color coding per developer with consistent hashing algorithm.
+- ScrollArea components for improved content overflow handling.
+- Archive system ("Cemitério") page with advanced filtering by category, responsible, requester, and system, plus sorting options.
 
 ## Backend Architecture
 
