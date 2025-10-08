@@ -17,6 +17,7 @@ export interface IStorage {
   updateTicketResponsavel(id: string, responsavel: string | null, author: string): Promise<Ticket | undefined>;
   updateTicket(id: string, updates: Partial<Ticket>, author: string): Promise<Ticket | undefined>;
   archiveTicket(id: string): Promise<Ticket | undefined>;
+  autoArchiveOldTickets(): Promise<number>;
   updateEvidencias(id: string, evidencias: string[], author: string): Promise<Ticket | undefined>;
   addComment(comment: InsertComment): Promise<TicketComment>;
   getCommentsByTicket(ticketId: string): Promise<TicketComment[]>;
@@ -84,6 +85,7 @@ export class MemStorage implements IStorage {
   }
 
   async getAllTickets(): Promise<Ticket[]> {
+    await this.autoArchiveOldTickets();
     return Array.from(this.tickets.values()).filter(t => !t.arquivado);
   }
 
@@ -201,6 +203,26 @@ export class MemStorage implements IStorage {
     });
     
     return ticket;
+  }
+
+  async autoArchiveOldTickets(): Promise<number> {
+    const fifteenDaysAgo = new Date();
+    fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
+    
+    let archivedCount = 0;
+    
+    for (const ticket of this.tickets.values()) {
+      if (
+        ticket.finalizadoEm &&
+        !ticket.arquivado &&
+        new Date(ticket.finalizadoEm) < fifteenDaysAgo
+      ) {
+        await this.archiveTicket(ticket.id);
+        archivedCount++;
+      }
+    }
+    
+    return archivedCount;
   }
 
   async updateEvidencias(id: string, evidencias: string[], author: string): Promise<Ticket | undefined> {

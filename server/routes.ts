@@ -35,6 +35,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/tickets-archived", async (req, res) => {
+    try {
+      const tickets = await storage.getArchivedTickets();
+      res.json(tickets);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   app.patch("/api/tickets/:id/status", async (req, res) => {
     try {
       const { status, author = "Sistema" } = req.body;
