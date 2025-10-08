@@ -154,7 +154,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
               <div
                 key={`card-${index}`}
                 className="glow-card"
-                onClick={() => setLocation(card.path)}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  setLocation(card.path);
+                }}
                 data-testid={`card-servico-${card.title.toLowerCase()}`}
               >
                 {card.icon}
