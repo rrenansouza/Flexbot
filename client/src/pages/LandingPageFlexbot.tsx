@@ -212,7 +212,7 @@ export const LandingPageFlexbot = (): JSX.Element => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <div className="flex justify-center">
               <img
-                className="w-full max-w-[700px] h-auto object-contain"
+                className="w-full max-w-[400px] h-auto object-contain"
                 alt="Image"
                 src={image17}
               />

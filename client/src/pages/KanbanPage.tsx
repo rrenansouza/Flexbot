@@ -692,7 +692,7 @@ export function KanbanPage() {
               </div>
 
               <div className="flex flex-1 overflow-hidden">
-                <ScrollArea className="flex-1 p-6">
+                <div className="flex-1 p-6 overflow-y-auto">
                   <div className="space-y-6">
                     <div>
                       <h3 className="text-sm font-semibold text-gray-700 mb-2">Detalhes</h3>
@@ -762,13 +762,13 @@ export function KanbanPage() {
                       </div>
                     )}
                   </div>
-                </ScrollArea>
+                </div>
 
                 <div className="w-80 border-l bg-gray-50 flex flex-col">
                   <div className="p-4 border-b bg-white">
                     <h3 className="font-semibold text-gray-900">Atividade</h3>
                   </div>
-                  <ScrollArea className="flex-1 p-4">
+                  <div className="flex-1 p-4 overflow-y-auto">
                     <div className="space-y-4">
                       <div>
                         <h4 className="text-xs font-semibold text-gray-700 uppercase mb-2">Comentários</h4>
@@ -824,7 +824,7 @@ export function KanbanPage() {
                         </div>
                       </div>
                     </div>
-                  </ScrollArea>
+                  </div>
                 </div>
               </div>
             </div>
