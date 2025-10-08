@@ -26,12 +26,14 @@ export class MemStorage implements IStorage {
   private tickets: Map<string, Ticket>;
   private comments: Map<string, TicketComment>;
   private history: Map<string, TicketHistory>;
+  private ticketNumberCounter: number;
 
   constructor() {
     this.users = new Map();
     this.tickets = new Map();
     this.comments = new Map();
     this.history = new Map();
+    this.ticketNumberCounter = 1;
   }
 
   async getUser(id: string): Promise<User | undefined> {
@@ -56,11 +58,14 @@ export class MemStorage implements IStorage {
     const ticket: Ticket = {
       ...insertTicket,
       id,
+      ticketNumber: this.ticketNumberCounter++,
       categoria: "Melhoria",
       evidencias: insertTicket.evidencias ?? null,
       status: "Chamados abertos",
       prioridade: "Média",
       responsavel: null,
+      etiquetas: null,
+      seguidores: null,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
