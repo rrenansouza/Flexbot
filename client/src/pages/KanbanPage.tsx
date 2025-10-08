@@ -719,9 +719,9 @@ export function KanbanPage() {
       </div>
 
       <Dialog open={showDetailModal} onOpenChange={setShowDetailModal}>
-        <DialogContent className="max-w-5xl max-h-[90vh] p-0 overflow-hidden" data-testid="modal-detalhes">
+        <DialogContent className="max-w-5xl max-h-[90vh] p-0 overflow-y-auto" data-testid="modal-detalhes">
           {selectedTicket && (
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col">
               <div className="p-6 border-b">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
