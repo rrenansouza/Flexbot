@@ -90,6 +90,7 @@ export class MemStorage implements IStorage {
   }
 
   async getArchivedTickets(): Promise<Ticket[]> {
+    await this.autoArchiveOldTickets();
     return Array.from(this.tickets.values()).filter(t => t.arquivado);
   }
 
@@ -103,6 +104,10 @@ export class MemStorage implements IStorage {
     
     if (status === "Finalizados" && !ticket.finalizadoEm) {
       ticket.finalizadoEm = new Date();
+    } else if (oldStatus === "Finalizados" && status !== "Finalizados") {
+      ticket.finalizadoEm = null;
+      ticket.arquivado = false;
+      ticket.arquivadoEm = null;
     }
     
     this.tickets.set(id, ticket);
