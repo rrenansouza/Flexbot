@@ -118,6 +118,89 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/tickets/:id/etiquetas", async (req, res) => {
+    try {
+      const { etiqueta, author = "Sistema" } = req.body;
+      const ticket = await storage.getTicket(req.params.id);
+      if (!ticket) {
+        return res.status(404).json({ error: "Ticket not found" });
+      }
+      const etiquetas = ticket.etiquetas || [];
+      if (!etiquetas.includes(etiqueta)) {
+        etiquetas.push(etiqueta);
+        const updatedTicket = await storage.updateTicket(req.params.id, { etiquetas }, author);
+        res.json(updatedTicket);
+      } else {
+        res.json(ticket);
+      }
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.delete("/api/tickets/:id/etiquetas/:etiqueta", async (req, res) => {
+    try {
+      const { author = "Sistema" } = req.body;
+      const ticket = await storage.getTicket(req.params.id);
+      if (!ticket) {
+        return res.status(404).json({ error: "Ticket not found" });
+      }
+      const etiquetas = (ticket.etiquetas || []).filter(e => e !== req.params.etiqueta);
+      const updatedTicket = await storage.updateTicket(req.params.id, { etiquetas }, author);
+      res.json(updatedTicket);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post("/api/tickets/:id/seguir", async (req, res) => {
+    try {
+      const { seguidor, author = "Sistema" } = req.body;
+      const ticket = await storage.getTicket(req.params.id);
+      if (!ticket) {
+        return res.status(404).json({ error: "Ticket not found" });
+      }
+      const seguidores = ticket.seguidores || [];
+      if (!seguidores.includes(seguidor)) {
+        seguidores.push(seguidor);
+        const updatedTicket = await storage.updateTicket(req.params.id, { seguidores }, author);
+        res.json(updatedTicket);
+      } else {
+        res.json(ticket);
+      }
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.delete("/api/tickets/:id/seguir/:seguidor", async (req, res) => {
+    try {
+      const { author = "Sistema" } = req.body;
+      const ticket = await storage.getTicket(req.params.id);
+      if (!ticket) {
+        return res.status(404).json({ error: "Ticket not found" });
+      }
+      const seguidores = (ticket.seguidores || []).filter(s => s !== req.params.seguidor);
+      const updatedTicket = await storage.updateTicket(req.params.id, { seguidores }, author);
+      res.json(updatedTicket);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/tickets/:id/share", async (req, res) => {
+    try {
+      const ticket = await storage.getTicket(req.params.id);
+      if (!ticket) {
+        return res.status(404).json({ error: "Ticket not found" });
+      }
+      const shareUrl = `${req.protocol}://${req.get('host')}/kanban?ticket=${ticket.id}`;
+      res.json({ shareUrl, ticketNumber: ticket.ticketNumber });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

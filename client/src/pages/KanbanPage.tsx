@@ -19,7 +19,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Search, Filter, MoreVertical, UserPlus, MessageSquare, Clock, Paperclip, Plus, X } from "lucide-react";
+import { Search, Filter, MoreVertical, UserPlus, MessageSquare, Clock, Paperclip, Plus, X, Share2, Eye, Tag, BarChart3, Download } from "lucide-react";
 import type { Ticket, TicketComment, TicketHistory } from "@shared/schema";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
 
@@ -130,9 +130,12 @@ function KanbanCard({ ticket, onCardClick, onAssignClick }: KanbanCardProps) {
       data-testid={`card-ticket-${ticket.id}`}
     >
       <div className="flex items-start justify-between mb-2">
-        <h3 className="font-medium text-sm line-clamp-1 flex-1" data-testid={`text-titulo-${ticket.id}`}>
-          {ticket.titulo}
-        </h3>
+        <div className="flex-1">
+          <p className="text-xs text-gray-500 mb-1" data-testid={`text-id-${ticket.id}`}>#{ticket.ticketNumber}</p>
+          <h3 className="font-medium text-sm line-clamp-1" data-testid={`text-titulo-${ticket.id}`}>
+            {ticket.titulo}
+          </h3>
+        </div>
         <div data-no-drag>
           <DropdownMenu>
             <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
@@ -152,16 +155,19 @@ function KanbanCard({ ticket, onCardClick, onAssignClick }: KanbanCardProps) {
         </div>
       </div>
 
-      <p className="text-xs text-gray-600 mb-3" data-testid={`text-solicitante-${ticket.id}`}>
-        {ticket.solicitanteNome} {ticket.solicitanteSobrenome}
-      </p>
+      {ticket.etiquetas && ticket.etiquetas.length > 0 && (
+        <div className="flex flex-wrap gap-1 mb-2">
+          {ticket.etiquetas.map((etiqueta, idx) => (
+            <Badge key={idx} variant="outline" className="text-xs" data-testid={`badge-etiqueta-${idx}`}>
+              {etiqueta}
+            </Badge>
+          ))}
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-2 mb-3">
         <Badge className={getPrioridadeColor(ticket.prioridade)} data-testid={`badge-prioridade-${ticket.id}`}>
           {ticket.prioridade}
-        </Badge>
-        <Badge className={getCriticidadeColor(ticket.criticidade)} data-testid={`badge-criticidade-${ticket.id}`}>
-          {ticket.criticidade}
         </Badge>
       </div>
 
@@ -243,10 +249,12 @@ export function KanbanPage() {
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [assigningTicket, setAssigningTicket] = useState<Ticket | null>(null);
   const [newComment, setNewComment] = useState("");
+  const [newEtiqueta, setNewEtiqueta] = useState("");
+  const [showEtiquetaInput, setShowEtiquetaInput] = useState(false);
+  const [isSeguindo, setIsSeguindo] = useState(false);
   const [filters, setFilters] = useState({
     categoria: "",
     prioridade: "",
-    criticidade: "",
     solicitante: "",
     responsavel: "",
   });
@@ -304,6 +312,50 @@ export function KanbanPage() {
     },
   });
 
+  const addEtiquetaMutation = useMutation({
+    mutationFn: async ({ ticketId, etiqueta }: { ticketId: string; etiqueta: string }) => {
+      const res = await apiRequest("POST", `/api/tickets/${ticketId}/etiquetas`, { etiqueta, author: "Sistema" });
+      return await res.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/tickets"] });
+      setSelectedTicket(data);
+      setNewEtiqueta("");
+      setShowEtiquetaInput(false);
+      toast({ title: "Etiqueta adicionada!" });
+    },
+  });
+
+  const removeEtiquetaMutation = useMutation({
+    mutationFn: async ({ ticketId, etiqueta }: { ticketId: string; etiqueta: string }) => {
+      const res = await apiRequest("DELETE", `/api/tickets/${ticketId}/etiquetas/${etiqueta}`, { author: "Sistema" });
+      return await res.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/tickets"] });
+      setSelectedTicket(data);
+      toast({ title: "Etiqueta removida!" });
+    },
+  });
+
+  const toggleSeguirMutation = useMutation({
+    mutationFn: async ({ ticketId, seguir }: { ticketId: string; seguir: boolean }) => {
+      if (seguir) {
+        const res = await apiRequest("POST", `/api/tickets/${ticketId}/seguir`, { seguidor: "Usuário Atual", author: "Sistema" });
+        return await res.json();
+      } else {
+        const res = await apiRequest("DELETE", `/api/tickets/${ticketId}/seguir/Usuário Atual`, { author: "Sistema" });
+        return await res.json();
+      }
+    },
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/tickets"] });
+      setSelectedTicket(data);
+      setIsSeguindo(variables.seguir);
+      toast({ title: variables.seguir ? "Agora você está seguindo este ticket!" : "Você deixou de seguir este ticket" });
+    },
+  });
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -316,16 +368,16 @@ export function KanbanPage() {
     return tickets.filter(ticket => {
       const matchesSearch = 
         ticket.titulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        ticket.id.toLowerCase().includes(searchQuery.toLowerCase());
+        ticket.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        ticket.ticketNumber.toString().includes(searchQuery);
       
-      const matchesCategoria = !filters.categoria || ticket.categoria === filters.categoria;
-      const matchesPrioridade = !filters.prioridade || ticket.prioridade === filters.prioridade;
-      const matchesCriticidade = !filters.criticidade || ticket.criticidade === filters.criticidade;
+      const matchesCategoria = !filters.categoria || filters.categoria === "Todas" || ticket.categoria === filters.categoria;
+      const matchesPrioridade = !filters.prioridade || filters.prioridade === "Todas" || ticket.prioridade === filters.prioridade;
       const matchesSolicitante = !filters.solicitante || 
         `${ticket.solicitanteNome} ${ticket.solicitanteSobrenome}`.toLowerCase().includes(filters.solicitante.toLowerCase());
-      const matchesResponsavel = !filters.responsavel || ticket.responsavel === filters.responsavel;
+      const matchesResponsavel = !filters.responsavel || filters.responsavel === "Todos" || ticket.responsavel === filters.responsavel;
 
-      return matchesSearch && matchesCategoria && matchesPrioridade && matchesCriticidade && matchesSolicitante && matchesResponsavel;
+      return matchesSearch && matchesCategoria && matchesPrioridade && matchesSolicitante && matchesResponsavel;
     });
   }, [tickets, searchQuery, filters]);
 
@@ -378,15 +430,72 @@ export function KanbanPage() {
     }
   };
 
+  const handleAddEtiqueta = () => {
+    if (selectedTicket && newEtiqueta.trim()) {
+      addEtiquetaMutation.mutate({
+        ticketId: selectedTicket.id,
+        etiqueta: newEtiqueta.trim(),
+      });
+    }
+  };
+
+  const handleRemoveEtiqueta = (etiqueta: string) => {
+    if (selectedTicket) {
+      removeEtiquetaMutation.mutate({
+        ticketId: selectedTicket.id,
+        etiqueta,
+      });
+    }
+  };
+
+  const handleToggleSeguir = () => {
+    if (selectedTicket) {
+      toggleSeguirMutation.mutate({
+        ticketId: selectedTicket.id,
+        seguir: !isSeguindo,
+      });
+    }
+  };
+
+  const handleShare = async () => {
+    if (selectedTicket) {
+      try {
+        const res = await apiRequest("GET", `/api/tickets/${selectedTicket.id}/share`, {});
+        const data = await res.json();
+        navigator.clipboard.writeText(data.shareUrl);
+        toast({ title: "Link copiado!", description: `Ticket #${data.ticketNumber} - Link copiado para a área de transferência` });
+      } catch (error) {
+        toast({ title: "Erro ao gerar link", variant: "destructive" });
+      }
+    }
+  };
+
   const clearFilters = () => {
     setFilters({
       categoria: "",
       prioridade: "",
-      criticidade: "",
       solicitante: "",
       responsavel: "",
     });
     setSearchQuery("");
+  };
+
+  const formatHistoryMessage = (h: TicketHistory) => {
+    if (h.action === "status_changed") {
+      return `${h.author} moveu o ticket de "${h.oldValue}" para "${h.newValue}"`;
+    } else if (h.action === "assignee_changed") {
+      if (!h.oldValue && h.newValue) {
+        return `${h.author} atribuiu ${h.newValue} como responsável`;
+      } else if (h.oldValue && !h.newValue) {
+        return `${h.author} removeu ${h.oldValue} como responsável`;
+      } else {
+        return `${h.author} alterou o responsável de ${h.oldValue} para ${h.newValue}`;
+      }
+    } else if (h.action === "comment_added") {
+      return `${h.author} adicionou um comentário`;
+    } else {
+      return `${h.author} ${h.action}${h.field ? ` - ${h.field}` : ""}`;
+    }
   };
 
   return (
@@ -427,7 +536,16 @@ export function KanbanPage() {
                 Novo chamado
               </Button>
             </Link>
-            <Button variant="outline" data-testid="button-exportar">Exportar CSV</Button>
+            <Link href="/graficos">
+              <Button variant="outline" data-testid="button-graficos">
+                <BarChart3 className="h-4 w-4 mr-2" />
+                Gráficos
+              </Button>
+            </Link>
+            <Button variant="outline" data-testid="button-exportar">
+              <Download className="h-4 w-4 mr-2" />
+              Exportar CSV
+            </Button>
             <Button variant="outline" onClick={() => queryClient.invalidateQueries({ queryKey: ["/api/tickets"] })} data-testid="button-atualizar">
               Atualizar
             </Button>
@@ -456,18 +574,8 @@ export function KanbanPage() {
                   <SelectValue placeholder="Prioridade" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value=" ">Todas</SelectItem>
+                  <SelectItem value="Todas">Todas</SelectItem>
                   {PRIORIDADES.map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}
-                </SelectContent>
-              </Select>
-
-              <Select value={filters.criticidade} onValueChange={(value) => setFilters(prev => ({ ...prev, criticidade: value }))}>
-                <SelectTrigger className="w-[140px]" data-testid="select-criticidade">
-                  <SelectValue placeholder="Criticidade" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value=" ">Todas</SelectItem>
-                  {CRITICIDADES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
                 </SelectContent>
               </Select>
 
@@ -476,7 +584,7 @@ export function KanbanPage() {
                   <SelectValue placeholder="Responsável" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value=" ">Todos</SelectItem>
+                  <SelectItem value="Todos">Todos</SelectItem>
                   {DEVELOPERS.map(dev => <SelectItem key={dev} value={dev}>{dev}</SelectItem>)}
                 </SelectContent>
               </Select>
@@ -531,119 +639,195 @@ export function KanbanPage() {
       </div>
 
       <Dialog open={showDetailModal} onOpenChange={setShowDetailModal}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col" data-testid="modal-detalhes">
+        <DialogContent className="max-w-5xl max-h-[90vh] p-0 overflow-hidden" data-testid="modal-detalhes">
           {selectedTicket && (
-            <>
-              <DialogHeader>
-                <DialogTitle data-testid="text-modal-titulo">{selectedTicket.titulo}</DialogTitle>
-              </DialogHeader>
-              
-              <ScrollArea className="flex-1 pr-4">
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium text-gray-700">Categoria</label>
-                      <p className="text-sm text-gray-900" data-testid="text-modal-categoria">{selectedTicket.categoria}</p>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-gray-700">Sistema</label>
-                      <p className="text-sm text-gray-900" data-testid="text-modal-sistema">{selectedTicket.sistema}</p>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-gray-700">Solicitante</label>
-                      <p className="text-sm text-gray-900" data-testid="text-modal-solicitante">{selectedTicket.solicitanteNome} {selectedTicket.solicitanteSobrenome}</p>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-gray-700">Responsável</label>
-                      <p className="text-sm text-gray-900" data-testid="text-modal-responsavel">{selectedTicket.responsavel || "Não atribuído"}</p>
-                    </div>
+            <div className="flex flex-col h-full">
+              <div className="p-6 border-b">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <p className="text-sm text-gray-500 mb-1">#{selectedTicket.ticketNumber}</p>
+                    <DialogTitle className="text-xl" data-testid="text-modal-titulo">{selectedTicket.titulo}</DialogTitle>
+                    <p className="text-sm text-gray-600 mt-1">em {selectedTicket.status}</p>
                   </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-gray-700">Descrição do problema</label>
-                    <p className="text-sm text-gray-900 whitespace-pre-wrap" data-testid="text-modal-descricao">{selectedTicket.problemaDescricao}</p>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-gray-700">O que não consegue fazer</label>
-                    <p className="text-sm text-gray-900" data-testid="text-modal-nao-consegue">{selectedTicket.naoConsegue}</p>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-gray-700">Como replicar</label>
-                    <p className="text-sm text-gray-900" data-testid="text-modal-replicacao">{selectedTicket.replicacao}</p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium text-gray-700">Frequência</label>
-                      <p className="text-sm text-gray-900" data-testid="text-modal-frequencia">{selectedTicket.frequencia}</p>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-gray-700">Impedimento</label>
-                      <p className="text-sm text-gray-900" data-testid="text-modal-impedimento">{selectedTicket.impedimento}</p>
-                    </div>
-                  </div>
-
-                  <Separator />
-
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-3" data-testid="text-historico">Histórico</h3>
-                    <div className="space-y-2">
-                      {history.length === 0 ? (
-                        <p className="text-sm text-gray-500">Nenhum histórico disponível</p>
-                      ) : (
-                        history.map(h => (
-                          <div key={h.id} className="text-sm" data-testid={`historico-${h.id}`}>
-                            <span className="font-medium">{h.author}</span> {h.action} 
-                            {h.field && ` - ${h.field}: ${h.oldValue} → ${h.newValue}`}
-                            <span className="text-gray-500 ml-2">{new Date(h.createdAt).toLocaleString()}</span>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  </div>
-
-                  <Separator />
-
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-3" data-testid="text-comentarios">Comentários</h3>
-                    <div className="space-y-3 mb-4">
-                      {comments.length === 0 ? (
-                        <p className="text-sm text-gray-500">Nenhum comentário ainda</p>
-                      ) : (
-                        comments.map(comment => (
-                          <div key={comment.id} className="bg-gray-50 rounded-lg p-3" data-testid={`comentario-${comment.id}`}>
-                            <div className="flex items-center justify-between mb-1">
-                              <span className="font-medium text-sm">{comment.author}</span>
-                              <span className="text-xs text-gray-500">{new Date(comment.createdAt).toLocaleString()}</span>
-                            </div>
-                            <p className="text-sm text-gray-700">{comment.content}</p>
-                          </div>
-                        ))
-                      )}
-                    </div>
-
-                    <div className="flex gap-2">
-                      <Textarea
-                        placeholder="Adicionar comentário..."
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                        className="flex-1"
-                        data-testid="input-comentario"
-                      />
-                      <Button 
-                        onClick={handleAddComment} 
-                        disabled={!newComment.trim() || addCommentMutation.isPending}
-                        data-testid="button-adicionar-comentario"
-                      >
-                        Enviar
-                      </Button>
-                    </div>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm" onClick={handleToggleSeguir} data-testid="button-seguir">
+                      <Eye className="h-4 w-4 mr-2" />
+                      {isSeguindo ? "Seguindo" : "Seguir"}
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={handleShare} data-testid="button-compartilhar">
+                      <Share2 className="h-4 w-4 mr-2" />
+                      Compartilhar
+                    </Button>
                   </div>
                 </div>
-              </ScrollArea>
-            </>
+
+                <div className="flex flex-wrap gap-2">
+                  {selectedTicket.etiquetas && selectedTicket.etiquetas.length > 0 && selectedTicket.etiquetas.map((etiqueta, idx) => (
+                    <Badge key={idx} variant="secondary" className="gap-1" data-testid={`modal-etiqueta-${idx}`}>
+                      {etiqueta}
+                      <X className="h-3 w-3 cursor-pointer" onClick={() => handleRemoveEtiqueta(etiqueta)} />
+                    </Badge>
+                  ))}
+                  {showEtiquetaInput ? (
+                    <div className="flex gap-1">
+                      <Input
+                        value={newEtiqueta}
+                        onChange={(e) => setNewEtiqueta(e.target.value)}
+                        placeholder="Nome da etiqueta"
+                        className="h-6 text-xs w-32"
+                        onKeyPress={(e) => e.key === 'Enter' && handleAddEtiqueta()}
+                        data-testid="input-nova-etiqueta"
+                      />
+                      <Button size="sm" className="h-6 px-2" onClick={handleAddEtiqueta} data-testid="button-salvar-etiqueta">
+                        <Plus className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <Button variant="outline" size="sm" className="h-6 px-2" onClick={() => setShowEtiquetaInput(true)} data-testid="button-adicionar-etiqueta">
+                      <Tag className="h-3 w-3 mr-1" />
+                      Adicionar Etiqueta
+                    </Button>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-1 overflow-hidden">
+                <ScrollArea className="flex-1 p-6">
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-700 mb-2">Detalhes</h3>
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <span className="text-gray-600">Categoria:</span> <span className="font-medium" data-testid="text-modal-categoria">{selectedTicket.categoria}</span>
+                        </div>
+                        <div>
+                          <span className="text-gray-600">Sistema:</span> <span className="font-medium" data-testid="text-modal-sistema">{selectedTicket.sistema}</span>
+                        </div>
+                        <div>
+                          <span className="text-gray-600">Solicitante:</span> <span className="font-medium" data-testid="text-modal-solicitante">{selectedTicket.solicitanteNome} {selectedTicket.solicitanteSobrenome}</span>
+                        </div>
+                        <div>
+                          <span className="text-gray-600">Responsável:</span> <span className="font-medium" data-testid="text-modal-responsavel">{selectedTicket.responsavel || "Não atribuído"}</span>
+                        </div>
+                        <div>
+                          <span className="text-gray-600">Prioridade:</span> <Badge className={getPrioridadeColor(selectedTicket.prioridade)}>{selectedTicket.prioridade}</Badge>
+                        </div>
+                        <div>
+                          <span className="text-gray-600">Criticidade:</span> <span className="font-medium" data-testid="text-modal-criticidade">{selectedTicket.criticidade}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Separator />
+
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-700 mb-2">Descrição</h3>
+                      <p className="text-sm text-gray-900 whitespace-pre-wrap" data-testid="text-modal-descricao">{selectedTicket.problemaDescricao}</p>
+                    </div>
+
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-700 mb-2">O que não consegue fazer</h3>
+                      <p className="text-sm text-gray-900" data-testid="text-modal-nao-consegue">{selectedTicket.naoConsegue}</p>
+                    </div>
+
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-700 mb-2">Como replicar</h3>
+                      <p className="text-sm text-gray-900" data-testid="text-modal-replicacao">{selectedTicket.replicacao}</p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <h3 className="text-sm font-semibold text-gray-700 mb-2">Frequência</h3>
+                        <p className="text-sm text-gray-900" data-testid="text-modal-frequencia">{selectedTicket.frequencia}</p>
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-semibold text-gray-700 mb-2">Impedimento</h3>
+                        <p className="text-sm text-gray-900" data-testid="text-modal-impedimento">{selectedTicket.impedimento}</p>
+                      </div>
+                    </div>
+
+                    {selectedTicket.evidencias && selectedTicket.evidencias.length > 0 && (
+                      <div>
+                        <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                          <Paperclip className="h-4 w-4 mr-1" />
+                          Anexos ({selectedTicket.evidencias.length})
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedTicket.evidencias.map((file, idx) => (
+                            <div key={idx} className="bg-gray-50 border rounded px-3 py-2 text-sm" data-testid={`anexo-${idx}`}>
+                              {file}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </ScrollArea>
+
+                <div className="w-80 border-l bg-gray-50 flex flex-col">
+                  <div className="p-4 border-b bg-white">
+                    <h3 className="font-semibold text-gray-900">Atividade</h3>
+                  </div>
+                  <ScrollArea className="flex-1 p-4">
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="text-xs font-semibold text-gray-700 uppercase mb-2">Comentários</h4>
+                        <div className="space-y-2 mb-3">
+                          {comments.length === 0 ? (
+                            <p className="text-xs text-gray-500">Nenhum comentário</p>
+                          ) : (
+                            comments.map(comment => (
+                              <div key={comment.id} className="bg-white border rounded p-2" data-testid={`comentario-${comment.id}`}>
+                                <div className="flex items-center justify-between mb-1">
+                                  <span className="text-xs font-medium">{comment.author}</span>
+                                  <span className="text-xs text-gray-500">{new Date(comment.createdAt).toLocaleDateString()}</span>
+                                </div>
+                                <p className="text-xs text-gray-700">{comment.content}</p>
+                              </div>
+                            ))
+                          )}
+                        </div>
+                        <Textarea
+                          placeholder="Escrever um comentário..."
+                          value={newComment}
+                          onChange={(e) => setNewComment(e.target.value)}
+                          className="text-xs mb-2"
+                          rows={3}
+                          data-testid="input-comentario"
+                        />
+                        <Button 
+                          size="sm"
+                          onClick={handleAddComment} 
+                          disabled={!newComment.trim() || addCommentMutation.isPending}
+                          className="w-full"
+                          data-testid="button-adicionar-comentario"
+                        >
+                          Adicionar Comentário
+                        </Button>
+                      </div>
+
+                      <Separator />
+
+                      <div>
+                        <h4 className="text-xs font-semibold text-gray-700 uppercase mb-2">Histórico</h4>
+                        <div className="space-y-2">
+                          {history.length === 0 ? (
+                            <p className="text-xs text-gray-500">Nenhum histórico</p>
+                          ) : (
+                            history.map(h => (
+                              <div key={h.id} className="text-xs border-l-2 border-gray-300 pl-2" data-testid={`historico-${h.id}`}>
+                                <p className="text-gray-900">{formatHistoryMessage(h)}</p>
+                                <p className="text-gray-500 text-xs mt-1">{new Date(h.createdAt).toLocaleString()}</p>
+                              </div>
+                            ))
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </ScrollArea>
+                </div>
+              </div>
+            </div>
           )}
         </DialogContent>
       </Dialog>

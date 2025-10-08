@@ -12,6 +12,7 @@ import { ChamadoPage } from "@/pages/ChamadoPage";
 import { MelhoriaPage } from "@/pages/MelhoriaPage";
 import { TicketWizard } from "@/pages/TicketWizard";
 import { KanbanPage } from "@/pages/KanbanPage";
+import { GraficosPage } from "@/pages/GraficosPage";
 
 function Router() {
   return (
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/melhoria" component={MelhoriaPage} />
       <Route path="/melhoria/ticket" component={TicketWizard} />
       <Route path="/kanban" component={KanbanPage} />
+      <Route path="/graficos" component={GraficosPage} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
