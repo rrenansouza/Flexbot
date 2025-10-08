@@ -19,7 +19,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Search, Filter, MoreVertical, UserPlus, MessageSquare, Clock, Paperclip, Plus, X, Share2, Eye, Tag, BarChart3, Download, Edit2, Trash2 } from "lucide-react";
+import { Search, Filter, MoreVertical, UserPlus, MessageSquare, Clock, Paperclip, Plus, X, Share2, Eye, Tag, BarChart3, Download, Edit2, Trash2, Lightbulb } from "lucide-react";
 import type { Ticket, TicketComment, TicketHistory } from "@shared/schema";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
 
@@ -282,6 +282,7 @@ export function KanbanPage() {
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showAssignModal, setShowAssignModal] = useState(false);
+  const [showAIModal, setShowAIModal] = useState(false);
   const [assigningTicket, setAssigningTicket] = useState<Ticket | null>(null);
   const [newComment, setNewComment] = useState("");
   const [newEtiqueta, setNewEtiqueta] = useState("");
@@ -730,6 +731,16 @@ export function KanbanPage() {
                     <p className="text-sm text-gray-600 mt-1">em {selectedTicket.status}</p>
                   </div>
                   <div className="flex gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => setShowAIModal(true)} 
+                      className="border-yellow-500 text-yellow-600 hover:bg-yellow-50"
+                      data-testid="button-sugestao-ia"
+                    >
+                      <Lightbulb className="h-4 w-4 mr-2" />
+                      Sugestão IA
+                    </Button>
                     <Button variant="outline" size="sm" onClick={handleToggleSeguir} data-testid="button-seguir">
                       <Eye className="h-4 w-4 mr-2" />
                       {isSeguindo ? "Seguindo" : "Seguir"}
@@ -967,6 +978,121 @@ export function KanbanPage() {
                 {dev}
               </Button>
             ))}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showAIModal} onOpenChange={setShowAIModal}>
+        <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto" data-testid="modal-sugestao-ia">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-2xl">
+              <Lightbulb className="h-6 w-6 text-yellow-500" />
+              Sugestão FlexIA
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-6 mt-4">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <h3 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                <MessageSquare className="h-5 w-5" />
+                Problemas semelhantes encontrados anteriormente
+              </h3>
+              <div className="space-y-2">
+                <div className="bg-white rounded p-3 border border-blue-100">
+                  <p className="text-sm text-gray-700">
+                    <span className="font-medium">#127 - Sistema Bandeiras:</span> Erro ao processar dados similares identificado em 15/09/2025
+                  </p>
+                </div>
+                <div className="bg-white rounded p-3 border border-blue-100">
+                  <p className="text-sm text-gray-700">
+                    <span className="font-medium">#089 - Sistema Bandeiras:</span> Inconsistência no processamento detectada em 03/08/2025
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <h3 className="font-semibold text-green-900 mb-3 flex items-center gap-2">
+                <Tag className="h-5 w-5" />
+                Resoluções executadas
+              </h3>
+              <div className="space-y-3">
+                <div className="bg-white rounded p-3 border border-green-100">
+                  <p className="font-medium text-sm text-gray-900 mb-1">Ticket #127</p>
+                  <p className="text-sm text-gray-700">
+                    Ajuste realizado no módulo de validação de dados. Implementada verificação adicional para campos obrigatórios.
+                  </p>
+                  <p className="text-xs text-gray-500 mt-2">Resolvido por: William Santana • Tempo: 2h 30min</p>
+                </div>
+                <div className="bg-white rounded p-3 border border-green-100">
+                  <p className="font-medium text-sm text-gray-900 mb-1">Ticket #089</p>
+                  <p className="text-sm text-gray-700">
+                    Correção aplicada na lógica de processamento em lote. Adicionado tratamento para casos especiais.
+                  </p>
+                  <p className="text-xs text-gray-500 mt-2">Resolvido por: Lucas Dewes • Tempo: 1h 45min</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+              <h3 className="font-semibold text-orange-900 mb-3 flex items-center gap-2">
+                <Filter className="h-5 w-5" />
+                Alternativas de possibilidades do problema
+              </h3>
+              <ul className="space-y-2">
+                <li className="bg-white rounded p-3 border border-orange-100">
+                  <p className="text-sm text-gray-700">
+                    <span className="font-medium">1.</span> Possível inconsistência nos dados de entrada
+                  </p>
+                </li>
+                <li className="bg-white rounded p-3 border border-orange-100">
+                  <p className="text-sm text-gray-700">
+                    <span className="font-medium">2.</span> Timeout na comunicação com serviços externos
+                  </p>
+                </li>
+                <li className="bg-white rounded p-3 border border-orange-100">
+                  <p className="text-sm text-gray-700">
+                    <span className="font-medium">3.</span> Problema de configuração no ambiente
+                  </p>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+              <h3 className="font-semibold text-purple-900 mb-3 flex items-center gap-2">
+                <Lightbulb className="h-5 w-5" />
+                O que fazer
+              </h3>
+              <div className="space-y-3">
+                <div className="bg-white rounded p-3 border border-purple-100">
+                  <p className="font-medium text-sm text-purple-900 mb-2">Passo 1: Validação inicial</p>
+                  <p className="text-sm text-gray-700">
+                    Verificar os logs do sistema para identificar o ponto exato da falha. Conferir se há mensagens de erro relacionadas.
+                  </p>
+                </div>
+                <div className="bg-white rounded p-3 border border-purple-100">
+                  <p className="font-medium text-sm text-purple-900 mb-2">Passo 2: Análise comparativa</p>
+                  <p className="text-sm text-gray-700">
+                    Comparar os dados de entrada deste ticket com os tickets #127 e #089 para identificar padrões.
+                  </p>
+                </div>
+                <div className="bg-white rounded p-3 border border-purple-100">
+                  <p className="font-medium text-sm text-purple-900 mb-2">Passo 3: Aplicação da correção</p>
+                  <p className="text-sm text-gray-700">
+                    Implementar a solução similar ao ticket #127, adaptando para o contexto atual.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gray-100 rounded-lg p-4 border border-gray-300">
+              <p className="text-xs text-gray-600 flex items-center gap-2">
+                <Lightbulb className="h-4 w-4" />
+                <span>
+                  Esta análise foi gerada pela FlexIA com base em tickets anteriores. A integração completa com IA estará disponível em breve.
+                </span>
+              </p>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
