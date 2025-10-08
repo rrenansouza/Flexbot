@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -190,6 +190,18 @@ export const TicketWizard = (): JSX.Element => {
       setFilePreviews((prev) => [...prev, ...newPreviews]);
       updateField("evidencias", [...formData.evidencias, ...fileNames]);
     }
+  };
+
+  const handleRemoveFile = (index: number) => {
+    setFilePreviews((prev) => {
+      const fileToRemove = prev[index];
+      if (fileToRemove?.preview) {
+        URL.revokeObjectURL(fileToRemove.preview);
+      }
+      return prev.filter((_, i) => i !== index);
+    });
+    const newEvidencias = formData.evidencias.filter((_, i) => i !== index);
+    updateField("evidencias", newEvidencias);
   };
 
   const handleSubmit = () => {
@@ -514,13 +526,20 @@ export const TicketWizard = (): JSX.Element => {
                 </h1>
                 <div className="flex flex-wrap gap-4 items-center justify-center">
                   {filePreviews.map((file, index) => (
-                    <div key={index} className="relative w-[120px] h-[120px]">
+                    <div key={index} className="relative w-[120px] h-[120px] group">
                       <img 
                         src={file.preview} 
                         alt={file.name}
                         className="w-full h-full object-cover rounded-lg"
                         data-testid={`img-preview-${index}`}
                       />
+                      <button
+                        onClick={() => handleRemoveFile(index)}
+                        className="absolute top-1 right-1 bg-red-600 hover:bg-red-700 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        data-testid={`button-remover-${index}`}
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
                     </div>
                   ))}
                   <label
