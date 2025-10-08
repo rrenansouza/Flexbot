@@ -283,9 +283,7 @@ export const TicketWizard = (): JSX.Element => {
                   </button>
                 )}
                 <div className="flex justify-center mb-8">
-                  <div className="w-[150px] h-[150px] bg-[#4a9eff] rounded-lg flex items-center justify-center overflow-hidden" data-testid="div-blue-box">
-                    <img src={image21} alt="Vamos entender o seu problema" className="w-full h-full object-contain" />
-                  </div>
+                  <img src={image21} alt="Vamos entender o seu problema" className="w-[150px] h-[150px] object-contain" />
                 </div>
                 <h1 className="text-white text-3xl font-bold text-center mb-4" data-testid="text-titulo-abertura">
                   Vamos entender inicialmente o seu problema 🔍
@@ -316,9 +314,7 @@ export const TicketWizard = (): JSX.Element => {
             {currentStep === "aguardando" && (
               <div className="w-full max-w-[900px] space-y-6 text-center">
                 <div className="flex justify-center mb-8">
-                  <div className="w-[150px] h-[150px] bg-[#4a9eff] rounded-lg flex items-center justify-center overflow-hidden" data-testid="div-blue-box-aguardando">
-                    <img src={image22} alt="FlexIA analisando" className="w-full h-full object-contain animate-hourglass" />
-                  </div>
+                  <img src={image22} alt="FlexIA analisando" className="w-[150px] h-[150px] object-contain animate-hourglass" />
                 </div>
                 <h1 className="text-white text-3xl font-bold" data-testid="text-aguardando">
                   O FlexIA está analisando e categorizando seu ticket
