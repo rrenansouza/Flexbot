@@ -19,7 +19,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Search, Filter, MoreVertical, UserPlus, MessageSquare, Clock, Paperclip, Plus, X, Share2, Eye, Tag, BarChart3, Download } from "lucide-react";
+import { Search, Filter, MoreVertical, UserPlus, MessageSquare, Clock, Paperclip, Plus, X, Share2, Eye, Tag, BarChart3, Download, Edit2, Trash2 } from "lucide-react";
 import type { Ticket, TicketComment, TicketHistory } from "@shared/schema";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
 
@@ -64,8 +64,38 @@ const getCriticidadeColor = (criticidade: string) => {
   }
 };
 
+const getCategoriaColor = (categoria: string) => {
+  switch (categoria) {
+    case "Iniciativa": return "bg-purple-500 text-white";
+    case "Chamado": return "bg-blue-500 text-white";
+    case "Bug": return "bg-red-500 text-white";
+    case "Melhoria": return "bg-green-500 text-white";
+    default: return "bg-gray-500 text-white";
+  }
+};
+
 const getInitials = (name: string) => {
   return name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+};
+
+const getDeveloperColor = (name: string) => {
+  const colors = [
+    { bg: "bg-blue-500", text: "text-white" },
+    { bg: "bg-green-500", text: "text-white" },
+    { bg: "bg-purple-500", text: "text-white" },
+    { bg: "bg-pink-500", text: "text-white" },
+    { bg: "bg-indigo-500", text: "text-white" },
+    { bg: "bg-teal-500", text: "text-white" },
+    { bg: "bg-orange-500", text: "text-white" },
+    { bg: "bg-cyan-500", text: "text-white" },
+  ];
+  
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % colors.length;
+  return colors[index];
 };
 
 interface KanbanCardProps {
@@ -131,7 +161,12 @@ function KanbanCard({ ticket, onCardClick, onAssignClick }: KanbanCardProps) {
     >
       <div className="flex items-start justify-between mb-2">
         <div className="flex-1">
-          <p className="text-xs text-gray-500 mb-1" data-testid={`text-id-${ticket.id}`}>#{ticket.ticketNumber}</p>
+          <div className="flex items-center gap-2 mb-1">
+            <p className="text-xs text-gray-500" data-testid={`text-id-${ticket.id}`}>#{ticket.ticketNumber}</p>
+            <Badge className={`text-xs px-2 py-0 ${getCategoriaColor(ticket.categoria)}`} data-testid={`badge-categoria-${ticket.id}`}>
+              {ticket.categoria}
+            </Badge>
+          </div>
           <h3 className="font-medium text-sm line-clamp-1" data-testid={`text-titulo-${ticket.id}`}>
             {ticket.titulo}
           </h3>
@@ -178,7 +213,7 @@ function KanbanCard({ ticket, onCardClick, onAssignClick }: KanbanCardProps) {
               <Tooltip>
                 <TooltipTrigger onClick={(e) => { e.stopPropagation(); onAssignClick(ticket); }}>
                   <Avatar className="h-6 w-6 cursor-pointer" data-testid={`avatar-responsavel-${ticket.id}`}>
-                    <AvatarFallback className="text-xs bg-blue-100 text-blue-700">
+                    <AvatarFallback className={`text-xs ${getDeveloperColor(ticket.responsavel).bg} ${getDeveloperColor(ticket.responsavel).text}`}>
                       {getInitials(ticket.responsavel)}
                     </AvatarFallback>
                   </Avatar>
@@ -356,6 +391,19 @@ export function KanbanPage() {
     },
   });
 
+  const updateEvidenciasMutation = useMutation({
+    mutationFn: async ({ ticketId, evidencias }: { ticketId: string; evidencias: string[] }) => {
+      const res = await apiRequest("PATCH", `/api/tickets/${ticketId}/evidencias`, { evidencias, author: "Sistema" });
+      return await res.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/tickets"] });
+      queryClient.invalidateQueries({ queryKey: [`/api/tickets/${data.id}/history`] });
+      setSelectedTicket(data);
+      toast({ title: "Anexo atualizado com sucesso!" });
+    },
+  });
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -466,6 +514,33 @@ export function KanbanPage() {
         toast({ title: "Link copiado!", description: `Ticket #${data.ticketNumber} - Link copiado para a área de transferência` });
       } catch (error) {
         toast({ title: "Erro ao gerar link", variant: "destructive" });
+      }
+    }
+  };
+
+  const handleRemoveEvidencia = (index: number) => {
+    if (selectedTicket && selectedTicket.evidencias) {
+      const confirmed = window.confirm("Tem certeza que deseja excluir este anexo?");
+      if (confirmed) {
+        const newEvidencias = selectedTicket.evidencias.filter((_, i) => i !== index);
+        updateEvidenciasMutation.mutate({
+          ticketId: selectedTicket.id,
+          evidencias: newEvidencias,
+        });
+      }
+    }
+  };
+
+  const handleEditEvidencia = (index: number) => {
+    if (selectedTicket && selectedTicket.evidencias) {
+      const newFileName = window.prompt("Digite o novo nome do arquivo:", selectedTicket.evidencias[index]);
+      if (newFileName && newFileName.trim()) {
+        const newEvidencias = [...selectedTicket.evidencias];
+        newEvidencias[index] = newFileName.trim();
+        updateEvidenciasMutation.mutate({
+          ticketId: selectedTicket.id,
+          evidencias: newEvidencias,
+        });
       }
     }
   };
@@ -692,8 +767,8 @@ export function KanbanPage() {
               </div>
 
               <div className="flex flex-1 overflow-hidden">
-                <div className="flex-1 p-6 overflow-y-auto">
-                  <div className="space-y-6">
+                <ScrollArea className="flex-1 p-6">
+                  <div className="space-y-6 pr-4">
                     <div>
                       <h3 className="text-sm font-semibold text-gray-700 mb-2">Detalhes</h3>
                       <div className="grid grid-cols-2 gap-4 text-sm">
@@ -754,15 +829,35 @@ export function KanbanPage() {
                         </h3>
                         <div className="flex flex-wrap gap-2">
                           {selectedTicket.evidencias.map((file, idx) => (
-                            <div key={idx} className="bg-gray-50 border rounded px-3 py-2 text-sm" data-testid={`anexo-${idx}`}>
-                              {file}
+                            <div key={idx} className="bg-gray-50 border rounded px-3 py-2 text-sm flex items-center gap-2" data-testid={`anexo-${idx}`}>
+                              <span>{file}</span>
+                              <div className="flex gap-1">
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-6 w-6 p-0"
+                                  onClick={() => handleEditEvidencia(idx)}
+                                  data-testid={`button-editar-anexo-${idx}`}
+                                >
+                                  <Edit2 className="h-3 w-3" />
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-6 w-6 p-0 text-red-600 hover:text-red-700"
+                                  onClick={() => handleRemoveEvidencia(idx)}
+                                  data-testid={`button-excluir-anexo-${idx}`}
+                                >
+                                  <Trash2 className="h-3 w-3" />
+                                </Button>
+                              </div>
                             </div>
                           ))}
                         </div>
                       </div>
                     )}
                   </div>
-                </div>
+                </ScrollArea>
 
                 <div className="w-80 border-l bg-gray-50 flex flex-col">
                   <div className="p-4 border-b bg-white">
@@ -860,7 +955,7 @@ export function KanbanPage() {
                 data-testid={`button-dev-${dev}`}
               >
                 <Avatar className="h-6 w-6 mr-2">
-                  <AvatarFallback className="text-xs bg-blue-100 text-blue-700">
+                  <AvatarFallback className={`text-xs ${getDeveloperColor(dev).bg} ${getDeveloperColor(dev).text}`}>
                     {getInitials(dev)}
                   </AvatarFallback>
                 </Avatar>

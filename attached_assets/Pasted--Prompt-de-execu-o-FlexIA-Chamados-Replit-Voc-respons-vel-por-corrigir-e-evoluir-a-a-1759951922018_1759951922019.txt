@@ -1,0 +1,110 @@
+# Prompt de execução — FlexIA Chamados (Replit)
+
+Você é responsável por **corrigir e evoluir** a aplicação de abertura e gestão de tickets (Kanban) descrita abaixo. Implemente exatamente o que segue, mantendo o estilo visual atual. Não escreva explicações, apenas **faça** as alterações no projeto.
+
+## Objetivo
+
+Garantir que o fluxo de criação, visualização e gestão de tickets seja **ergonômico, responsivo, acessível e em tempo real**, contemplando edição/exclusão de anexos, entrada de texto correta, rolagem nos cards, exibição de categoria, atualização imediata no board e ciclo de vida com “Cemitério”.
+
+---
+
+## Escopo das Correções e Melhorias (Itens 1–10)
+
+### 1) Anexos: editar e excluir
+
+* Adicionar, em cada ticket (tanto no formulário quanto no card/modal de detalhes), **controles de “Editar anexo” e “Excluir anexo”.**
+* Permitir substituir uma imagem existente sem apagar os demais dados do ticket.
+* Ao excluir, pedir confirmação (“Tem certeza?”). Após confirmar, remover o arquivo do armazenamento e do ticket.
+* Exibir miniaturas (thumbnails) e nome do arquivo. Para múltiplos anexos, listar em grade ou lista com rolagem quando necessário.
+* Critério de aceite: consigo **adicionar, substituir e remover** anexos em tickets novos e existentes; o estado persiste após recarregar a página.
+
+### 2) Campo “quem está solicitando”: espaçamento de palavras
+
+* Garantir que o campo aceite espaços normalmente, inclusive em dispositivos móveis.
+* Não colar palavras ao pressionar barra de espaço; preservar o valor digitado (“Renan Souza”, por exemplo).
+* Critério de aceite: o usuário consegue inserir nomes compostos com espaço e o valor é salvo e reexibido corretamente.
+
+### 3) Rolagem em cards e painel de atividade
+
+* Ativar **scroll vertical** dentro do card/detalhes do ticket e também na coluna lateral de comentários/atividade.
+* Exibir sempre uma **barra de rolagem** quando o conteúdo ultrapassar a altura disponível.
+* Manter cabeçalhos fixos (categoria, sistema, solicitante, prioridade, criticidade) enquanto rola o conteúdo.
+* Critério de aceite: é possível rolar **para cima e para baixo** nos cards e no painel de atividade, sem “travar”.
+
+### 4) Categoria visível no card (flag)
+
+* Exibir a **categoria do ticket** diretamente no card do Kanban, como uma **flag/etiqueta** visível antes de abrir.
+* As categorias existentes (ex.: Iniciativa, Chamado, Bug, Melhoria) devem aparecer com **cores consistentes** e texto legível.
+* Critério de aceite: no board, cada card mostra a categoria de forma clara e consistente.
+
+### 5) Aparição imediata de novos tickets no board
+
+* Assim que um ticket é criado, ele deve **aparecer instantaneamente** no Kanban, sem exigir “Atualizar” ou qualquer interação.
+* Aplicar **atualização otimista** (o card aparece de imediato) e sincronização com backend para confirmação/rollback em caso de erro.
+* Critério de aceite: após salvar um novo ticket, o card surge no board em menos de 1 segundo; em caso de falha, o usuário vê erro e o card é revertido.
+
+### 6) Retenção e arquivamento após conclusão
+
+* **Todos os cards são mantidos** no board enquanto ativos.
+* Quando um ticket é marcado como “Finalizado/Encerrado”, iniciar um **timer de 15 dias corridos**.
+* Ao completar 15 dias, **arquivar automaticamente** e mover para a aba “Cemitério”. Registrar data/hora do arquivamento.
+* Critério de aceite: tickets finalizados somem do board após 15 dias e aparecem na aba Cemitério com status e datas corretas.
+
+### 7) Aba “Cemitério”
+
+* Criar uma **aba dedicada** chamada “Cemitério” para conter todos os tickets **Finalizados/Encerrados** arquivados.
+* Na listagem, mostrar: ID, título, categoria, sistema, dev responsável, solicitante, datas (criação, finalização, arquivamento) e status final.
+* Critério de aceite: a aba Cemitério existe no menu principal e lista todos os tickets arquivados, com paginação/rolagem quando necessário.
+
+### 8) Organização e filtros no Cemitério
+
+* Disposição visual agrupada por **categoria do sistema** (seções/accordions ou grids por sistema).
+* Incluir **filtros combináveis** por: **ID, título, dev responsável, solicitante** e **categoria**. Campo de busca deve aceitar trechos (contains).
+* Permitir **ordenar** por data de finalização e por ID.
+* Critério de aceite: usuários conseguem localizar rapidamente um ticket arquivado usando filtros e ordenações; a URL reflete filtros (quando viável).
+
+### 9) Cor por dev atribuído
+
+* Para cada **dev atribuído**, exibir um **ícone/avatare** com **cor exclusiva** consistente em todo o app.
+* Em cards com múltiplos devs, mostrar múltiplos avatares. Fornecer legenda/tooltip com nome ao passar o mouse.
+* Critério de aceite: a cor do dev é a mesma em todo o sistema e melhora a identificação visual.
+
+### 10) Header “Chamados” com link para o Kanban
+
+* No topo do site, o item de navegação **“Chamados”** deve redirecionar **sempre** para o **board Kanban** principal.
+* Critério de aceite: clicar em “Chamados” leva o usuário para o board, independentemente da página atual.
+
+---
+
+## Requisitos Gerais de UX, Acessibilidade e Desempenho
+
+* Interface responsiva (desktop e mobile) com foco em legibilidade e toques.
+* Estados de carregamento (“skeleton” ou spinners), sucesso e erro **claros**.
+* Confirmações para ações destrutivas (exclusão de anexos e tickets).
+* Teclado e leitores de tela: elementos interativos com rótulos, foco visível e navegação via Tab.
+* Nenhum bloqueio de rolagem no body quando um modal estiver aberto (scroll confinado ao modal).
+* Listas com muitos itens devem usar paginação ou carregamento incremental.
+
+---
+
+## Telemetria mínima
+
+* Eventos: `ticket_created`, `ticket_updated`, `ticket_archived`, `attachment_added`, `attachment_replaced`, `attachment_removed`, `board_render_latency`.
+* Registrar timestamp, ID do ticket, usuário, categoria e coluna/status.
+
+---
+
+## Critérios de Aceite (Checklist rápido)
+
+1. Posso **adicionar, editar e excluir** anexos em tickets novos e existentes.
+2. O campo **solicitante** aceita nomes com **espaços** e mantém o valor.
+3. Cards e painel de atividade possuem **scroll** funcional com barras visíveis.
+4. A **categoria** aparece como **flag** no card, no board.
+5. Ao criar um ticket, o card surge no board **imediatamente** sem recarregar.
+6. Tickets finalizados são **arquivados em 15 dias** e movidos ao **Cemitério**.
+7. A aba **Cemitério** lista todos os arquivados com dados completos.
+8. No Cemitério, existem **filtros** por ID, título, dev, solicitante e **agrupamento por sistema**.
+9. Cada **dev** possui **cor exclusiva** no avatar/ícone, consistente em todo o app.
+10. O header **“Chamados”** leva ao **Kanban** ao ser clicado.
+
+Implemente tudo acima e finalize quando todos os critérios forem atendidos.

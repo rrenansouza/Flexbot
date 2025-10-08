@@ -39,6 +39,9 @@ export const tickets = pgTable("tickets", {
   seguidores: text("seguidores").array(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  finalizadoEm: timestamp("finalizado_em"),
+  arquivadoEm: timestamp("arquivado_em"),
+  arquivado: boolean("arquivado").notNull().default(false),
 });
 
 export const insertTicketSchema = createInsertSchema(tickets).omit({
@@ -52,6 +55,9 @@ export const insertTicketSchema = createInsertSchema(tickets).omit({
   seguidores: true,
   createdAt: true,
   updatedAt: true,
+  finalizadoEm: true,
+  arquivadoEm: true,
+  arquivado: true,
 });
 
 export type InsertTicket = z.infer<typeof insertTicketSchema>;

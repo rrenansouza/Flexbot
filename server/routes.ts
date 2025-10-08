@@ -201,6 +201,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/tickets-archived", async (req, res) => {
+    try {
+      const tickets = await storage.getArchivedTickets();
+      res.json(tickets);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.patch("/api/tickets/:id/evidencias", async (req, res) => {
+    try {
+      const { evidencias, author = "Sistema" } = req.body;
+      const ticket = await storage.updateEvidencias(req.params.id, evidencias, author);
+      if (!ticket) {
+        return res.status(404).json({ error: "Ticket not found" });
+      }
+      res.json(ticket);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post("/api/tickets/:id/archive", async (req, res) => {
+    try {
+      const ticket = await storage.archiveTicket(req.params.id);
+      if (!ticket) {
+        return res.status(404).json({ error: "Ticket not found" });
+      }
+      res.json(ticket);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

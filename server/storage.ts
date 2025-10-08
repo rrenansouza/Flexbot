@@ -11,10 +11,13 @@ export interface IStorage {
   createTicket(ticket: InsertTicket): Promise<Ticket>;
   getTicket(id: string): Promise<Ticket | undefined>;
   getAllTickets(): Promise<Ticket[]>;
+  getArchivedTickets(): Promise<Ticket[]>;
   updateTicketStatus(id: string, status: string, author: string): Promise<Ticket | undefined>;
   updateTicketPriority(id: string, prioridade: string, author: string): Promise<Ticket | undefined>;
   updateTicketResponsavel(id: string, responsavel: string | null, author: string): Promise<Ticket | undefined>;
   updateTicket(id: string, updates: Partial<Ticket>, author: string): Promise<Ticket | undefined>;
+  archiveTicket(id: string): Promise<Ticket | undefined>;
+  updateEvidencias(id: string, evidencias: string[], author: string): Promise<Ticket | undefined>;
   addComment(comment: InsertComment): Promise<TicketComment>;
   getCommentsByTicket(ticketId: string): Promise<TicketComment[]>;
   getHistoryByTicket(ticketId: string): Promise<TicketHistory[]>;
@@ -68,6 +71,9 @@ export class MemStorage implements IStorage {
       seguidores: null,
       createdAt: new Date(),
       updatedAt: new Date(),
+      finalizadoEm: null,
+      arquivadoEm: null,
+      arquivado: false,
     };
     this.tickets.set(id, ticket);
     return ticket;
@@ -78,7 +84,11 @@ export class MemStorage implements IStorage {
   }
 
   async getAllTickets(): Promise<Ticket[]> {
-    return Array.from(this.tickets.values());
+    return Array.from(this.tickets.values()).filter(t => !t.arquivado);
+  }
+
+  async getArchivedTickets(): Promise<Ticket[]> {
+    return Array.from(this.tickets.values()).filter(t => t.arquivado);
   }
 
   async updateTicketStatus(id: string, status: string, author: string): Promise<Ticket | undefined> {
@@ -88,6 +98,11 @@ export class MemStorage implements IStorage {
     const oldStatus = ticket.status;
     ticket.status = status;
     ticket.updatedAt = new Date();
+    
+    if (status === "Finalizados" && !ticket.finalizadoEm) {
+      ticket.finalizadoEm = new Date();
+    }
+    
     this.tickets.set(id, ticket);
     
     await this.addHistory({
@@ -165,6 +180,48 @@ export class MemStorage implements IStorage {
     }
     
     return updatedTicket;
+  }
+
+  async archiveTicket(id: string): Promise<Ticket | undefined> {
+    const ticket = this.tickets.get(id);
+    if (!ticket) return undefined;
+    
+    ticket.arquivado = true;
+    ticket.arquivadoEm = new Date();
+    ticket.updatedAt = new Date();
+    this.tickets.set(id, ticket);
+    
+    await this.addHistory({
+      ticketId: id,
+      action: "ticket_archived",
+      field: null,
+      oldValue: null,
+      newValue: null,
+      author: "Sistema",
+    });
+    
+    return ticket;
+  }
+
+  async updateEvidencias(id: string, evidencias: string[], author: string): Promise<Ticket | undefined> {
+    const ticket = this.tickets.get(id);
+    if (!ticket) return undefined;
+    
+    const oldEvidencias = ticket.evidencias;
+    ticket.evidencias = evidencias.length > 0 ? evidencias : null;
+    ticket.updatedAt = new Date();
+    this.tickets.set(id, ticket);
+    
+    await this.addHistory({
+      ticketId: id,
+      action: "evidencias_updated",
+      field: "evidencias",
+      oldValue: oldEvidencias?.join(", ") || "",
+      newValue: evidencias.join(", "),
+      author,
+    });
+    
+    return ticket;
   }
 
   async addComment(insertComment: InsertComment): Promise<TicketComment> {
