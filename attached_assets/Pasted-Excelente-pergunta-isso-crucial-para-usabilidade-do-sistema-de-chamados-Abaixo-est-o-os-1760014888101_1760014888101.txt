@@ -1,0 +1,96 @@
+Excelente pergunta 👌 — isso é **crucial para usabilidade** do sistema de chamados.
+Abaixo estão os **formatos e abordagens recomendadas** para permitir que o usuário **baixe e visualize anexos** diretamente nos cards de tickets.
+
+---
+
+## 🎯 Objetivo
+
+Garantir que os usuários consigam **visualizar rapidamente** os anexos (imagens, PDFs, planilhas, etc.) e, quando necessário, **baixá-los** sem sair do fluxo do Kanban ou do modal de detalhes.
+
+---
+
+## 🔍 Estrutura ideal de exibição de anexos no card
+
+### 1. **Pré-visualização (Preview Inline)**
+
+Permitir que arquivos visualizáveis (imagens, PDFs) possam ser **abertos dentro de um modal leve**, sem precisar baixar.
+
+**Melhor experiência para:**
+
+* `.png`, `.jpg`, `.jpeg`, `.gif`, `.webp`
+* `.pdf`
+
+**Como apresentar:**
+
+* Mostrar **miniatura (thumbnail)** da imagem no card ou um ícone de tipo de arquivo (ex: PDF, DOCX).
+* Ao clicar:
+
+  * Abrir um **modal** ou **lightbox** com o preview.
+  * Botões dentro do modal:
+
+    * 🔍 “Ampliar” (para zoom)
+    * ⬇️ “Baixar”
+    * ❌ “Fechar”
+
+> Exemplo UX: Trello, Notion e Jira usam este padrão (miniatura + modal de preview).
+
+---
+
+### 2. **Download direto**
+
+Para arquivos que **não possuem preview nativo no navegador**, como `.zip`, `.docx`, `.xlsx`, `.csv`, `.pptx`, `.json`, `.txt`, etc.
+
+**Comportamento recomendado:**
+
+* Exibir ícone do tipo do arquivo e o nome (ex: `log_erro.xlsx`).
+* Ao clicar no botão **“Baixar”**, iniciar o download diretamente via `download` attribute do link.
+
+**Exemplo HTML:**
+
+```html
+<a href="https://meuservidor.com/uploads/log_erro.xlsx" download>⬇️ Baixar arquivo</a>
+```
+
+---
+
+### 3. **Organização visual dos anexos**
+
+* Dentro do card, mostrar os anexos em **lista com ícone + nome + botão de ação** (Preview / Download / Excluir).
+* Para múltiplos anexos, usar uma **scroll horizontal** leve ou grid de 3 colunas com miniaturas.
+* Exemplo visual:
+
+  ```
+  📎 Anexos:
+  [🖼 imagem1.png] [🧾 relatorio.pdf] [📄 log.txt]
+  ```
+
+---
+
+### 4. **Segurança e integridade**
+
+* Armazenar anexos com **links temporários (signed URLs)**, caso use storage externo (S3, Firebase, Supabase etc.).
+* Bloquear abertura inline de formatos executáveis (`.exe`, `.bat`, `.js`), permitindo apenas o download.
+* Evitar abrir URLs externas no mesmo contexto (sempre em nova aba ou modal sandboxed).
+
+---
+
+### 5. **UX complementar**
+
+* Mostrar **tamanho do arquivo** (ex: `2.3 MB`).
+* Mostrar **data de upload**.
+* Mostrar **quem anexou** (ex: “Renan Souza anexou em 09/10/2025”).
+* Adicionar **tooltip** “Clique para visualizar ou baixar”.
+
+---
+
+## 💡 Conclusão — Fluxo ideal
+
+| Tipo de arquivo                  | Ação ao clicar                           | Exibição recomendada             |
+| -------------------------------- | ---------------------------------------- | -------------------------------- |
+| `.jpg`, `.png`, `.pdf`           | Abre modal de preview                    | Miniatura com botão “Baixar”     |
+| `.docx`, `.xlsx`, `.csv`, `.zip` | Download direto                          | Ícone + botão “Baixar”           |
+| Outros (ex: `.json`, `.txt`)     | Abrir em nova aba ou modal texto simples | Exibir texto bruto (quando leve) |
+
+---
+
+Se quiser, posso te ajudar a **incluir essa lógica** no prompt de execução que criamos antes (item adicional 11, por exemplo) — quer que eu adicione essa parte no documento?

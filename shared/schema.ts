@@ -1,7 +1,18 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, serial, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, serial, boolean, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+
+export const anexoSchema = z.object({
+  nome: z.string(),
+  tipo: z.string(),
+  tamanho: z.number().optional(),
+  url: z.string(),
+  uploadedAt: z.string(),
+  uploadedBy: z.string(),
+});
+
+export type Anexo = z.infer<typeof anexoSchema>;
 
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -30,6 +41,7 @@ export const tickets = pgTable("tickets", {
   impedimento: text("impedimento").notNull(),
   criticidade: text("criticidade").notNull(),
   evidencias: text("evidencias").array(),
+  anexos: jsonb("anexos").$type<Anexo[]>().default([]),
   solicitanteNome: text("solicitante_nome").notNull(),
   solicitanteSobrenome: text("solicitante_sobrenome").notNull(),
   status: text("status").notNull().default("Chamados abertos"),
