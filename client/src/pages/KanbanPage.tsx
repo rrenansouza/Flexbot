@@ -19,7 +19,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Search, Filter, MoreVertical, UserPlus, MessageSquare, Clock, Paperclip, Plus, X, Share2, Eye, Tag, BarChart3, Download, Edit2, Trash2, Lightbulb } from "lucide-react";
+import { Search, Filter, MoreVertical, UserPlus, MessageSquare, Clock, Paperclip, Plus, X, Share2, Eye, Tag, BarChart3, Download, Trash2, Lightbulb, FileText, File, Image as ImageIcon } from "lucide-react";
 import type { Ticket, TicketComment, TicketHistory } from "@shared/schema";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
 
@@ -532,18 +532,38 @@ export function KanbanPage() {
     }
   };
 
-  const handleEditEvidencia = (index: number) => {
-    if (selectedTicket && selectedTicket.evidencias) {
-      const newFileName = window.prompt("Digite o novo nome do arquivo:", selectedTicket.evidencias[index]);
-      if (newFileName && newFileName.trim()) {
-        const newEvidencias = [...selectedTicket.evidencias];
-        newEvidencias[index] = newFileName.trim();
-        updateEvidenciasMutation.mutate({
-          ticketId: selectedTicket.id,
-          evidencias: newEvidencias,
-        });
-      }
+  const getFileExtension = (fileName: string) => {
+    const parts = fileName.split('.');
+    return parts.length > 1 ? parts[parts.length - 1].toLowerCase() : '';
+  };
+
+  const isImageFile = (fileName: string) => {
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'];
+    return imageExtensions.includes(getFileExtension(fileName));
+  };
+
+  const isPdfFile = (fileName: string) => {
+    return getFileExtension(fileName) === 'pdf';
+  };
+
+  const getFileIcon = (fileName: string) => {
+    if (isImageFile(fileName)) {
+      return <ImageIcon className="h-8 w-8" />;
+    } else if (isPdfFile(fileName)) {
+      return <FileText className="h-8 w-8" />;
+    } else {
+      return <File className="h-8 w-8" />;
     }
+  };
+
+  const handleDownloadEvidencia = (fileName: string) => {
+    const link = document.createElement('a');
+    link.href = fileName;
+    link.download = fileName.split('/').pop() || fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast({ title: "Download iniciado", description: fileName });
   };
 
   const clearFilters = () => {
@@ -839,35 +859,66 @@ export function KanbanPage() {
 
                     {selectedTicket.evidencias && selectedTicket.evidencias.length > 0 && (
                       <div>
-                        <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                        <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
                           <Paperclip className="h-4 w-4 mr-1" />
                           Anexos ({selectedTicket.evidencias.length})
                         </h3>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                           {selectedTicket.evidencias.map((file, idx) => (
-                            <div key={idx} className="bg-gray-50 border rounded px-3 py-2 text-sm flex items-center gap-2" data-testid={`anexo-${idx}`}>
-                              <span>{file}</span>
-                              <div className="flex gap-1">
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  className="h-6 w-6 p-0"
-                                  onClick={() => handleEditEvidencia(idx)}
-                                  data-testid={`button-editar-anexo-${idx}`}
+                            <Tooltip key={idx}>
+                              <TooltipTrigger asChild>
+                                <div 
+                                  className="relative group bg-gray-50 border rounded-lg overflow-hidden hover:border-gray-400 transition-all"
+                                  data-testid={`anexo-${idx}`}
                                 >
-                                  <Edit2 className="h-3 w-3" />
-                                </Button>
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  className="h-6 w-6 p-0 text-red-600 hover:text-red-700"
-                                  onClick={() => handleRemoveEvidencia(idx)}
-                                  data-testid={`button-excluir-anexo-${idx}`}
-                                >
-                                  <Trash2 className="h-3 w-3" />
-                                </Button>
-                              </div>
-                            </div>
+                                  <div className="aspect-square flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 p-4">
+                                    {isImageFile(file) ? (
+                                      <img 
+                                        src={file} 
+                                        alt={file}
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => {
+                                          (e.target as HTMLImageElement).style.display = 'none';
+                                          (e.target as HTMLImageElement).parentElement!.innerHTML = `<div class="text-gray-400">${getFileIcon(file)}</div>`;
+                                        }}
+                                      />
+                                    ) : (
+                                      <div className="text-gray-400">
+                                        {getFileIcon(file)}
+                                      </div>
+                                    )}
+                                  </div>
+                                  
+                                  <div className="p-2 bg-white border-t">
+                                    <p className="text-xs text-gray-600 truncate">{file.split('/').pop() || file}</p>
+                                  </div>
+
+                                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+                                    <Button
+                                      variant="secondary"
+                                      size="sm"
+                                      className="h-7 w-7 p-0 bg-white/90 hover:bg-white shadow-sm"
+                                      onClick={() => handleDownloadEvidencia(file)}
+                                      data-testid={`button-download-anexo-${idx}`}
+                                    >
+                                      <Download className="h-3 w-3" />
+                                    </Button>
+                                    <Button
+                                      variant="secondary"
+                                      size="sm"
+                                      className="h-7 w-7 p-0 bg-white/90 hover:bg-red-50 text-red-600 hover:text-red-700 shadow-sm"
+                                      onClick={() => handleRemoveEvidencia(idx)}
+                                      data-testid={`button-excluir-anexo-${idx}`}
+                                    >
+                                      <Trash2 className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                </div>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p className="max-w-xs break-all">{file}</p>
+                              </TooltipContent>
+                            </Tooltip>
                           ))}
                         </div>
                       </div>
