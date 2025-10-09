@@ -1,0 +1,85 @@
+# Prompt — Correção de **pré-visualização, visualização e download** de anexos nos cards (Replit)
+
+Implemente a **experiência completa de anexos** no Kanban e no modal de detalhes do ticket. O objetivo é permitir **ver/preview/baixar** arquivos de forma rápida, segura e acessível, conforme os pontos abaixo. **Não escreva explicações; apenas faça as alterações.**
+
+## 1) Onde deve funcionar
+
+* **Cards do Kanban** (miniatura/ícone + ações rápidas).
+* **Modal de detalhes do ticket** (galeria com preview, zoom e download).
+* **Formulário de criação/edição** (lista de anexos já adicionados com preview e remoção).
+
+## 2) Tipos de arquivo e comportamento
+
+* **Preview inline em modal**: `png, jpg, jpeg, webp, gif, pdf`.
+* **Abrir em nova aba** (quando suportado): `txt, csv, json`.
+* **Download direto**: `docx, xlsx, pptx, zip, rar, 7z` e outros não-visualizáveis.
+* Exibir **ícone por tipo** + nome + tamanho. Para imagens/PDF, exibir **thumbnail**.
+
+## 3) Modal de visualização (preview)
+
+* Abrir ao clicar na miniatura/ícone do anexo.
+* Conteúdo centralizado em **canvas responsivo** (com rolagem se exceder altura).
+* Controles no topo:
+
+  * **Baixar** (inicia download do arquivo atual).
+  * **Fechar**.
+* Para imagens: **zoom +/−** e **arrastar** quando ampliado.
+* Para PDF: usar **visualização embutida** e opção **“Abrir em nova aba”**.
+* Estado de **carregando** (skeleton/spinner) antes do preview.
+* **Fallback**: se o preview falhar, mostrar mensagem “Não foi possível exibir. Clique em **Baixar**”.
+
+## 4) Download que funciona
+
+* O botão **Baixar** deve:
+
+  * Apontar para uma **URL válida** do arquivo.
+  * Usar **Content-Disposition: attachment** no back ou atributo equivalente para forçar download quando necessário.
+  * Respeitar **CORS** (habilitar `Access-Control-Allow-Origin` para o domínio do app).
+* Para arquivos protegidos, gerar **signed URLs** (tempo de expiração de ~15 min) ao abrir o modal.
+
+## 5) Lista de anexos nos cards e no ticket
+
+* Exibir **até 3 miniaturas** no card; se houver mais, mostrar contador “+N”.
+* No modal/detalhe do ticket, exibir **lista completa** com rolagem vertical (não travar o body).
+* Ações por item: **Preview**, **Baixar**, (e, se já existir no projeto, **Excluir/Substituir**).
+
+## 6) Tratamento de erros e UX
+
+* Mensagens claras:
+
+  * Upload inválido (tipo/tamanho).
+  * Falha ao carregar preview.
+  * Link expirado → **“Atualize para gerar novo link”**.
+* Timeouts e **retry** no carregamento do preview.
+* Logs mínimos no console: `attachment_preview_opened`, `attachment_download_clicked`, `attachment_preview_failed`.
+
+## 7) Acessibilidade
+
+* Todos os botões com **aria-label** (“Pré-visualizar anexo X”, “Baixar anexo X”, “Fechar visualização”).
+* Foco visível, **Esc** fecha o modal, **Setas** navegam entre anexos (se houver galeria).
+* Leitores de tela: descrever **tipo, nome e tamanho**.
+
+## 8) Desempenho
+
+* **Lazy-load** de thumbnails.
+* Imagens otimizadas (criar variações menores para miniaturas).
+* Paginar anexos quando a lista for grande (carregar em blocos).
+
+## 9) Segurança
+
+* Sanitizar nomes de arquivo ao exibir.
+* Bloquear execução de tipos perigosos (ex.: `.html`, `.js`) no preview; apenas **download**.
+* Impedir **open redirect**; validar que as URLs pertencem ao storage configurado.
+
+## 10) Critérios de aceite (checklist)
+
+1. Ao clicar em um anexo **suportado**, abre **modal com preview** (imagem/PDF) e **Baixar** funciona.
+2. Anexos não suportados **baixam direto** sem erros.
+3. Thumbnails aparecem nos **cards** (até 3) e lista completa no **modal** com rolagem.
+4. **CORS, Content-Disposition e links válidos** garantem download em todos os navegadores modernos.
+5. **Acessibilidade** (aria, teclado, foco) e **responsividade** ok.
+6. Erros exibem mensagens amigáveis + opção de **retry**; logs básicos presentes.
+
+> **Fontes/armazenamento**: usar o storage já configurado no projeto (ex.: S3/Supabase/Firebase). Se necessário, habilitar geração de **signed URLs** no back para o preview/download e ajustar cabeçalhos de CORS/Content-Disposition.
+
+Implemente tudo acima e finalize quando todos os critérios forem atendidos.
