@@ -159,7 +159,7 @@ export const ContribuicaoPage = (): JSX.Element => {
       </header>
 
       {/* Hero Section com Vídeo */}
-      <section className="relative h-[60vh] md:h-[65vh] lg:h-[70vh] overflow-hidden">
+      <section className="relative h-[70vh] md:h-[75vh] lg:h-[80vh] overflow-hidden">
         {/* Vídeo de fundo */}
         <video
           autoPlay
