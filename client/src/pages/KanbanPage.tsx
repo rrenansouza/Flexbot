@@ -282,6 +282,7 @@ export function KanbanPage() {
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showAssignModal, setShowAssignModal] = useState(false);
+  const [previewAnexo, setPreviewAnexo] = useState<{ url: string; nome: string; tipo: string } | null>(null);
   const [showAIModal, setShowAIModal] = useState(false);
   const [assigningTicket, setAssigningTicket] = useState<Ticket | null>(null);
   const [newComment, setNewComment] = useState("");
@@ -556,6 +557,48 @@ export function KanbanPage() {
     }
   };
 
+  const convertEvidenciasToAnexos = (evidencias: string[]) => {
+    return evidencias.map(url => ({
+      nome: url.split('/').pop() || url,
+      tipo: getFileExtension(url),
+      url: url,
+      uploadedAt: "",
+      uploadedBy: "",
+      tamanho: undefined
+    }));
+  };
+
+  const formatFileSize = (bytes?: number) => {
+    if (!bytes) return null;
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  };
+
+  const formatUploadDate = (date: string) => {
+    try {
+      return new Date(date).toLocaleDateString('pt-BR', { 
+        day: '2-digit', 
+        month: '2-digit', 
+        year: 'numeric' 
+      });
+    } catch {
+      return date;
+    }
+  };
+
+  const canPreview = (fileName: string) => {
+    return isImageFile(fileName) || isPdfFile(fileName);
+  };
+
+  const handleAnexoClick = (fileName: string) => {
+    if (canPreview(fileName)) {
+      setPreviewAnexo({ url: fileName, nome: fileName, tipo: getFileExtension(fileName) });
+    } else {
+      handleDownloadEvidencia(fileName);
+    }
+  };
+
   const handleDownloadEvidencia = (fileName: string) => {
     const link = document.createElement('a');
     link.href = fileName;
@@ -563,7 +606,7 @@ export function KanbanPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    toast({ title: "Download iniciado", description: fileName });
+    toast({ title: "Download iniciado", description: fileName.split('/').pop() || fileName });
   };
 
   const clearFilters = () => {
@@ -857,72 +900,128 @@ export function KanbanPage() {
                       </div>
                     </div>
 
-                    {selectedTicket.evidencias && selectedTicket.evidencias.length > 0 && (
-                      <div>
-                        <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
-                          <Paperclip className="h-4 w-4 mr-1" />
-                          Anexos ({selectedTicket.evidencias.length})
-                        </h3>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                          {selectedTicket.evidencias.map((file, idx) => (
-                            <Tooltip key={idx}>
-                              <TooltipTrigger asChild>
+                    {((selectedTicket.anexos && selectedTicket.anexos.length > 0) || (selectedTicket.evidencias && selectedTicket.evidencias.length > 0)) && (() => {
+                      const anexos = selectedTicket.anexos && selectedTicket.anexos.length > 0 
+                        ? selectedTicket.anexos 
+                        : convertEvidenciasToAnexos(selectedTicket.evidencias || []);
+                      return (
+                        <div>
+                          <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                            <Paperclip className="h-4 w-4 mr-1" />
+                            Anexos ({anexos.length})
+                          </h3>
+                          <div className="space-y-2">
+                            {anexos.map((anexo, idx) => {
+                              const isPreviewable = canPreview(anexo.url);
+                              const fileSize = formatFileSize(anexo.tamanho);
+                              
+                              return (
                                 <div 
-                                  className="relative group bg-gray-50 border rounded-lg overflow-hidden hover:border-gray-400 transition-all"
+                                  key={idx} 
+                                  className="group flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all"
                                   data-testid={`anexo-${idx}`}
                                 >
-                                  <div className="aspect-square flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 p-4">
-                                    {isImageFile(file) ? (
+                                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded flex items-center justify-center text-gray-500 overflow-hidden">
+                                    {isImageFile(anexo.url) ? (
                                       <img 
-                                        src={file} 
-                                        alt={file}
+                                        src={anexo.url} 
+                                        alt={anexo.nome}
                                         className="w-full h-full object-cover"
-                                        onError={(e) => {
-                                          (e.target as HTMLImageElement).style.display = 'none';
-                                          (e.target as HTMLImageElement).parentElement!.innerHTML = `<div class="text-gray-400">${getFileIcon(file)}</div>`;
-                                        }}
                                       />
                                     ) : (
-                                      <div className="text-gray-400">
-                                        {getFileIcon(file)}
+                                      <div className="scale-75">
+                                        {getFileIcon(anexo.url)}
                                       </div>
                                     )}
                                   </div>
                                   
-                                  <div className="p-2 bg-white border-t">
-                                    <p className="text-xs text-gray-600 truncate">{file.split('/').pop() || file}</p>
+                                  <div className="flex-1 min-w-0">
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <p className="text-sm font-medium text-gray-900 truncate">{anexo.nome}</p>
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        <p className="max-w-xs break-all">{anexo.nome}</p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                    <div className="flex items-center gap-2 mt-1 flex-wrap">
+                                      <span className="text-xs text-gray-500 uppercase font-medium">{anexo.tipo || 'arquivo'}</span>
+                                      {fileSize && (
+                                        <>
+                                          <span className="text-xs text-gray-300">•</span>
+                                          <span className="text-xs text-gray-500">{fileSize}</span>
+                                        </>
+                                      )}
+                                      {anexo.uploadedBy && (
+                                        <>
+                                          <span className="text-xs text-gray-300">•</span>
+                                          <span className="text-xs text-gray-500">
+                                            Anexado por {anexo.uploadedBy}
+                                          </span>
+                                        </>
+                                      )}
+                                    </div>
                                   </div>
 
-                                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
-                                    <Button
-                                      variant="secondary"
-                                      size="sm"
-                                      className="h-7 w-7 p-0 bg-white/90 hover:bg-white shadow-sm"
-                                      onClick={() => handleDownloadEvidencia(file)}
-                                      data-testid={`button-download-anexo-${idx}`}
-                                    >
-                                      <Download className="h-3 w-3" />
-                                    </Button>
-                                    <Button
-                                      variant="secondary"
-                                      size="sm"
-                                      className="h-7 w-7 p-0 bg-white/90 hover:bg-red-50 text-red-600 hover:text-red-700 shadow-sm"
-                                      onClick={() => handleRemoveEvidencia(idx)}
-                                      data-testid={`button-excluir-anexo-${idx}`}
-                                    >
-                                      <Trash2 className="h-3 w-3" />
-                                    </Button>
+                                  <div className="flex-shrink-0 flex gap-1">
+                                    {isPreviewable && (
+                                      <Tooltip>
+                                        <TooltipTrigger asChild>
+                                          <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            className="h-8 w-8 p-0 hover:bg-blue-50 hover:text-blue-600"
+                                            onClick={() => handleAnexoClick(anexo.url)}
+                                            data-testid={`button-preview-anexo-${idx}`}
+                                          >
+                                            <Eye className="h-4 w-4" />
+                                          </Button>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                          <p>Visualizar</p>
+                                        </TooltipContent>
+                                      </Tooltip>
+                                    )}
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <Button
+                                          variant="ghost"
+                                          size="sm"
+                                          className="h-8 w-8 p-0 hover:bg-green-50 hover:text-green-600"
+                                          onClick={() => handleDownloadEvidencia(anexo.url)}
+                                          data-testid={`button-download-anexo-${idx}`}
+                                        >
+                                          <Download className="h-4 w-4" />
+                                        </Button>
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        <p>Baixar</p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <Button
+                                          variant="ghost"
+                                          size="sm"
+                                          className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+                                          onClick={() => handleRemoveEvidencia(idx)}
+                                          data-testid={`button-excluir-anexo-${idx}`}
+                                        >
+                                          <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        <p>Excluir</p>
+                                      </TooltipContent>
+                                    </Tooltip>
                                   </div>
                                 </div>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p className="max-w-xs break-all">{file}</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          ))}
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      );
+                    })()}
                   </div>
                 </ScrollArea>
 
@@ -1143,6 +1242,71 @@ export function KanbanPage() {
                   Esta análise foi gerada pela FlexIA com base em tickets anteriores. A integração completa com IA estará disponível em breve.
                 </span>
               </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!previewAnexo} onOpenChange={() => setPreviewAnexo(null)}>
+        <DialogContent className="max-w-5xl max-h-[90vh] p-0">
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between p-4 border-b bg-gray-50">
+              <div className="flex-1 min-w-0">
+                <DialogTitle className="text-lg font-semibold truncate">
+                  {previewAnexo?.nome.split('/').pop() || previewAnexo?.nome}
+                </DialogTitle>
+                <p className="text-sm text-gray-500 mt-1">
+                  {previewAnexo?.tipo.toUpperCase()} • Clique em "Baixar" para salvar o arquivo
+                </p>
+              </div>
+              <div className="flex gap-2 ml-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => previewAnexo && handleDownloadEvidencia(previewAnexo.url)}
+                  data-testid="button-download-preview"
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  Baixar
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setPreviewAnexo(null)}
+                  data-testid="button-fechar-preview"
+                >
+                  <X className="h-4 w-4 mr-2" />
+                  Fechar
+                </Button>
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-auto bg-gray-900 flex items-center justify-center p-4">
+              {previewAnexo && (
+                <>
+                  {isImageFile(previewAnexo.nome) ? (
+                    <img 
+                      src={previewAnexo.url} 
+                      alt={previewAnexo.nome}
+                      className="max-w-full max-h-full object-contain"
+                      data-testid="img-preview-anexo"
+                    />
+                  ) : isPdfFile(previewAnexo.nome) ? (
+                    <iframe
+                      src={previewAnexo.url}
+                      className="w-full h-full min-h-[600px] bg-white"
+                      title={previewAnexo.nome}
+                      data-testid="iframe-preview-pdf"
+                    />
+                  ) : (
+                    <div className="text-center text-white">
+                      <FileText className="h-20 w-20 mx-auto mb-4 opacity-50" />
+                      <p className="text-lg">Prévia não disponível</p>
+                      <p className="text-sm text-gray-400 mt-2">Clique em "Baixar" para abrir o arquivo</p>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </DialogContent>
