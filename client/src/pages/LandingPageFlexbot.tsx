@@ -3,19 +3,14 @@ import { motion } from "framer-motion";
 import { FaChartLine, FaInfoCircle, FaBug } from "react-icons/fa";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { useLocation } from "wouter";
-import heroImage1 from "@assets/Img_1_herosection (4)_1759496280812.png";
-import heroImage2 from "@assets/Img_2_herosection (4)_1759496280811.png";
-import heroImage3 from "@assets/Img_3_herosection (3)_1759432774622.png";
-import heroImage4 from "@assets/Hero Section (5)_1759431698720.png";
 import logoImage from "@assets/Gemini_Generated_Image_r1r30mr1r30mr1r3 1 (1)_1759432339653.png";
 import image18 from "@assets/image 18.png";
 import image17 from "@assets/image 17_1759502936347.png";
 import footerLogo from "@assets/Gemini_Generated_Image_zi2slpzi2slpzi2s 1 1.png";
+import heroVideo from "@assets/gif-hero-homepage_1760023051566.mp4";
 
 export const LandingPageFlexbot = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(true);
   const [, setLocation] = useLocation();
 
   const navigationItems = [
@@ -23,15 +18,6 @@ export const LandingPageFlexbot = (): JSX.Element => {
     { label: "Suporte" },
     { label: "Chamados" },
   ];
-
-  const heroImages = [
-    heroImage1,
-    heroImage2,
-    heroImage3,
-    heroImage4,
-  ];
-
-  const allSlides = [...heroImages, ...heroImages];
 
   const processSteps = [
     { number: "1", title: "Abertura de ocorrência" },
@@ -55,27 +41,12 @@ export const LandingPageFlexbot = (): JSX.Element => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => prev + 1);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (currentSlide === heroImages.length) {
-      setTimeout(() => {
-        setIsTransitioning(false);
-        requestAnimationFrame(() => {
-          setCurrentSlide(0);
-          requestAnimationFrame(() => {
-            setIsTransitioning(true);
-          });
-        });
-      }, 800);
+  const scrollToContent = () => {
+    const contentSection = document.querySelector('#content-section');
+    if (contentSection) {
+      contentSection.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [currentSlide, heroImages.length]);
+  };
 
   return (
     <div className="bg-white w-full min-h-screen [font-family:'Poppins',Helvetica]">
@@ -111,39 +82,49 @@ export const LandingPageFlexbot = (): JSX.Element => {
         </div>
       </header>
 
-      <section className="bg-[#999999] h-[450px] overflow-hidden relative">
-        <motion.div
-          className="flex h-full"
-          animate={{ x: `-${currentSlide * 100}%` }}
-          transition={isTransitioning ? { duration: 0.8, ease: "easeInOut" } : { duration: 0 }}
+      {/* Hero Section com Vídeo */}
+      <section className="relative h-[75vh] md:h-[78vh] lg:h-[80vh] overflow-hidden">
+        {/* Vídeo de fundo */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          data-testid="hero-video"
         >
-          {allSlides.map((image, index) => (
-            <div key={index} className="w-full h-full flex-shrink-0">
-              <img
-                className="w-full h-full object-cover"
-                alt={`Hero Section - Slide ${(index % heroImages.length) + 1}`}
-                src={image}
-                data-testid={`hero-carousel-image-${index % heroImages.length}`}
-              />
-            </div>
-          ))}
-        </motion.div>
-      </section>
+          <source src={heroVideo} type="video/mp4" />
+        </video>
 
-      <section className="bg-[#9e090f] py-12 md:py-16 px-4 md:px-8 lg:px-16 mt-[0px] mb-[0px] ml-[0px] mr-[0px] pl-[64px] pr-[64px] pt-[30px] pb-[30px]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex items-center justify-center h-[120px]" data-testid="div-3">
-            <button
-              className="glow-btn"
-              data-testid="button-saber-mais"
-            >
-              Saber mais
-            </button>
-          </div>
+        {/* Overlay para contraste */}
+        <div className="absolute inset-0 bg-black/25" />
+
+        {/* Conteúdo sobreposto */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 text-center gap-8">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="font-bold text-white text-5xl md:text-6xl lg:text-7xl leading-[1.2] drop-shadow-lg"
+            data-testid="hero-title"
+          >
+            FlexIA
+          </motion.h1>
+          
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="glow-btn"
+            onClick={scrollToContent}
+            data-testid="button-saber-mais"
+          >
+            Saber mais
+          </motion.button>
         </div>
       </section>
 
-      <section className="bg-[#f2f2f2] py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 mt-16 md:mt-20">
+      <section id="content-section" className="bg-[#f2f2f2] py-16 md:py-20 lg:py-24 px-4 md:px-8 lg:px-16 mt-16 md:mt-20">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="font-semibold text-[#141b3a] text-3xl md:text-5xl lg:text-6xl leading-[1.2] mb-8">

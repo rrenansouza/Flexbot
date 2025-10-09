@@ -1,0 +1,71 @@
+Prompt — Substituir carrossel da Home por GIF na Hero (Replit)
+
+Implemente na Home a troca do carrossel atual por um GIF/vídeo em loop na hero section, mantendo o visual da página Contribuição (mesmos estilos, tipografia e contrastes), porém com tamanho ligeiramente maior.
+
+1) Hero da Home
+
+Altura: 75–80vh (maior que a Contribuição).
+
+Título (acima do GIF, centralizado): “FlexIA”
+
+Usar as mesmas fontes, pesos, tamanhos e espaçamentos já adotados na Contribuição.
+
+Cor e sombra de texto idênticas ao padrão da marca (legibilidade AA).
+
+Mídia de fundo: usar o arquivo em assets/hero-flexia.webm (preferência) com fallback assets/hero-flexia.mp4 e, por último, assets/hero-flexia.gif.
+
+Autoplay, loop, muted, playsinline, sem controles.
+
+Object-fit: cover, preenchendo toda a hero sem distorcer; ancorar no centro.
+
+Overlay suave (de leve escurecimento) para garantir contraste em diferentes frames.
+
+Camadas (z-index): ordem → vídeo/GIF (fundo) → overlay → título “FlexIA” e botão “Saber mais” (conteúdo fixo e estático sobre a animação).
+
+Botão “Saber mais”: manter o mesmo componente, posição e estilos atuais.
+
+Ação: rolar suavemente até a próxima seção de conteúdo (ancora existente) — comportamento atual não deve mudar.
+
+2) Responsividade
+
+Desktop: título grande e centrado, botão abaixo do título com espaçamento confortável; vídeo ocupa a largura total.
+
+Tablet/Mobile: hero 60–70vh, título escala proporcionalmente; CTA visível sem sobrepor conteúdo crítico do GIF.
+
+Garantir que o texto não salte entre frames (layout estável).
+
+3) Performance & Acessibilidade
+
+Priorizar .webm (≤ 4–5 MB).
+
+Pré-carregar em lazy abaixo do header, exibindo skeleton/cor de fundo enquanto carrega.
+
+Sem áudio.
+
+Título com role="heading" apropriado e contraste mínimo AA; foco visível no CTA.
+
+4) Conteúdo e nomes de arquivos
+
+Usar exatamente:
+
+assets/hero-flexia.webm (principal)
+
+assets/hero-flexia.mp4 (fallback)
+
+assets/hero-flexia.gif (fallback final)
+
+Texto do título: “FlexIA” (exato).
+
+Manter o botão “Saber mais” com o mesmo rótulo.
+
+5) Critérios de aceite
+
+O carrossel não aparece mais; no lugar, a hero exibe o GIF/vídeo em loop com o título “FlexIA” acima e o CTA “Saber mais” abaixo, ambos legíveis.
+
+A hero é maior do que a da Contribuição (≈ 75–80vh) e responsiva.
+
+O vídeo inicia automaticamente, em loop, mudo, inline, ocupando toda a área com cover e overlay para contraste.
+
+O CTA mantém estilo e comportamento atuais.
+
+Carregamento suave, sem “quebras” visuais; acessibilidade mínima cumprida.
