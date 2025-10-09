@@ -234,6 +234,10 @@ export const LandingPageFlexbot = (): JSX.Element => {
               </p>
               <button
                 className="glow-btn"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  setLocation("/contribuicao");
+                }}
                 data-testid="button-contribuir-agora"
               >
                 Contribuir agora

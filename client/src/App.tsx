@@ -14,6 +14,7 @@ import { TicketWizard } from "@/pages/TicketWizard";
 import { KanbanPage } from "@/pages/KanbanPage";
 import { GraficosPage } from "@/pages/GraficosPage";
 import { CemiterioPage } from "@/pages/CemiterioPage";
+import { ContribuicaoPage } from "@/pages/ContribuicaoPage";
 
 function Router() {
   return (
@@ -28,6 +29,7 @@ function Router() {
       <Route path="/kanban" component={KanbanPage} />
       <Route path="/graficos" component={GraficosPage} />
       <Route path="/cemiterio" component={CemiterioPage} />
+      <Route path="/contribuicao" component={ContribuicaoPage} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>

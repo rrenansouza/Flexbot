@@ -1,0 +1,99 @@
+# Prompt — Página “Contribua com Melhorias” (Replit)
+
+Implemente **uma nova página** para o FlexIA, chamada **Contribuição**, seguindo **exatamente** o layout e o tom visual do mockup anexado.
+
+## 1) Estrutura geral
+
+* **Topo / header**: manter o mesmo header global (logo + Home, Suporte, Chamados). O item **Home** deve redirecionar para a home existente.
+
+* **Hero section** (altura ~ 60–70vh):
+
+  * **Background**: inserir **GIF/vídeo animado** fornecido (arquivo em `assets/flexia-contribuicao-hero.webm`, com fallback em `assets/flexia-contribuicao-hero.mp4` ou `.gif`).
+  * O **vídeo/GIF deve rodar em loop infinito**, autoplay, silencioso, sem controles, ocupando **100% da área** com `cover` (sem distorcer).
+  * **Texto sobreposto e estático** (centralizado), com dois níveis:
+
+    * Título (peso forte, grande): **“Sua visão, nossa evolução”**
+    * Subtítulo (leve): **“Sua ideia pode ser a próxima grande melhoria do FlexIA.”**
+  * Aplicar **overlay suave** para garantir contraste (tons claros, baixa opacidade).
+  * Garantir **legibilidade** do texto em cima da animação (contraste AA).
+
+* **Seção de formulário** (fundo vermelho institucional, como no mockup): bloco com título:
+
+  * **Título**: “Diga-nos, como pode nos ajudar?” (tipografia e espaçamento iguais ao mockup).
+  * **Campos**:
+
+    1. **Dropdown “Tipo de solicitação”** com opções:
+
+       * Melhorias
+       * Ideias de novas funcionalidades
+       * Bug encontrado
+       * Outros
+    2. **Texto aberto**: “Descreva sua solicitação” (campo multilinha, altura confortável, placeholder claro).
+    3. **Upload de arquivos/imagens**: botão “Anexar arquivos (opcional)”.
+
+       * Aceitar imagens (png, jpg, webp, gif) e documentos (pdf).
+       * Exibir nome(s) do(s) arquivo(s) após seleção.
+       * Tamanho máx. por arquivo: 10MB.
+  * **Botão principal**: “Avançar” (estilo arredondado, cor amarela do mockup, hover/active claros).
+
+* **Rodapé**: reutilizar o padrão atual da aplicação.
+
+## 2) Comportamento e navegação
+
+* **Envio da solicitação (mock)**: ao clicar em **Avançar**:
+
+  * Validar: dropdown selecionado + descrição preenchida (mín. 20 caracteres).
+  * Exibir **confirmação** (toast/banner): “Sua solicitação foi enviada. Obrigado por contribuir com o FlexIA!”.
+  * **Redirecionar para a Home** após ~1,5s (ou imediatamente após confirmação).
+* **Upload**: apenas seleção local (sem envio real por enquanto). Listar arquivos escolhidos e permitir remover antes de enviar.
+* **Futuro admin**: preparar estrutura para, no futuro, enviar os dados para a aba Admin (sem implementar agora).
+
+## 3) Diretrizes visuais e de UX
+
+* Manter **paleta** e **tipografia** do site (mockup):
+
+  * Fundo seções: vermelho institucional.
+  * Botão CTA: amarelo com cantos bem arredondados.
+  * Títulos grandes, peso forte; textos em cinza claro sobre o vermelho.
+* **Hero**:
+
+  * A animação **não deve pausar** ao perder o foco.
+  * Performance: usar preferencialmente **`.webm`** (≤ 3–4 MB).
+  * Fallback automático para `.mp4` e, por último, `.gif`.
+* **Responsividade**:
+
+  * Mobile: hero 50–60vh, textos centralizados; formulário em coluna, inputs 100% largura.
+  * Desktop: conforme mockup, com respiros (padding) generosos.
+* **Acessibilidade**:
+
+  * Labels associados, foco visível, atalhos de teclado; aria-labels onde necessário.
+  * Texto da hero com contraste adequado sobre o vídeo/GIF.
+
+## 4) Conteúdo e placeholders
+
+* **Arquivo da animação**: usar `assets/flexia-contribuicao-hero.webm` (criado no Envato) com fallback `assets/flexia-contribuicao-hero.mp4`/`assets/flexia-contribuicao-hero.gif`.
+* Placeholders:
+
+  * Dropdown: “Selecione um tipo…”
+  * Texto: “Descreva sua solicitação com detalhes (ex.: o que, por que, benefício esperado)”.
+  * Upload: texto auxiliar “Formatos: PNG, JPG, WEBP, GIF, PDF. Máx. 10MB/arquivo.”
+
+## 5) Validações mínimas
+
+* **Obrigatórios**: Tipo de solicitação + Descrição (≥ 20 caracteres).
+* **Upload**: validar extensão e tamanho; exibir mensagem amigável em erro.
+* Em sucesso: limpar o formulário após o redirecionamento.
+
+## 6) Telemetria (mínimo)
+
+* Logar eventos no console (placeholder):
+
+  * `impression_contribuicao_hero`, `select_tipo_solicitacao`, `add_attachment`, `submit_contribuicao_success`.
+
+## 7) Critérios de aceite
+
+* A página replica o **layout do mockup**.
+* A **hero** exibe a **animação em loop** com **texto sobreposto legível**.
+* O **formulário** contém os três campos (dropdown, descrição, upload) e o **botão Avançar**.
+* Ao enviar, o usuário vê **confirmação** e é **redirecionado para a Home**.
+* Responsivo, acessível e com feedbacks claros de erro/sucesso.
