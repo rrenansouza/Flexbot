@@ -94,6 +94,7 @@ export const TicketWizard = (): JSX.Element => {
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState<Step>("abertura");
   const [filePreviews, setFilePreviews] = useState<FilePreview[]>([]);
+  const [nomeCompleto, setNomeCompleto] = useState("");
   const [formData, setFormData] = useState<TicketFormData>({
     problemaDescricao: "",
     titulo: "",
@@ -583,25 +584,25 @@ export const TicketWizard = (): JSX.Element => {
                 </h1>
                 <Input
                   placeholder="Escreva seu nome e sobrenome"
-                  value={formData.solicitanteNome && formData.solicitanteSobrenome 
-                    ? `${formData.solicitanteNome} ${formData.solicitanteSobrenome}` 
-                    : formData.solicitanteNome || ""}
+                  value={nomeCompleto}
                   onChange={(e) => {
-                    const fullName = e.target.value;
-                    const parts = fullName.trim().split(/\s+/);
-                    const nome = parts[0] || "";
-                    const sobrenome = parts.length > 1 ? parts.slice(1).join(" ") : "";
-                    updateField("solicitanteNome", nome);
-                    updateField("solicitanteSobrenome", sobrenome);
+                    setNomeCompleto(e.target.value);
                   }}
                   className="w-full bg-white text-black rounded-full px-6 py-6"
                   data-testid="input-solicitante"
                 />
                 <div className="flex justify-center mt-8">
                   <Button
-                    onClick={goNext}
+                    onClick={() => {
+                      const parts = nomeCompleto.trim().split(/\s+/);
+                      const nome = parts[0] || "";
+                      const sobrenome = parts.length > 1 ? parts.slice(1).join(" ") : "";
+                      updateField("solicitanteNome", nome);
+                      updateField("solicitanteSobrenome", sobrenome);
+                      goNext();
+                    }}
                     className="bg-[#f4a61f] hover:bg-[#d89419] text-black font-bold px-12 py-3 rounded-full"
-                    disabled={!formData.solicitanteNome.trim() || !formData.solicitanteSobrenome.trim()}
+                    disabled={!nomeCompleto.trim() || nomeCompleto.trim().split(/\s+/).length < 2}
                     data-testid="button-avancar"
                   >
                     Avançar
